@@ -14,9 +14,12 @@ public class InputHandler : MonoBehaviour
 
 
         //InputVector = Vector3.Normalize(new Vector2(h, v));
-
         MousePosition = Mouse.current.position.ReadValue();
+
+        
     }
+
+
 
     float e;
     public void Movement(InputAction.CallbackContext ctx) => e = ctx.ReadValue<Vector2>().x;
