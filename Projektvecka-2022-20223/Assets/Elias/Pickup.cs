@@ -6,5 +6,5 @@ public class Pickup : MonoBehaviour
     // coins
 
     // weapons
-
+    //public Weapon heldWeapon;
 }
