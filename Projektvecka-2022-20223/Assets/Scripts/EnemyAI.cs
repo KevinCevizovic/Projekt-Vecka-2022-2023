@@ -7,10 +7,13 @@ public class EnemyAI : MonoBehaviour
 {
     public GameObject player;
     NavMeshAgent agent;
+    public Transform[] coverPoints;
 
     public float shootRadius = 12.5f;
     public float runRadius = 5f;
     public float hitRadius = 3f;
+    private int randomInt;
+
     Vector3 randomPos;
     public LayerMask mask;
     
@@ -20,10 +23,13 @@ public class EnemyAI : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         agent = GetComponent<NavMeshAgent>();
     }
+
     private void Start()
     {
-        randomPos = new Vector3(Random.Range(-1, 1), 0, Random.Range(-1, 1));
+        randomInt = Random.Range(0, coverPoints.Length);
+        Debug.Log(randomInt);
     }
+
     // Update is called once per frame
     private void Update()
     {
@@ -48,8 +54,8 @@ public class EnemyAI : MonoBehaviour
             ShootPlayer();
         }else
         {
-            Debug.Log("Chasing");
-            ChasePlayer();
+            Debug.Log("Move to cover");
+            MoveToCover();
         }
         
     }
@@ -57,6 +63,7 @@ public class EnemyAI : MonoBehaviour
     private void ShootPlayer()
     {
         agent.SetDestination(transform.position);
+        FaceTarget();
     }
 
     private void AvoidPlayer()
@@ -66,14 +73,25 @@ public class EnemyAI : MonoBehaviour
         Vector3 newPos = transform.position + dirToPlayer;
 
         agent.SetDestination(newPos);
+        FaceTarget();
     }
 
     private void ChasePlayer()
     {
-        
-        agent.SetDestination(player.transform.position + randomPos);
+        //agent.SetDestination(player.transform.position + randomPos);
     }
 
+    private void MoveToCover()
+    {
+        agent.SetDestination(coverPoints[randomInt].position);
+    }
+
+    private void FaceTarget()
+    {
+        Vector3 direction = (player.transform.position - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 8.5f);
+    }
 
     private void OnDrawGizmos()
     {
