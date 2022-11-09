@@ -157,16 +157,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b54947b9f43da4c4991a13cd1a85668d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateTowardMouse: 0
-  movementSpeed: 0
-  rotationSpeed: 0
-  maxRunningSpeed: 0
-  desiredDuration: 0
+  rotateTowardMouse: 1
+  movementSpeed: 10
+  rotationSpeed: 5
+  maxRunningSpeed: 20
+  desiredDuration: 1
   Camera: {fileID: 2060289964}
   running: 0
   curve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -305,9 +323,21 @@ MonoBehaviour:
     m_ActionId: 3da2db0b-fc55-4134-868a-4e8b202f5aa3
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 2332e372-75b8-4c68-9182-56858b52d680
-    m_ActionName: Player/SpearkAttacks[/Mouse/rightButton,/Mouse/leftButton]
+      m_Calls:
+      - m_Target: {fileID: 585250619}
+        m_TargetAssemblyTypeName: InputHandler, Assembly-CSharp
+        m_MethodName: Run
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 6fe33817-9960-49a6-8f17-5eaa66e7a811
+    m_ActionName: Player/Run[/Keyboard/leftShift]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

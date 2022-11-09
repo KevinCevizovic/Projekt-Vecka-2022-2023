@@ -15,9 +15,9 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "SpearkAttacks",
+                    "name": "Run",
                     "type": "Button",
-                    "id": "2332e372-75b8-4c68-9182-56858b52d680",
+                    "id": "6fe33817-9960-49a6-8f17-5eaa66e7a811",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -137,23 +137,12 @@
                 },
                 {
                     "name": "",
-                    "id": "eb5d52a7-017e-4344-a368-d778789a3899",
-                    "path": "<Mouse>/rightButton",
+                    "id": "4efe8810-e09c-4d32-942a-8df07ab7ac99",
+                    "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "SpearkAttacks",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "72160650-1eb4-4ada-ac24-d3b4cb121176",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "SpearkAttacks",
+                    "action": "Run",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

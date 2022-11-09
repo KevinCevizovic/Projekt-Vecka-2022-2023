@@ -5,17 +5,15 @@ public class TopDownCharacterMover : MonoBehaviour
 {
     private InputHandler _input;
 
-    [SerializeField] bool rotateTowardMouse;
+    [SerializeField] bool rotateTowardMouse = true;
 
-    [SerializeField] float movementSpeed, rotationSpeed, maxRunningSpeed;
+    [SerializeField] float walkingSpeed = 10, rotationSpeed = 5, maxRunningSpeed = 20;
     private float speed, runningSpeed;
 
-    [SerializeField] float desiredDuration;
+    [SerializeField] float desiredDuration = 1;
     private float elapsedTime;
 
     [SerializeField] Camera Camera;
-
-    [SerializeField] bool running;
 
     [SerializeField] AnimationCurve curve;
 
@@ -53,12 +51,18 @@ public class TopDownCharacterMover : MonoBehaviour
 
     private Vector3 MoveTowardTarget(Vector3 targetVector)
     {
-        elapsedTime += Time.deltaTime;
-        float percentageComplete = elapsedTime / desiredDuration;
+        if (_input.Running) // run
+        {
+            // lerping speed
+            elapsedTime += Time.deltaTime;
+            float percentageComplete = elapsedTime / desiredDuration;
 
-        runningSpeed = Mathf.Lerp(movementSpeed, maxRunningSpeed, curve.Evaluate(percentageComplete));
+            runningSpeed = Mathf.Lerp(walkingSpeed, maxRunningSpeed, curve.Evaluate(percentageComplete));
+        }
+        else elapsedTime = 0; // not run
+
         // if running you go faster
-        speed = (_input.Running ? runningSpeed * movementSpeed : movementSpeed) * Time.deltaTime;
+        speed = (_input.Running ? runningSpeed : walkingSpeed) * Time.deltaTime;
 
         targetVector = Quaternion.Euler(0, Camera.gameObject.transform.rotation.eulerAngles.y, 0) * targetVector;
         var targetPosition = transform.position + targetVector * speed;
