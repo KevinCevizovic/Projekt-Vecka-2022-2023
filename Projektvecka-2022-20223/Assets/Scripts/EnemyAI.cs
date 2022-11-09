@@ -2,17 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Linq;
 
 public class EnemyAI : MonoBehaviour
 {
-    public GameObject player;
-    NavMeshAgent agent;
-    public Transform[] coverPoints;
+    [Header("What enemy type?")]
+    public bool grunt;
+    public bool archer;
 
+    private GameObject player;
+    NavMeshAgent agent;
+
+    [Header("Coverpoints")]
+    public Transform[] coverPoints;
+    GameObject closestTarget;
+
+    [Header("Numbers you change")]
     public float shootRadius = 12.5f;
     public float runRadius = 5f;
     public float hitRadius = 3f;
-    private int randomInt;
+    public int coverPointIndex;
 
     Vector3 randomPos;
     public LayerMask mask;
@@ -24,12 +33,6 @@ public class EnemyAI : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
     }
 
-    private void Start()
-    {
-        randomInt = Random.Range(0, coverPoints.Length);
-        Debug.Log(randomInt);
-    }
-
     // Update is called once per frame
     private void Update()
     {
@@ -38,30 +41,57 @@ public class EnemyAI : MonoBehaviour
 
     private void CollisionChecks()
     {
-        if (Physics.CheckSphere(transform.position, hitRadius, mask))
+        // if grunt do this
+        if (grunt)
         {
-            Debug.Log("Hitting");
-            ShootPlayer();
+            if (Physics.CheckSphere(transform.position, shootRadius, mask))
+            {
+                ChasePlayer();
+            }
+            else if (Physics.CheckSphere(transform.position, hitRadius, mask))
+            {
+                ShootPlayer();
+            }else
+            {
+                MoveToCover();
+            }
         }
-        else if (Physics.CheckSphere(transform.position, runRadius, mask))
+        // if archer do this
+        if (archer)
         {
-            Debug.Log("Running");
-            AvoidPlayer();
+            if (Physics.CheckSphere(transform.position, hitRadius, mask))
+            {
+                ShootPlayer();
+            }
+            else if (Physics.CheckSphere(transform.position, runRadius, mask))
+            {
+                AvoidPlayer();
+            }
+            else if (Physics.CheckSphere(transform.position, shootRadius, mask))
+            {
+                ShootPlayer();
+            }
+            else
+            {
+                MoveToCover();
+            }
         }
-        else if (Physics.CheckSphere(transform.position, shootRadius, mask))
-        {
-            Debug.Log("Shooting");
-            ShootPlayer();
-        }else
-        {
-            Debug.Log("Move to cover");
-            MoveToCover();
-        }
-        
     }
 
     private void ShootPlayer()
     {
+        var enemies = Physics.OverlapSphere(transform.position, shootRadius, mask);
+
+        float distance = 0;
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            float targetDistance = Vector3.Distance(transform.position, enemies[i].transform.position);
+            if (targetDistance < distance || i == 0)
+            {
+                closestTarget = enemies[i].gameObject;
+                distance = targetDistance;
+            }
+        }
         agent.SetDestination(transform.position);
         FaceTarget();
     }
@@ -78,28 +108,59 @@ public class EnemyAI : MonoBehaviour
 
     private void ChasePlayer()
     {
-        //agent.SetDestination(player.transform.position + randomPos);
+        if (archer)
+            return;
+        var enemies = Physics.OverlapSphere(transform.position, shootRadius, mask);
+
+        float distance = 0;
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            float targetDistance = Vector3.Distance(transform.position, enemies[i].transform.position);
+            if (targetDistance < distance || i == 0)
+            {
+                closestTarget = enemies[i].gameObject;
+                distance = targetDistance;
+            }
+        }
+
+        agent.SetDestination(closestTarget.transform.position);
     }
 
     private void MoveToCover()
     {
-        agent.SetDestination(coverPoints[randomInt].position);
+        if((transform.position - coverPoints[coverPointIndex].position).magnitude < 0.4f)
+        {
+            FaceTarget();
+            return;
+        }
+        agent.SetDestination(coverPoints[coverPointIndex].position);
     }
 
     private void FaceTarget()
     {
-        Vector3 direction = (player.transform.position - transform.position).normalized;
+        Vector3 direction = (closestTarget.transform.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 8.5f);
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, shootRadius);
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, runRadius);
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, hitRadius);
+        if (grunt)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(transform.position, shootRadius);
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, hitRadius);
+
+        }
+        else if (archer)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(transform.position, shootRadius);
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(transform.position, runRadius);
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, hitRadius);
+        }
     }
 }
