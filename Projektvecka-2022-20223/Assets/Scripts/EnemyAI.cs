@@ -5,6 +5,8 @@ using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
+    public bool grunt;
+    public bool archer;
     public GameObject player;
     NavMeshAgent agent;
     public Transform[] coverPoints;
@@ -27,7 +29,6 @@ public class EnemyAI : MonoBehaviour
     private void Start()
     {
         randomInt = Random.Range(0, coverPoints.Length);
-        Debug.Log(randomInt);
     }
 
     // Update is called once per frame
@@ -38,26 +39,45 @@ public class EnemyAI : MonoBehaviour
 
     private void CollisionChecks()
     {
-        if (Physics.CheckSphere(transform.position, hitRadius, mask))
+        // if grunt do this
+        if (grunt)
         {
-            Debug.Log("Hitting");
-            ShootPlayer();
+            if (Physics.CheckSphere(transform.position, shootRadius, mask))
+            {
+                ChasePlayer();
+            }
+            else if (Physics.CheckSphere(transform.position, hitRadius, mask))
+            {
+                ShootPlayer();
+            }else
+            {
+                MoveToCover();
+            }
         }
-        else if (Physics.CheckSphere(transform.position, runRadius, mask))
+        // if archer do this
+        if (archer)
         {
-            Debug.Log("Running");
-            AvoidPlayer();
+            if (Physics.CheckSphere(transform.position, hitRadius, mask))
+            {
+                Debug.Log("Hitting");
+                ShootPlayer();
+            }
+            else if (Physics.CheckSphere(transform.position, runRadius, mask))
+            {
+                Debug.Log("Running");
+                AvoidPlayer();
+            }
+            else if (Physics.CheckSphere(transform.position, shootRadius, mask))
+            {
+                Debug.Log("Shooting");
+                ShootPlayer();
+            }
+            else
+            {
+                Debug.Log("Move to cover");
+                MoveToCover();
+            }
         }
-        else if (Physics.CheckSphere(transform.position, shootRadius, mask))
-        {
-            Debug.Log("Shooting");
-            ShootPlayer();
-        }else
-        {
-            Debug.Log("Move to cover");
-            MoveToCover();
-        }
-        
     }
 
     private void ShootPlayer()
@@ -78,11 +98,17 @@ public class EnemyAI : MonoBehaviour
 
     private void ChasePlayer()
     {
-        //agent.SetDestination(player.transform.position + randomPos);
+        Debug.Log("Chasing player");
+        agent.SetDestination(player.transform.position);
     }
 
     private void MoveToCover()
     {
+        if((transform.position - coverPoints[randomInt].position).magnitude < 0.4f)
+        {
+            FaceTarget();
+            return;
+        }
         agent.SetDestination(coverPoints[randomInt].position);
     }
 
@@ -95,11 +121,22 @@ public class EnemyAI : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, shootRadius);
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, runRadius);
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, hitRadius);
+        if (grunt)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(transform.position, shootRadius);
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, hitRadius);
+
+        }
+        else if (archer)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(transform.position, shootRadius);
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(transform.position, runRadius);
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, hitRadius);
+        }
     }
 }

@@ -353,7 +353,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RotateTowardMouse: 1
   MovementSpeed: 7
-  RotationSpeed: 2
+  RotationSpeed: 4
   Camera: {fileID: 1626955117}
 --- !u!114 &138340636
 MonoBehaviour:
@@ -689,6 +689,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61be07dcbb0f8e74891fb26a3b9d3ef4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grunt: 0
+  archer: 1
   player: {fileID: 0}
   coverPoints:
   - {fileID: 1637630922}
@@ -1296,6 +1298,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61be07dcbb0f8e74891fb26a3b9d3ef4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grunt: 1
+  archer: 0
   player: {fileID: 0}
   coverPoints:
   - {fileID: 1637630922}
