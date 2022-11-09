@@ -538,7 +538,7 @@ GameObject:
   m_Component:
   - component: {fileID: 520317589}
   m_Layer: 0
-  m_Name: Coverpoints (2)
+  m_Name: WinPoint (L)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -552,7 +552,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 520317588}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.9, y: -1.4167099, z: -2.6299992}
+  m_LocalPosition: {x: 51.2, y: -1.4167099, z: -73.63}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -594,7 +594,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grunt: 1
   archer: 0
-  player: {fileID: 0}
   coverPoints:
   - {fileID: 1637630922}
   - {fileID: 2096465389}
@@ -839,7 +838,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grunt: 0
   archer: 1
-  player: {fileID: 0}
   coverPoints:
   - {fileID: 1637630922}
   - {fileID: 2096465389}
@@ -1389,7 +1387,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1637630922}
   m_Layer: 0
-  m_Name: Coverpoints
+  m_Name: WinPoint (L)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1403,7 +1401,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1637630921}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.67419, y: -1.4167099, z: -2.6299992}
+  m_LocalPosition: {x: 4.67419, y: -1.4167099, z: -73.63}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1546,7 +1544,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grunt: 1
   archer: 0
-  player: {fileID: 0}
   coverPoints:
   - {fileID: 1637630922}
   - {fileID: 2096465389}
@@ -1836,7 +1833,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grunt: 0
   archer: 1
-  player: {fileID: 0}
   coverPoints:
   - {fileID: 1637630922}
   - {fileID: 2096465389}
@@ -1959,7 +1955,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2096465389}
   m_Layer: 0
-  m_Name: Coverpoints (1)
+  m_Name: WinPoint (L)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1973,7 +1969,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2096465388}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.51, y: -1.4167099, z: -2.6299992}
+  m_LocalPosition: {x: -52.1, y: -1.4167099, z: -73.63}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
