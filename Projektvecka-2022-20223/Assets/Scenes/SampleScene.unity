@@ -157,10 +157,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b54947b9f43da4c4991a13cd1a85668d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RotateTowardMouse: 1
-  MovementSpeed: 10
-  RotationSpeed: 5
+  rotateTowardMouse: 0
+  movementSpeed: 0
+  rotationSpeed: 0
+  maxRunningSpeed: 0
+  desiredDuration: 0
   Camera: {fileID: 2060289964}
+  running: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &585250619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -297,52 +306,8 @@ MonoBehaviour:
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 656fd528-50da-4c0f-841c-845783ea5235
-    m_ActionName: Player/Look[/Mouse/delta,/Pen/delta]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 2d24cd44-b506-47bc-90bc-1a049c01bf84
-    m_ActionName: Player/Fire[/Mouse/leftButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: bdd442ed-a73b-4ab5-85e3-6e0aea4cb90e
-    m_ActionName: UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: b85f34dd-3e41-4d84-847a-bf7c092f5e12
-    m_ActionName: UI/Submit[/Keyboard/enter]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: e3480566-0f97-4a7f-b839-25b3516a310d
-    m_ActionName: UI/Cancel[/Keyboard/escape]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 23b9582b-8ddb-4bb5-9733-727a7812a6d2
-    m_ActionName: UI/Point[/Mouse/position,/Pen/position]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 41accd4e-7b18-48d4-922f-72cbbe240531
-    m_ActionName: UI/Click[/Mouse/leftButton,/Pen/tip]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 9e4d2b94-9121-4d67-a8f7-972f6fb36496
-    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: dfb8f20a-add9-4c81-9aaa-634a6798f154
-    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 1a553d3f-ccea-4ca9-a340-c6acffad160b
-    m_ActionName: UI/RightClick[/Mouse/rightButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 884708e0-9383-422d-ac45-82d8bbb55ebc
-    m_ActionName: UI/TrackedDevicePosition
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: cc835508-d93c-4589-96c1-3a0f1363df38
-    m_ActionName: UI/TrackedDeviceOrientation
+    m_ActionId: 2332e372-75b8-4c68-9182-56858b52d680
+    m_ActionName: Player/SpearkAttacks[/Mouse/rightButton,/Mouse/leftButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -475,7 +440,6 @@ GameObject:
   - component: {fileID: 1082017121}
   - component: {fileID: 1082017120}
   - component: {fileID: 1082017119}
-  - component: {fileID: 1082017123}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -561,18 +525,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1082017123
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1082017118}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9abcca83111bcb54cbff94da9592873f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1472355503
 GameObject:
   m_ObjectHideFlags: 0
