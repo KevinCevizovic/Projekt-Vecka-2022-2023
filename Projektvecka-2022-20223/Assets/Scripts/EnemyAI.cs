@@ -2,19 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Linq;
 
 public class EnemyAI : MonoBehaviour
 {
+    [Header("What enemy type?")]
     public bool grunt;
     public bool archer;
-    public GameObject player;
-    NavMeshAgent agent;
-    public Transform[] coverPoints;
 
+    private GameObject player;
+    NavMeshAgent agent;
+
+    [Header("Coverpoints")]
+    public Transform[] coverPoints;
+    GameObject closestTarget;
+
+    [Header("Numbers you change")]
     public float shootRadius = 12.5f;
     public float runRadius = 5f;
     public float hitRadius = 3f;
-    private int randomInt;
+    public int coverPointIndex;
 
     Vector3 randomPos;
     public LayerMask mask;
@@ -24,11 +31,6 @@ public class EnemyAI : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         agent = GetComponent<NavMeshAgent>();
-    }
-
-    private void Start()
-    {
-        randomInt = Random.Range(0, coverPoints.Length);
     }
 
     // Update is called once per frame
@@ -59,22 +61,18 @@ public class EnemyAI : MonoBehaviour
         {
             if (Physics.CheckSphere(transform.position, hitRadius, mask))
             {
-                Debug.Log("Hitting");
                 ShootPlayer();
             }
             else if (Physics.CheckSphere(transform.position, runRadius, mask))
             {
-                Debug.Log("Running");
                 AvoidPlayer();
             }
             else if (Physics.CheckSphere(transform.position, shootRadius, mask))
             {
-                Debug.Log("Shooting");
                 ShootPlayer();
             }
             else
             {
-                Debug.Log("Move to cover");
                 MoveToCover();
             }
         }
@@ -82,6 +80,18 @@ public class EnemyAI : MonoBehaviour
 
     private void ShootPlayer()
     {
+        var enemies = Physics.OverlapSphere(transform.position, shootRadius, mask);
+
+        float distance = 0;
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            float targetDistance = Vector3.Distance(transform.position, enemies[i].transform.position);
+            if (targetDistance < distance || i == 0)
+            {
+                closestTarget = enemies[i].gameObject;
+                distance = targetDistance;
+            }
+        }
         agent.SetDestination(transform.position);
         FaceTarget();
     }
@@ -98,23 +108,37 @@ public class EnemyAI : MonoBehaviour
 
     private void ChasePlayer()
     {
-        Debug.Log("Chasing player");
-        agent.SetDestination(player.transform.position);
+        if (archer)
+            return;
+        var enemies = Physics.OverlapSphere(transform.position, shootRadius, mask);
+
+        float distance = 0;
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            float targetDistance = Vector3.Distance(transform.position, enemies[i].transform.position);
+            if (targetDistance < distance || i == 0)
+            {
+                closestTarget = enemies[i].gameObject;
+                distance = targetDistance;
+            }
+        }
+
+        agent.SetDestination(closestTarget.transform.position);
     }
 
     private void MoveToCover()
     {
-        if((transform.position - coverPoints[randomInt].position).magnitude < 0.4f)
+        if((transform.position - coverPoints[coverPointIndex].position).magnitude < 0.4f)
         {
             FaceTarget();
             return;
         }
-        agent.SetDestination(coverPoints[randomInt].position);
+        agent.SetDestination(coverPoints[coverPointIndex].position);
     }
 
     private void FaceTarget()
     {
-        Vector3 direction = (player.transform.position - transform.position).normalized;
+        Vector3 direction = (closestTarget.transform.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 8.5f);
     }
