@@ -24,7 +24,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 13045
+  controlID: 13453
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 13046
+  controlID: 13429
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -168,7 +168,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 8096}
   vertical: 0
-  controlID: 13047
+  controlID: 13430
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -227,9 +227,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
-      m_LastClickedID: 0
-      m_ExpandedIDs: ca46fcff30fbffff8e880000
+      m_SelectedIDs: ba25fcff
+      m_LastClickedID: -252486
+      m_ExpandedIDs: be27fcffca46fcff30fbffff8e880000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -505,9 +505,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 4.0289927, y: -12.679831, z: -10.423858}
+    m_Target: {x: -0.35639524, y: -17.418917, z: -1.0440102}
     speed: 2
-    m_Value: {x: 4.0289927, y: -12.679831, z: -10.423858}
+    m_Value: {x: -0.35639524, y: -17.418917, z: -1.0440102}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -554,9 +554,9 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.06058841, y: -0.8909753, z: 0.43237987, w: -0.12483693}
+    m_Target: {x: 0.008616743, y: -0.7804564, z: 0.62509376, w: 0.010767229}
     speed: 2
-    m_Value: {x: -0.060774222, y: -0.8903059, z: 0.4337062, w: -0.124743134}
+    m_Value: {x: 0.008616551, y: -0.780439, z: 0.6250798, w: 0.010766989}
   m_Size:
     m_Target: 12.45191
     speed: 2
@@ -680,21 +680,21 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts
+    - Assets/Elias
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scripts
+  - Assets/Elias
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\Kevin.cevizovic\Documents\GitHub\Projekt-Vecka-2022-2023\Projektvecka-2022-20223
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: a66c0000
-    m_LastClickedID: 27814
+    m_SelectedIDs: 9c6c0000
+    m_LastClickedID: 27804
     m_ExpandedIDs: 000000000c6b00000e6b000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -748,8 +748,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 
-    m_LastClickedInstanceID: 0
+    m_SelectedInstanceIDs: ba25fcff
+    m_LastClickedInstanceID: -252486
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000
     m_RenameOverlay:
