@@ -5,16 +5,19 @@ public class TopDownCharacterMover : MonoBehaviour
 {
     private InputHandler _input;
 
-    [SerializeField]
-    private bool RotateTowardMouse;
+    [SerializeField] bool rotateTowardMouse;
 
-    [SerializeField]
-    private float MovementSpeed;
-    [SerializeField]
-    private float RotationSpeed;
+    [SerializeField] float movementSpeed, rotationSpeed, maxRunningSpeed;
+    private float speed, runningSpeed;
 
-    [SerializeField]
-    private Camera Camera;
+    [SerializeField] float desiredDuration;
+    private float elapsedTime;
+
+    [SerializeField] Camera Camera;
+
+    [SerializeField] bool running;
+
+    [SerializeField] AnimationCurve curve;
 
     private void Awake()
     {
@@ -26,15 +29,14 @@ public class TopDownCharacterMover : MonoBehaviour
         var targetVector = new Vector3(_input.InputVector.x, 0, _input.InputVector.y);
         var movementVector = MoveTowardTarget(targetVector);
 
-        if (!RotateTowardMouse)
+        if (!rotateTowardMouse)
         {
             RotateTowardMovementVector(movementVector);
         }
-        if (RotateTowardMouse)
+        else if (rotateTowardMouse)
         {
             RotateFromMouseVector();
         }
-
     }
 
     private void RotateFromMouseVector()
@@ -51,9 +53,12 @@ public class TopDownCharacterMover : MonoBehaviour
 
     private Vector3 MoveTowardTarget(Vector3 targetVector)
     {
-        var speed = MovementSpeed * Time.deltaTime;
-        // transform.Translate(targetVector * (MovementSpeed * Time.deltaTime)); Demonstrate why this doesn't work
-        //transform.Translate(targetVector * (MovementSpeed * Time.deltaTime), Camera.gameObject.transform);
+        elapsedTime += Time.deltaTime;
+        float percentageComplete = elapsedTime / desiredDuration;
+
+        runningSpeed = Mathf.Lerp(movementSpeed, maxRunningSpeed, curve.Evaluate(percentageComplete));
+        // if running you go faster
+        speed = (_input.Running ? runningSpeed * movementSpeed : movementSpeed) * Time.deltaTime;
 
         targetVector = Quaternion.Euler(0, Camera.gameObject.transform.rotation.eulerAngles.y, 0) * targetVector;
         var targetPosition = transform.position + targetVector * speed;
@@ -65,6 +70,6 @@ public class TopDownCharacterMover : MonoBehaviour
     {
         if (movementDirection.magnitude == 0) { return; }
         var rotation = Quaternion.LookRotation(movementDirection);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, RotationSpeed);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, rotationSpeed);
     }
 }
