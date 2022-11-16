@@ -1,2 +1,2 @@
-# Projekt-Vecka-2022-2023
+# Vermin War
 Bra spel om råttor och ödlor.

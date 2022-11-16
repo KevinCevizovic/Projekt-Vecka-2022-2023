@@ -158,12 +158,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotateTowardMouse: 0
-  movementSpeed: 0
+  walkingSpeed: 10
   rotationSpeed: 0
   maxRunningSpeed: 0
   desiredDuration: 0
   Camera: {fileID: 2060289964}
-  running: 0
   curve:
     serializedVersion: 2
     m_Curve: []
