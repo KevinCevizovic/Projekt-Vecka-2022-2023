@@ -14,6 +14,7 @@ public class EnemyAI : MonoBehaviour
     NavMeshAgent agent;
 
     [Header("Coverpoints")]
+    public int coverPointIndex;
     public Transform[] coverPoints;
     GameObject closestTarget;
 
@@ -21,7 +22,6 @@ public class EnemyAI : MonoBehaviour
     public float shootRadius = 12.5f;
     public float runRadius = 5f;
     public float hitRadius = 3f;
-    public int coverPointIndex;
 
     Vector3 randomPos;
     public LayerMask mask;
@@ -131,7 +131,6 @@ public class EnemyAI : MonoBehaviour
         if((transform.position - coverPoints[coverPointIndex].position).magnitude < 0.4f)
         {
             FaceTarget();
-            return;
         }
         agent.SetDestination(coverPoints[coverPointIndex].position);
     }
@@ -143,7 +142,7 @@ public class EnemyAI : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 8.5f);
     }
 
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         if (grunt)
         {

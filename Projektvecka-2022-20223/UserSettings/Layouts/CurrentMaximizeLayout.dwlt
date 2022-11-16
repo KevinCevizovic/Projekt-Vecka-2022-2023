@@ -24,7 +24,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 15925
+  controlID: 26757
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 15926
+  controlID: 26758
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -168,7 +168,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 8096}
   vertical: 0
-  controlID: 15927
+  controlID: 26733
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -227,9 +227,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 24720000
-      m_LastClickedID: 0
-      m_ExpandedIDs: 1aedfbff74effbffbe27fcffca46fcff30fbffff8e880000
+      m_SelectedIDs: 56960000
+      m_LastClickedID: 38486
+      m_ExpandedIDs: 1295fbffae97fbffe099fbff44d8fbff1aedfbff74effbffbe27fcffca46fcff30fbffff8e880000a28d0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -505,9 +505,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -0.22806762, y: -12.560759, z: -9.131338}
+    m_Target: {x: 11.793121, y: 2.0483475, z: 3.4062843}
     speed: 2
-    m_Value: {x: -0.22806762, y: -12.560759, z: -9.131338}
+    m_Value: {x: 11.793121, y: 2.0483475, z: 3.4062843}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -554,13 +554,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.003088427, y: -0.9177858, z: 0.3970555, w: 0.0071525523}
+    m_Target: {x: 0.011251901, y: -0.9501017, z: 0.30991575, w: 0.03449647}
     speed: 2
-    m_Value: {x: -0.003088427, y: 0.9177858, z: -0.39705548, w: -0.007152552}
+    m_Value: {x: -0.0112519, y: 0.9501016, z: -0.30991575, w: -0.03449647}
   m_Size:
-    m_Target: 13.433421
+    m_Target: 13.637864
     speed: 2
-    m_Value: 13.433421
+    m_Value: 13.637864
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -680,22 +680,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes
+    - Assets/WorldMap
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scenes
+  - Assets/WorldMap
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\Kevin.cevizovic\Documents\GitHub\Projekt-Vecka-2022-2023\Projektvecka-2022-20223
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: a46c0000
-    m_LastClickedID: 27812
-    m_ExpandedIDs: 000000000c6b00000e6b0000a26c000000ca9a3b
+    m_SelectedIDs: 3ab10000
+    m_LastClickedID: 45370
+    m_ExpandedIDs: 000000000c6b00000e6b000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -748,9 +748,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 24720000
-    m_LastClickedInstanceID: 29220
-    m_HadKeyboardFocusLastEvent: 1
+    m_SelectedInstanceIDs: 56960000
+    m_LastClickedInstanceID: 38486
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c6230000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -767,7 +767,7 @@ MonoBehaviour:
       m_IsRenaming: 0
       m_OriginalEventType: 11
       m_IsRenamingFilename: 1
-      m_ClientGUIView: {fileID: 0}
+      m_ClientGUIView: {fileID: 10}
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
       m_InstanceID: 0
