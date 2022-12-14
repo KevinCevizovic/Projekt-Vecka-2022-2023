@@ -16,6 +16,8 @@ public class TopDownCharacterMover : MonoBehaviour
     [SerializeField] Camera Camera;
 
     [SerializeField] AnimationCurve curve;
+    
+    public Vector3 movement;
 
     private void Awake()
     {
@@ -26,7 +28,7 @@ public class TopDownCharacterMover : MonoBehaviour
     {
         var targetVector = new Vector3(_input.InputVector.x, 0, _input.InputVector.y);
         var movementVector = MoveTowardTarget(targetVector);
-
+        movement = new Vector3(_input.InputVector.x, 0, _input.InputVector.y);
         if (!rotateTowardMouse)
         {
             RotateTowardMovementVector(movementVector);

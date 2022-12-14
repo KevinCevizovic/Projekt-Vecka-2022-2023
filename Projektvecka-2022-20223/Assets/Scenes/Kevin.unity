@@ -175,7 +175,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 7e67df6aa061ab74182baa4d05ad127a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -233,12 +233,12 @@ GameObject:
   - component: {fileID: 156578478}
   - component: {fileID: 156578477}
   - component: {fileID: 156578481}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!65 &156578477
 BoxCollider:
@@ -311,8 +311,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 156578476}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.4624631, y: 0.96, z: -5.704255}
-  m_LocalScale: {x: 7.7845, y: 1.9756, z: 3.0931}
+  m_LocalPosition: {x: 5, y: 2.65, z: 2.03}
+  m_LocalScale: {x: 17.264463, y: 5.675801, z: 11.953904}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -430,6 +430,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  movement: {x: 0, y: 0, z: 0}
 --- !u!114 &666846136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -724,12 +725,20 @@ MonoBehaviour:
   - {fileID: 1637630922}
   - {fileID: 2096465389}
   - {fileID: 520317589}
+  randomPosition: {x: 0, y: 0, z: 0}
+  closestTarget: {fileID: 0}
   shootRadius: 14
-  runRadius: 7
+  runRadius: 4
   hitRadius: 2
-  mask:
+  speedNotChasing: 1.5
+  speedChasing: 3.5
+  enemyMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 72
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 256
+  followUpTimer: 2
 --- !u!195 &1100855577
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -823,7 +832,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1100855575}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.41, y: 0.75, z: 15.2}
+  m_LocalPosition: {x: -0.93, y: 0.75, z: 17.57}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -968,12 +977,20 @@ MonoBehaviour:
   - {fileID: 1637630922}
   - {fileID: 2096465389}
   - {fileID: 520317589}
+  randomPosition: {x: 0, y: 0, z: 0}
+  closestTarget: {fileID: 0}
   shootRadius: 14
-  runRadius: 7
-  hitRadius: 2
-  mask:
+  runRadius: 6
+  hitRadius: 1
+  speedNotChasing: 1.5
+  speedChasing: 3.5
+  enemyMask:
     serializedVersion: 2
     m_Bits: 136
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 256
+  followUpTimer: 2
 --- !u!195 &1294278748
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1299,6 +1316,7 @@ GameObject:
   - component: {fileID: 1626955117}
   - component: {fileID: 1626955116}
   - component: {fileID: 1626955119}
+  - component: {fileID: 1626955120}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1364,14 +1382,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1626955115}
-  m_LocalRotation: {x: 0.027344443, y: 0.89487845, z: -0.43693748, w: 0.08677932}
-  m_LocalPosition: {x: -2.9943705, y: 34.1, z: 27.9}
+  m_LocalRotation: {x: -0, y: 0.8846644, z: -0.4662284, w: 0}
+  m_LocalPosition: {x: -20.7, y: 33.3, z: 27.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 51.884, y: 167.707, z: -2.497}
+  m_LocalEulerAnglesHint: {x: 55.579, y: 180, z: 0}
 --- !u!114 &1626955119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1405,6 +1423,21 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!114 &1626955120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1626955115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f432829c912c1244868e2ff79ffc1c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 666846141}
+  smoothing: 5
+  aheadDistance: 1
 --- !u!1 &1627575714
 GameObject:
   m_ObjectHideFlags: 0
@@ -1674,12 +1707,20 @@ MonoBehaviour:
   - {fileID: 1637630922}
   - {fileID: 2096465389}
   - {fileID: 520317589}
+  randomPosition: {x: 0, y: 0, z: 0}
+  closestTarget: {fileID: 0}
   shootRadius: 14
   runRadius: 7
   hitRadius: 2
-  mask:
+  speedNotChasing: 1.5
+  speedChasing: 3.5
+  enemyMask:
     serializedVersion: 2
     m_Bits: 136
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 256
+  followUpTimer: 2
 --- !u!1 &1852978381
 GameObject:
   m_ObjectHideFlags: 0
@@ -1866,12 +1907,20 @@ MonoBehaviour:
   - {fileID: 1637630922}
   - {fileID: 2096465389}
   - {fileID: 520317589}
+  randomPosition: {x: 0, y: 0, z: 0}
+  closestTarget: {fileID: 0}
   shootRadius: 14
-  runRadius: 7
-  hitRadius: 2
-  mask:
+  runRadius: 6
+  hitRadius: 1
+  speedNotChasing: 1.5
+  speedChasing: 3.5
+  enemyMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 72
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 256
+  followUpTimer: 2
 --- !u!195 &2033504521
 NavMeshAgent:
   m_ObjectHideFlags: 0
