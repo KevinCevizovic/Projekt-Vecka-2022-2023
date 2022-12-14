@@ -145,6 +145,17 @@
                     "action": "Run",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c3de5239-160e-46d6-abc2-a781fdc5ebef",
+                    "path": "<Keyboard>/t",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SpearkAttacks",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
