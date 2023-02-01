@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18d476272d39b654bafcddcbf2bc7e82, type: 3}
   m_Name: NormalSpear
   m_EditorClassIdentifier: 
+  _object: {fileID: 8223831936075479347, guid: 05bdc21f268f48d4083fbdbc504314eb, type: 3}
   damage: 50
   attackSpeed: 1
