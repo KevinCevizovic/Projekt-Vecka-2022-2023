@@ -2,58 +2,86 @@ using UnityEngine;
 
 public class Pickup : MonoBehaviour
 {
-    // health potion
-    // coins
-
-    // weapons
-    //public Weapon heldWeapon;
-
     public Item heldItem;
-    private ItemShower itemOnGroundObject;
-    [SerializeField] ItemShower handItem;
+
+    [SerializeField] float pickupCooldown = 0.2f, maxDropDistance = 3f;
+
+    [SerializeField] ItemShower heldItemShower;
     [SerializeField] GameObject objectOnGround;
 
-    public LayerMask dropAbleOn;
-    public float distance = 0.5f;
+    [SerializeField] LayerMask dropAbleOn = (1 << 9);
 
+    private ItemShower itemOnGroundShower;
+
+    bool pickupOnCooldown = false;
 
     private void Awake()
     {
-        handItem.item = heldItem;
+        if (heldItemShower == null)
+            heldItemShower = GetComponentInChildren<ItemShower>();
+
+        if (heldItem != null)
+            heldItemShower.item = heldItem;
     }
 
     public void DropItem()
     {
-        if (heldItem is null) return;
+        if (heldItem == null) return;
 
-        RaycastHit hit;
-        if (Physics.Raycast(handItem.transform.position, Vector3.down, out hit, Mathf.Infinity, dropAbleOn))
+        // cooldown
+        pickupOnCooldown = true;
+        Invoke(nameof(resetPickupCooldown), pickupCooldown);
+
+        if (Physics.Raycast(heldItemShower.transform.position, Vector3.down, out var hit, maxDropDistance, dropAbleOn))
         {
-            Vector3 dropPosition = hit.point + Vector3.up * distance;
+            Vector3 dropPosition = hit.point;
 
-            GameObject itemShower = Instantiate(objectOnGround, dropPosition, Quaternion.identity);
-            itemShower.GetComponent<ItemShower>().ChangeObject(heldItem);
+            GameObject itemShower = Instantiate(objectOnGround, dropPosition, Quaternion.identity); // create itemshower on ground
 
+            itemShower.GetComponent<ItemShower>().ChangeObject(heldItem); // set item in itemshower to held 
+            itemShower.transform.rotation = transform.rotation; // rotate itemshower to player rotation
+
+            // remove held item
             heldItem = null;
-            handItem.ChangeObject(null);
+            heldItemShower.ChangeObject(null);
         }
-        //Debug.Log(hit.collider);
     }
+
+    private void resetPickupCooldown() => pickupOnCooldown = false;
 
     private void OnTriggerEnter(Collider other)
     {
-        itemOnGroundObject = other.GetComponent<ItemShower>(); // get script
+        itemOnGroundShower = other.GetComponent<ItemShower>(); // get script
+
+        //if (itemOnGroundShower.item.collectible) return;
+
+
+        if (pickupOnCooldown) return;
+
+        // cooldown
+        pickupOnCooldown = true;
+        Invoke(nameof(resetPickupCooldown), pickupCooldown);
 
         // change held item
-        Item lastHeldItem = heldItem;
-        heldItem = itemOnGroundObject.item;
+        Item newItemOnGround = heldItem;
+        heldItem = itemOnGroundShower.item;
 
-        itemOnGroundObject.ChangeObject(lastHeldItem); // change item on ground to held item
+        itemOnGroundShower.ChangeObject(newItemOnGround); // change item on ground to held item
+        itemOnGroundShower.transform.rotation = transform.rotation; // rotate item on ground with character
 
         // if no item in hand destroy itemOnGroundObject
-        if (lastHeldItem == null)
-            Destroy(itemOnGroundObject.gameObject);
+        if (newItemOnGround == null)
+            Destroy(itemOnGroundShower.gameObject);
 
-        handItem.ChangeObject(heldItem); // change item in hand to item on ground
+        heldItemShower.ChangeObject(heldItem); // change item in hand to item on ground
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(heldItemShower.transform.position, heldItemShower.transform.position + maxDropDistance * Vector3.down);
+
+        if (Physics.Raycast(heldItemShower.transform.position, Vector3.down, out var hit, maxDropDistance, dropAbleOn))
+            Gizmos.DrawWireSphere(hit.point, 0.5f);
     }
 }

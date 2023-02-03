@@ -1,21 +1,18 @@
+using System;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
+[Serializable] public class InputEvent : UnityEvent { }
 public class InputHandler : MonoBehaviour
 {
+    public InputEvent drop;
+
     public Vector2 InputVector { get; private set; }
 
     public Vector3 MousePosition { get; private set; }
 
     public bool Running { get; private set; }
-
-    [SerializeField] Pickup pickup;
-
-    private void Awake()
-    {
-        if (pickup == null)
-            GetComponent<Pickup>();
-    }
 
     void Update()
     {
@@ -29,6 +26,6 @@ public class InputHandler : MonoBehaviour
     public void DropItem(InputAction.CallbackContext ctx)
     {
         if (ctx.performed)
-            pickup.DropItem();
+            drop?.Invoke();
     }
 }

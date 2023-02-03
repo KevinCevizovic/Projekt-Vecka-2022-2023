@@ -162,7 +162,6 @@ MonoBehaviour:
   rotationSpeed: 5
   maxRunningSpeed: 20
   desiredDuration: 1
-  Camera: {fileID: 2060289964}
   curve:
     serializedVersion: 2
     m_Curve:
@@ -187,6 +186,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  Camera: {fileID: 2060289964}
+  _input: {fileID: 585250619}
 --- !u!114 &585250619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,6 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d59125ee392735048a6d37ab615cb9ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pickup: {fileID: 0}
 --- !u!136 &585250620
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -337,6 +339,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 6fe33817-9960-49a6-8f17-5eaa66e7a811
     m_ActionName: Player/Run[/Keyboard/leftShift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b733f265-38fe-4762-838a-ec80afff1d50
+    m_ActionName: Player/DropItem[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
