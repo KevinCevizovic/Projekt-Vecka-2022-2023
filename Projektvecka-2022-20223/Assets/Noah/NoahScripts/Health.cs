@@ -17,6 +17,14 @@ public class Health : MonoBehaviour
     public void TakingDamage(float damage)
     {
         CurrentHealth -= damage;
-        print("Damage working");
+        CheckDeath();
+    }
+
+    public void CheckDeath()
+    {
+        if (CurrentHealth <= 0)
+        {
+            gameObject.SetActive(false);
+        }
     }
 }
