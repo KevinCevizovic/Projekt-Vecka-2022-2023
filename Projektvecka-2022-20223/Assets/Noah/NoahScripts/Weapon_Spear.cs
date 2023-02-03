@@ -1,114 +1,92 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Weapon_Spear : MonoBehaviour
 {
+    private Animator anim;
+    public float cooldownTime = 2f;
+    private float nextFireTime = 0f;
+    public static int noOfClicks = 0;
+    float lastClickedTime = 0;
+    float maxComboDelay = 1;
 
-    [SerializeField] private GameObject Spear;
-    [SerializeField] private bool canAttack = true;
-    [SerializeField] private float attackCooldown = 1.0f;
+    public float damage;
 
-    public CapsuleCollider damageCollider_Light;
-    public CapsuleCollider damageCollider_Heavy;
+    public BoxCollider spearCollider;
 
+    public Health health;
 
+    private void Start()
+    {
+        anim = GetComponent<Animator>();
+
+        spearCollider = gameObject.GetComponentInParent<BoxCollider>();
+    }
     void Update()
     {
-        if (attackCooldown <= 0)
+
+        if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && anim.GetCurrentAnimatorStateInfo(0).IsName("Spear_Test1"))
         {
-            ResetAttackCooldown();
-            canAttack = true;
+            anim.SetBool("Spear_Test1", false);
         }
-        else attackCooldown -= Time.deltaTime;
-
-        if (Mouse.current.leftButton.isPressed)
+        if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && anim.GetCurrentAnimatorStateInfo(0).IsName("Hit2"))
         {
-            if (canAttack)
-            {
-                SpearLightAttack();
-                if (attackCooldown <= 0)
-                    attackCooldown = 2;
+            anim.SetBool("Hit2", false);
+        }
+        if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && anim.GetCurrentAnimatorStateInfo(0).IsName("Hit3"))
+        {
+            anim.SetBool("Hit3", false);
+            noOfClicks = 0;
+        }
 
-                ActivateDamageColliderLight();
+
+        if (Time.time - lastClickedTime > maxComboDelay)
+        {
+            noOfClicks = 0;
+        }
+
+        //cooldown time
+        if (Time.time > nextFireTime)
+        {
+            // Check for mouse input
+            if (Mouse.current.leftButton.isPressed)
+            {
+                OnClick();
+
             }
         }
-        else
-            DisableDamageColliderLight();
+    }
 
-        if (Mouse.current.rightButton.isPressed)
+    void OnClick()
+    {
+        //so it looks at how many clicks have been made and if one animation has finished playing starts another one.
+        lastClickedTime = Time.time;
+        noOfClicks++;
+        if (noOfClicks == 1)
         {
-            if (canAttack)
-            {
-                SpearHeavyAttack();
-                if (attackCooldown <= 0)
-                    attackCooldown = 5;
-
-                ActivateDamageColliderHeavy();
-            }
+            anim.SetBool("Spear_Test1", true);
         }
-        else
-            DisableDamageColliderHeavy();
-    }
+        noOfClicks = Mathf.Clamp(noOfClicks, 0, 3);
 
-    private void Awake()
-    {
-        // LightAttack colliders
-        #region
-        damageCollider_Light.gameObject.SetActive(true);
-        damageCollider_Light.isTrigger = true;
-        damageCollider_Light.enabled = false;
-        #endregion
-        // HeavyAttack colliders
-        #region
-        damageCollider_Heavy.gameObject.SetActive(true);
-        damageCollider_Heavy.isTrigger = true;
-        damageCollider_Heavy.enabled = false;
-        #endregion
+        if (noOfClicks >= 2 && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && anim.GetCurrentAnimatorStateInfo(0).IsName("Spear_Test1"))
+        {
+            anim.SetBool("Spear_Test1", false);
+            anim.SetBool("Hit2", true);
+        }
+        if (noOfClicks >= 3 && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && anim.GetCurrentAnimatorStateInfo(0).IsName("Hit2"))
+        {
+            anim.SetBool("Hit2", false);
+            anim.SetBool("Hit3", true);
+        }
     }
-
-    public void SpearLightAttack()
+    private void OnTriggerEnter(Collider other)
     {
-        canAttack = false;
-        Animator anim = Spear.GetComponent<Animator>();
-        anim.SetTrigger("Attack");
+        if (other.gameObject.CompareTag("RatTeam"))
+        {
+            health = other.GetComponent<Health>();
+            health.TakingDamage(damage);
+            print("hej");
+        }
     }
-
-    public void SpearHeavyAttack()
-    {
-        canAttack = false;
-        Animator anim = Spear.GetComponent<Animator>();
-        anim.SetTrigger("HeavyAttack");
-    }
-    
-    IEnumerator ResetAttackCooldown()
-    {
-        yield return new WaitForSeconds(attackCooldown);
-        canAttack = true;
-    }
-
-    // Activate collider and deactivate the collider
-    #region
-    public void ActivateDamageColliderLight()
-    {
-        damageCollider_Light.enabled = true;
-    }
-
-    public void ActivateDamageColliderHeavy()
-    {
-        damageCollider_Heavy.enabled = true;
-    }
-
-    public void DisableDamageColliderLight()
-    {
-        damageCollider_Light.enabled = false;
-    }
-
-    public void DisableDamageColliderHeavy()
-    {
-        damageCollider_Heavy.enabled = false;
-    }
-    #endregion
-
 }
