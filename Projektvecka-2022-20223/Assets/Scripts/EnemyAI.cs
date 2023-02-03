@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -33,12 +34,14 @@ public class EnemyAI : MonoBehaviour
 
     private Animator anim;
     public LayerMask enemyMask;
+    private LayerMask myMask;
     public LayerMask obstacleMask;
+
+    EnemyAI[] enemyAIs;
 
     public float followUpTimer = 2f;
 
     private Vector3 homePos;
-    private float timer;
 
     // Start is called before the first frame update
     private void Awake()
@@ -139,7 +142,24 @@ public class EnemyAI : MonoBehaviour
         agent.SetDestination(transform.position);
         FaceTarget();
     }
-
+    /*
+    private void MessageOtherTeammates()
+    {
+        Debug.Log("Message Other");
+        myMask = gameObject.layer;
+        List<GameObject> gameObjects = new List<GameObject>();
+        gameObjects.AddRange(Physics.OverlapSphere(transform.position, shootRadius + 100000f, myMask).Select(enemyCollider => enemyCollider.gameObject));
+        foreach (GameObject enemy in gameObjects)
+        {
+            if (enemy.GetComponent<EnemyAI>().seesPlayer)
+                continue;
+            else
+            {
+                enemy.GetComponent<EnemyAI>().AvoidPlayer();
+            }
+        }
+    }
+    */
     private void AvoidPlayer()
     {
         agent.speed = speedChasing;
