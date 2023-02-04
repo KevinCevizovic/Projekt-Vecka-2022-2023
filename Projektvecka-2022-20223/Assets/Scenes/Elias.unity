@@ -875,6 +875,11 @@ PrefabInstance:
       propertyPath: dropAbleOn.m_Bits
       value: 512
       objectReference: {fileID: 0}
+    - target: {fileID: 8585481331091606712, guid: b0cd39248ade5c747b566b96b1a53d16,
+        type: 3}
+      propertyPath: pickupCooldownTime
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 8585481331091606720, guid: b0cd39248ade5c747b566b96b1a53d16,
         type: 3}
       propertyPath: m_Name

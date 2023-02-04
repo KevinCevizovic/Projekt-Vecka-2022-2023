@@ -27,7 +27,7 @@ public class Pickup : MonoBehaviour
 
     private void Start()
     {
-        pickupCooldown.ChangeDuration(pickupCooldownTime);
+        pickupCooldown.SetDuration(pickupCooldownTime);
     }
 
     public void DropItem()

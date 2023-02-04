@@ -3,7 +3,6 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
     [SerializeField] Transform target;
-    [Space]
     [SerializeField] InputHandler _input;
 
     private float smoothing = 5f, aheadDistance = 1f;

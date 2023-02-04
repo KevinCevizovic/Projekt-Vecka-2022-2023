@@ -18,8 +18,8 @@ public class TopDownCharacterMover : MonoBehaviour
 
     private void Awake()
     {
-        if(_input == null)
-        _input = GetComponent<InputHandler>();
+        if (_input == null)
+            _input = GetComponent<InputHandler>();
 
         if (Camera == null)
             Camera = Camera.main;
@@ -30,14 +30,10 @@ public class TopDownCharacterMover : MonoBehaviour
         var targetVector = new Vector3(_input.InputVector.x, 0, _input.InputVector.y);
         var movementVector = MoveTowardTarget(targetVector);
 
-        if (!rotateTowardMouse)
-        {
-            RotateTowardMovementVector(movementVector);
-        }
-        else if (rotateTowardMouse)
-        {
+        if (rotateTowardMouse)
             RotateFromMouseVector();
-        }
+        else
+            RotateTowardMovementVector(movementVector);
     }
 
     private void RotateFromMouseVector()

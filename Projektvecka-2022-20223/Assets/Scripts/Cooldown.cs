@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Cooldown
 {
-    public float duration = 1f, endTime;
+    public float duration, endTime;
 
     public bool HasEnded => Time.time > endTime;
 
@@ -20,9 +20,9 @@ public class Cooldown
         this.duration = duration;
     }
 
-    public void ChangeDuration(float duration)
+    public void SetDuration(float duration)
     {
+        endTime += this.duration - duration;
         this.duration = duration;
-        endTime = Time.time + duration;
     }
 }
