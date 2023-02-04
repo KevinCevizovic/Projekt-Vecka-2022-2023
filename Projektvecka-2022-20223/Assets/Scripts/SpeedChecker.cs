@@ -3,9 +3,8 @@ using UnityEngine;
 
 public class SpeedChecker : MonoBehaviour
 {
-    public float avarageSpeed, speed;
+    public float speed, avarageSpeed;
     [SerializeField] bool debugAvgSpeed;
-
 
     [SerializeField] List<float> speeds = new();
 
