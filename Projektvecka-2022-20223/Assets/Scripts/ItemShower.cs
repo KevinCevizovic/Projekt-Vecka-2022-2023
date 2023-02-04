@@ -4,7 +4,7 @@ public class ItemShower : MonoBehaviour
 {
     public Item item;
 
-    new Collider collider;
+    new private Collider collider;
 
     private void Awake()
     {
@@ -27,9 +27,9 @@ public class ItemShower : MonoBehaviour
         {
             Instantiate(item._object, transform);
 
-            foreach (Collider _collider in GetComponentsInChildren<Collider>())
-                if (_collider != collider)
-                    Destroy(_collider);
+            foreach (Collider collider in GetComponentsInChildren<Collider>())
+                if (collider != this.collider)
+                    Destroy(collider);
         }
     }
 

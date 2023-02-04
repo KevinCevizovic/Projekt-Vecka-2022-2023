@@ -4,7 +4,7 @@ public class Pickup : MonoBehaviour
 {
     public Item heldItem;
 
-    [SerializeField] float pickupCooldown = 0.2f, maxDropDistance = 3f;
+    [SerializeField] float pickupCooldownTime = 0.2f, maxDropDistance = 3f;
 
     [SerializeField] ItemShower heldItemShower;
     [SerializeField] GameObject objectOnGround;
@@ -13,7 +13,8 @@ public class Pickup : MonoBehaviour
 
     private ItemShower itemOnGroundShower;
 
-    bool pickupOnCooldown = false;
+
+    Cooldown pickupCooldown = new();
 
     private void Awake()
     {
@@ -24,13 +25,17 @@ public class Pickup : MonoBehaviour
             heldItemShower.item = heldItem;
     }
 
+    private void Start()
+    {
+        pickupCooldown.ChangeDuration(pickupCooldownTime);
+    }
+
     public void DropItem()
     {
         if (heldItem == null) return;
 
-        // cooldown
-        pickupOnCooldown = true;
-        Invoke(nameof(resetPickupCooldown), pickupCooldown);
+        pickupCooldown.StartCoolDown(); // pickup cooldown
+
 
         if (Physics.Raycast(heldItemShower.transform.position, Vector3.down, out var hit, maxDropDistance, dropAbleOn))
         {
@@ -47,8 +52,6 @@ public class Pickup : MonoBehaviour
         }
     }
 
-    private void resetPickupCooldown() => pickupOnCooldown = false;
-
     private void OnTriggerEnter(Collider other)
     {
         itemOnGroundShower = other.GetComponent<ItemShower>(); // get script
@@ -56,11 +59,9 @@ public class Pickup : MonoBehaviour
         //if (itemOnGroundShower.item.collectible) return;
 
 
-        if (pickupOnCooldown) return;
+        if (!pickupCooldown.HasEnded) return;
 
-        // cooldown
-        pickupOnCooldown = true;
-        Invoke(nameof(resetPickupCooldown), pickupCooldown);
+        pickupCooldown.StartCoolDown(); // pickup cooldown
 
         // change held item
         Item newItemOnGround = heldItem;
