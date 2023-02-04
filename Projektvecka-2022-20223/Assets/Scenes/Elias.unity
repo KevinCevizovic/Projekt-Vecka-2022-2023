@@ -865,21 +865,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8585481331091606712, guid: b0cd39248ade5c747b566b96b1a53d16,
-        type: 3}
-      propertyPath: maxDropDistance
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8585481331091606712, guid: b0cd39248ade5c747b566b96b1a53d16,
-        type: 3}
-      propertyPath: dropAbleOn.m_Bits
-      value: 512
-      objectReference: {fileID: 0}
-    - target: {fileID: 8585481331091606712, guid: b0cd39248ade5c747b566b96b1a53d16,
-        type: 3}
-      propertyPath: pickupCooldownTime
-      value: 0.2
-      objectReference: {fileID: 0}
     - target: {fileID: 8585481331091606720, guid: b0cd39248ade5c747b566b96b1a53d16,
         type: 3}
       propertyPath: m_Name
@@ -890,11 +875,6 @@ PrefabInstance:
       propertyPath: Camera
       value: 
       objectReference: {fileID: 2060289964}
-    - target: {fileID: 8585481331091606723, guid: b0cd39248ade5c747b566b96b1a53d16,
-        type: 3}
-      propertyPath: rotationSpeed
-      value: 14
-      objectReference: {fileID: 0}
     - target: {fileID: 8585481331091606726, guid: b0cd39248ade5c747b566b96b1a53d16,
         type: 3}
       propertyPath: m_RootOrder

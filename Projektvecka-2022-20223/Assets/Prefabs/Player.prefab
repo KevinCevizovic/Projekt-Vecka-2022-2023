@@ -226,6 +226,7 @@ GameObject:
   - component: {fileID: 8585481331091606722}
   - component: {fileID: 8585481331091606723}
   - component: {fileID: 8585481331091606712}
+  - component: {fileID: 1659278637}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -401,7 +402,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotateTowardMouse: 0
   walkingSpeed: 10
-  rotationSpeed: 5
+  rotationSpeed: 14
   maxRunningSpeed: 20
   lerpDuration: 1
   curve:
@@ -443,7 +444,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heldItem: {fileID: 11400000, guid: 7507b8665977e474dba2ad0631faea73, type: 2}
-  pickupCooldown: 0.2
+  pickupCooldownTime: 0.2
   maxDropDistance: 2
   heldItemShower: {fileID: 8585481330474852066}
   objectOnGround: {fileID: 6773475101690018263, guid: 145e9300076677944b9acb8418ffe52a,
@@ -451,3 +452,18 @@ MonoBehaviour:
   dropAbleOn:
     serializedVersion: 2
     m_Bits: 512
+--- !u!114 &1659278637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8585481331091606720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93db28bcd6fb50645b21083d4b6a93a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  avarageSpeed: 0
+  speed: 0
+  speeds: []

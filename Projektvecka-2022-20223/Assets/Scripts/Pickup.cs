@@ -6,15 +6,16 @@ public class Pickup : MonoBehaviour
 
     [SerializeField] float pickupCooldownTime = 0.2f, maxDropDistance = 3f;
 
+
     [SerializeField] ItemShower heldItemShower;
     [SerializeField] GameObject objectOnGround;
 
     [SerializeField] LayerMask dropAbleOn = (1 << 9);
 
+
     private ItemShower itemOnGroundShower;
 
-
-    Cooldown pickupCooldown = new();
+    private Cooldown pickupCooldown = new();
 
     private void Awake()
     {

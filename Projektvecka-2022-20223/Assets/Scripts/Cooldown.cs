@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Cooldown
 {
-    public float duration, endTime;
+    private float duration, endTime;
 
     public bool HasEnded => Time.time > endTime;
 
