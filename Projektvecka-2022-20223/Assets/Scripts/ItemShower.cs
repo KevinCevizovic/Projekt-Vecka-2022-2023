@@ -31,6 +31,10 @@ public class ItemShower : MonoBehaviour
                 if (collider != this.collider)
                     Destroy(collider);
         }
+
+        if (item != null)
+            name = $"{item.name}";
+        else name = $"Empty";
     }
 
     private void OnDrawGizmos()

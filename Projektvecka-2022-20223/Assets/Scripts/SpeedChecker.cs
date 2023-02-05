@@ -3,19 +3,16 @@ using UnityEngine;
 
 public class SpeedChecker : MonoBehaviour
 {
-    public float speed, avarageSpeed;
     [SerializeField] bool debugAvgSpeed;
+    public float speed, avarageSpeed;
 
-    [SerializeField] List<float> speeds = new();
-
+    List<float> speeds = new();
     readonly int nrOfFramesToAvgFrom = 10;
     Vector3 lastPosition;
 
     private void Update()
     {
         speed = (lastPosition - transform.position).magnitude / Time.deltaTime; // speed of object
-
-        // Gets avarage speed from 10 frames
 
         // makes a list of speeds within 10 frames
         if (speeds.Count < nrOfFramesToAvgFrom)

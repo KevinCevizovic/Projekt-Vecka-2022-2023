@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 8585481330474852069}
   - component: {fileID: 8585481330474852066}
   m_Layer: 0
-  m_Name: HeldItem(None)
+  m_Name: HeldItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -226,7 +226,6 @@ GameObject:
   - component: {fileID: 8585481331091606722}
   - component: {fileID: 8585481331091606723}
   - component: {fileID: 8585481331091606712}
-  - component: {fileID: 1659278637}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -429,7 +428,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  Camera: {fileID: 0}
+  camera: {fileID: 0}
   _input: {fileID: 8585481331091606722}
 --- !u!114 &8585481331091606712
 MonoBehaviour:
@@ -444,26 +443,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heldItem: {fileID: 11400000, guid: 7507b8665977e474dba2ad0631faea73, type: 2}
-  pickupCooldownTime: 0.2
-  maxDropDistance: 2
-  heldItemShower: {fileID: 8585481330474852066}
-  objectOnGround: {fileID: 6773475101690018263, guid: 145e9300076677944b9acb8418ffe52a,
-    type: 3}
   dropAbleOn:
     serializedVersion: 2
     m_Bits: 512
---- !u!114 &1659278637
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8585481331091606720}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93db28bcd6fb50645b21083d4b6a93a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  avarageSpeed: 0
-  speed: 0
-  speeds: []
+  heldItemShower: {fileID: 8585481330474852066}
+  objectOnGround: {fileID: 6773475101690018263, guid: 145e9300076677944b9acb8418ffe52a,
+    type: 3}
