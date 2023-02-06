@@ -1,6 +1,6 @@
 using UnityEditor;
 using UnityEngine;
-
+using UnityEditorInternal;
 
 public class Pickup : MonoBehaviour
 {
@@ -8,48 +8,103 @@ public class Pickup : MonoBehaviour
     [CustomEditor(typeof(Pickup))]
     public class PickupEditor : Editor
     {
+        private bool showOtherGUI;
+
         public override void OnInspectorGUI()
         {
-            Pickup pickup = (Pickup)target;
+            Pickup script = (Pickup)target;
 
             // held item
-            EditorGUILayout.LabelField("Held Item", EditorStyles.boldLabel);
-            pickup.heldItem = (Item)EditorGUILayout.ObjectField(pickup.heldItem, typeof(Item), true, GUILayout.MaxWidth(200));
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("Held item", EditorStyles.boldLabel, GUILayout.MaxWidth(75));
+            script.heldItem = (Item)EditorGUILayout.ObjectField(script.heldItem, typeof(ScriptableObject), true, GUILayout.MaxWidth(150));
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("e", EditorStyles.boldLabel, GUILayout.MaxWidth(75));
+            script.e = (Item)EditorGUILayout.ObjectField(script.e, typeof(ScriptableObject), true, GUILayout.MaxWidth(150));
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.Space();
 
             // pickup settings
             EditorGUILayout.LabelField("Pickup Settings", EditorStyles.boldLabel);
 
-            // cooldown
-            EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField("Cooldown Time: ", GUILayout.MaxWidth(120));
-            pickup.pickupCooldownTime = EditorGUILayout.FloatField(pickup.pickupCooldownTime, GUILayout.MaxWidth(75));
-            EditorGUILayout.EndHorizontal();
+            // cooldown time
+            script.pickupCooldownTime = SlideableFloatFieldWithWidth("Cooldown Time", script.pickupCooldownTime, 120f, 75f);
 
             // drop distance
+            script.maxDropDistance = SlideableFloatFieldWithWidth("Drop Distance", script.maxDropDistance, 120f, 75f);
+
+            // other foldout
+            showOtherGUI = EditorGUILayout.Foldout(showOtherGUI, "Other");
+
+
+            if (showOtherGUI)
+            {
+                EditorGUILayout.BeginHorizontal();
+                EditorGUILayout.LabelField("Drop able on", EditorStyles.boldLabel, GUILayout.MaxWidth(120));
+                LayerMask tempMask = EditorGUILayout.MaskField(InternalEditorUtility.LayerMaskToConcatenatedLayersMask(script.dropAbleOn), InternalEditorUtility.layers, GUILayout.MaxWidth(75));
+                script.dropAbleOn = InternalEditorUtility.ConcatenatedLayersMaskToLayerMask(tempMask);
+                EditorGUILayout.EndHorizontal();
+
+                GameObject e;
+                EditorGUILayout.BeginHorizontal();
+                EditorGUILayout.LabelField("Held item shower", EditorStyles.boldLabel, GUILayout.MaxWidth(120));
+                e = (GameObject)EditorGUILayout.ObjectField(script.heldItemShower == null ? null : script.heldItemShower.gameObject, typeof(Object), true, GUILayout.MaxWidth(150));
+                EditorGUILayout.EndHorizontal();
+
+                if (e != null)
+                    if (script.heldItemShower == null || script.heldItemShower.gameObject != e)
+                        script.heldItemShower = e.GetComponent<ItemShower>();
+
+
+                EditorGUILayout.BeginHorizontal();
+                EditorGUILayout.LabelField("Object on ground", EditorStyles.boldLabel, GUILayout.MaxWidth(120));
+                script.objectOnGroundPrefab = (GameObject)EditorGUILayout.ObjectField(script.objectOnGroundPrefab == null ? null : script.objectOnGroundPrefab, typeof(Object), true, GUILayout.MaxWidth(150));
+                EditorGUILayout.EndHorizontal();
+            }
+        }
+
+        private static float SlideableFloatFieldWithWidth(float variable, float labelFieldWidth, float fieldWidth)
+        {
             EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField("Max Drop Distance: ", GUILayout.MaxWidth(120));
-            pickup.maxDropDistance = EditorGUILayout.FloatField(pickup.maxDropDistance, GUILayout.MaxWidth(75));
+            EditorGUILayout.LabelField("", GUILayout.MaxWidth(labelFieldWidth));
+            variable = EditorGUILayout.FloatField(variable, GUILayout.MaxWidth(fieldWidth));
             EditorGUILayout.EndHorizontal();
 
-            pickup.showOtherGUI = EditorGUILayout.Foldout(pickup.showOtherGUI, "Other");
+            EditorGUILayout.Space(-22);
+            variable = EditorGUILayout.FloatField("\n", variable, GUILayout.MaxWidth(-122));
 
-            if (pickup.showOtherGUI)
-                base.OnInspectorGUI();
+            return variable;
+        }
+
+        private static float SlideableFloatFieldWithWidth(string label, float variable, float labelFieldWidth, float fieldWidth)
+        {
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("", GUILayout.MaxWidth(labelFieldWidth));
+            variable = EditorGUILayout.FloatField(variable, GUILayout.MaxWidth(fieldWidth));
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.Space(-22);
+            variable = EditorGUILayout.FloatField(label, variable, GUILayout.MaxWidth(-122));
+
+            return variable;
         }
     }
 #endif
 
-    private bool showOtherGUI;
+    [SerializeField] private Item e;
 
-    [HideInInspector] public Item heldItem;
+    public Item heldItem;
 
-    float pickupCooldownTime = 0.2f, maxDropDistance = 3f;
+    [SerializeField] float pickupCooldownTime = 0.2f, maxDropDistance = 3f;
 
 
-    [SerializeField] LayerMask dropAbleOn = (1 << 9);
+    [SerializeField] LayerMask dropAbleOn = 1 << 9;
 
     [SerializeField] ItemShower heldItemShower;
-    [SerializeField] GameObject objectOnGround;
+    [SerializeField] GameObject objectOnGroundPrefab;
 
 
     private ItemShower itemOnGroundShower;
@@ -69,6 +124,7 @@ public class Pickup : MonoBehaviour
         pickupCooldown.SetDuration(pickupCooldownTime);
     }
 
+    /// <summary> Drops HeldItem </summary>
     public void DropItem()
     {
         if (heldItem == null) return;
@@ -80,7 +136,7 @@ public class Pickup : MonoBehaviour
         {
             Vector3 dropPosition = hit.point;
 
-            GameObject itemShower = Instantiate(objectOnGround, dropPosition, Quaternion.identity); // create itemshower on ground
+            GameObject itemShower = Instantiate(objectOnGroundPrefab, dropPosition, Quaternion.identity); // create itemshower on ground
 
             itemShower.GetComponent<ItemShower>().ChangeObject(heldItem); // set item in itemshower to held 
             itemShower.transform.rotation = transform.rotation; // rotate itemshower to player rotation
@@ -88,6 +144,21 @@ public class Pickup : MonoBehaviour
             // remove held item
             heldItem = null;
             heldItemShower.ChangeObject(null);
+        }
+    }
+
+    public void DropItem(Item item)
+    {
+        pickupCooldown.StartCoolDown(); // pickup cooldown
+
+        if (Physics.Raycast(heldItemShower.transform.position, Vector3.down, out var hit, maxDropDistance, dropAbleOn))
+        {
+            Vector3 dropPosition = hit.point;
+
+            GameObject itemShower = Instantiate(objectOnGroundPrefab, dropPosition, Quaternion.identity); // create itemshower on ground
+
+            itemShower.GetComponent<ItemShower>().ChangeObject(item); // set item in itemshower to held 
+            itemShower.transform.rotation = transform.rotation; // rotate itemshower to player rotation
         }
     }
 
@@ -115,6 +186,8 @@ public class Pickup : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        if (heldItemShower == null) return;
+
         Gizmos.color = Color.red;
         Gizmos.DrawLine(heldItemShower.transform.position, heldItemShower.transform.position + maxDropDistance * Vector3.down);
 

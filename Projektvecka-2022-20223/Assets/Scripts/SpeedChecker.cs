@@ -1,8 +1,32 @@
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class SpeedChecker : MonoBehaviour
 {
+#if UNITY_EDITOR
+    [CustomEditor(typeof(SpeedChecker))]
+    public class SpeedCheckerEditor : Editor
+    {
+        public override void OnInspectorGUI()
+        {
+            SpeedChecker script = (SpeedChecker)target;
+
+            // speed text
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("Speed", EditorStyles.boldLabel, GUILayout.MaxWidth(75)); // bold text
+            EditorGUILayout.LabelField(script.speed.ToString(), GUILayout.MaxWidth(75)); // normal text
+            EditorGUILayout.EndHorizontal();
+
+            // debug avg speed toggle
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("Debug avarage speed", EditorStyles.boldLabel, GUILayout.MaxWidth(150));
+            script.debugAvgSpeed = EditorGUILayout.ToggleLeft("", script.debugAvgSpeed); // debug avg speed toggle
+            EditorGUILayout.EndHorizontal();
+        }
+    }
+#endif
+
     [SerializeField] bool debugAvgSpeed;
     public float speed, avarageSpeed;
 

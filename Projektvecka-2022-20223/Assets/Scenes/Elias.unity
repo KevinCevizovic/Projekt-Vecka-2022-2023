@@ -865,6 +865,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8585481331091606713, guid: b0cd39248ade5c747b566b96b1a53d16,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8585481331091606713, guid: b0cd39248ade5c747b566b96b1a53d16,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 8585481330590268414}
+    - target: {fileID: 8585481331091606713, guid: b0cd39248ade5c747b566b96b1a53d16,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DropItem
+      objectReference: {fileID: 0}
+    - target: {fileID: 8585481331091606713, guid: b0cd39248ade5c747b566b96b1a53d16,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: InputHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 8585481331091606720, guid: b0cd39248ade5c747b566b96b1a53d16,
         type: 3}
       propertyPath: m_Name
@@ -873,11 +893,6 @@ PrefabInstance:
     - target: {fileID: 8585481331091606723, guid: b0cd39248ade5c747b566b96b1a53d16,
         type: 3}
       propertyPath: Camera
-      value: 
-      objectReference: {fileID: 2060289964}
-    - target: {fileID: 8585481331091606723, guid: b0cd39248ade5c747b566b96b1a53d16,
-        type: 3}
-      propertyPath: camera
       value: 
       objectReference: {fileID: 2060289964}
     - target: {fileID: 8585481331091606726, guid: b0cd39248ade5c747b566b96b1a53d16,
@@ -937,6 +952,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b0cd39248ade5c747b566b96b1a53d16, type: 3}
+--- !u!114 &8585481330590268414 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8585481331091606722, guid: b0cd39248ade5c747b566b96b1a53d16,
+    type: 3}
+  m_PrefabInstance: {fileID: 8585481330590268409}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d59125ee392735048a6d37ab615cb9ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8989395419179732951
 PrefabInstance:
   m_ObjectHideFlags: 0

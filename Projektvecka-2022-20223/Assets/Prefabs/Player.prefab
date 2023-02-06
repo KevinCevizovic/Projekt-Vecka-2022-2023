@@ -225,7 +225,8 @@ GameObject:
   - component: {fileID: 8585481331091606713}
   - component: {fileID: 8585481331091606722}
   - component: {fileID: 8585481331091606723}
-  - component: {fileID: 8585481331091606712}
+  - component: {fileID: 8585481330590268411}
+  - component: {fileID: 8585481330590268412}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -341,7 +342,7 @@ MonoBehaviour:
     m_ActionName: Player/Run[/Keyboard/leftShift]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8585481331091606712}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Pickup, Assembly-CSharp
         m_MethodName: DropItem
         m_Mode: 1
@@ -375,7 +376,7 @@ MonoBehaviour:
   drop:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8585481331091606712}
+      - m_Target: {fileID: 8585481330590268411}
         m_TargetAssemblyTypeName: Pickup, Assembly-CSharp
         m_MethodName: DropItem
         m_Mode: 1
@@ -428,9 +429,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  camera: {fileID: 0}
+  Camera: {fileID: 0}
   _input: {fileID: 8585481331091606722}
---- !u!114 &8585481331091606712
+--- !u!114 &8585481330590268411
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -447,5 +448,17 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   heldItemShower: {fileID: 8585481330474852066}
-  objectOnGround: {fileID: 6773475101690018263, guid: 145e9300076677944b9acb8418ffe52a,
+  objectOnGroundPrefab: {fileID: 6773475101690018263, guid: 145e9300076677944b9acb8418ffe52a,
     type: 3}
+--- !u!114 &8585481330590268412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8585481331091606720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6b31dc1b4e715147a0ad9cee4a7758b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
