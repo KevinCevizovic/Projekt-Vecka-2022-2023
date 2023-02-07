@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Weapon", menuName = "Item/Weapon")]
+//[CreateAssetMenu(fileName = "New Weapon", menuName = "Item/Weapon")]
 public class Weapon : Item
 {
-    public float damage, attackSpeed;
+    //public float damage, attackSpeed;
 }

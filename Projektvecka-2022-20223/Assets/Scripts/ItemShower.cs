@@ -6,6 +6,11 @@ public class ItemShower : MonoBehaviour
 
     new private Collider collider;
 
+    private void OnValidate()
+    {
+        name = item != null ? item.name : "Empty"; // changes name to item name
+    }
+
     private void Awake()
     {
         collider = GetComponent<Collider>();
@@ -32,9 +37,7 @@ public class ItemShower : MonoBehaviour
                     Destroy(collider);
         }
 
-        if (item != null)
-            name = $"{item.name}";
-        else name = $"Empty";
+        name = item != null ? item.name : "Empty"; // changes name to item name or Empty
     }
 
     private void OnDrawGizmos()
