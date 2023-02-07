@@ -28,7 +28,7 @@ public class Health : MonoBehaviour
         }
     }
 
-    public void Heal(int amount)
+    public void Heal(float amount)
     {
         CurrentHealth += amount;
 
