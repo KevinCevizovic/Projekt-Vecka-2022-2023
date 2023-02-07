@@ -11,7 +11,11 @@ public class Weapon_Spear : MonoBehaviour
     float lastClickedTime = 0;
     float maxComboDelay = 1;
 
-    public float damage;
+    public float chargeTime;
+    public float chargedDamage;
+    private bool isCharging = false;
+
+    public float damage = 0;
 
     public BoxCollider spearCollider;
 
@@ -23,9 +27,15 @@ public class Weapon_Spear : MonoBehaviour
 
         spearCollider = gameObject.GetComponentInParent<BoxCollider>();
     }
+
+    private void Awake()
+    {
+        
+    }
+
     void Update()
     {
-
+        // If tanimation is past 0.7 in normalized time and has a specific name, set the corresponding animator bool parameter to false
         if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && anim.GetCurrentAnimatorStateInfo(0).IsName("Spear_Test1"))
         {
             anim.SetBool("Spear_Test1", false);
@@ -39,8 +49,17 @@ public class Weapon_Spear : MonoBehaviour
             anim.SetBool("Hit3", false);
             noOfClicks = 0;
         }
+        if(anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && anim.GetCurrentAnimatorStateInfo(0).IsName("ChargeHit1"))
+        {
+            anim.SetBool("ChargeHit1", false);
+        }
+        if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && anim.GetCurrentAnimatorStateInfo(0).IsName("ChargeHit2"))
+        {
+            anim.SetBool("ChargeHit2", false);
+            noOfClicks = 0;
+        }
 
-
+        // Reset noOfClicks if the maxComboDelay time has passed since the last click
         if (Time.time - lastClickedTime > maxComboDelay)
         {
             noOfClicks = 0;
@@ -49,44 +68,90 @@ public class Weapon_Spear : MonoBehaviour
         //cooldown time
         if (Time.time > nextFireTime)
         {
-            // Check for mouse input
             if (Mouse.current.leftButton.isPressed)
             {
                 OnClick();
+            }
+        }
 
+        if (Time.time > nextFireTime)
+        {
+            if (Mouse.current.rightButton.wasPressedThisFrame)
+            {
+                anim.SetBool("ChargeHit1", true);
+                StartCoroutine(ChargedAttack());
+            }
+            if (Mouse.current.rightButton.wasReleasedThisFrame && !isCharging)
+            {
+                anim.SetBool("ChargeHit1", false);
+                anim.SetBool("ChargeHit2", true);
             }
         }
     }
 
     void OnClick()
     {
-        //so it looks at how many clicks have been made and if one animation has finished playing starts another one.
+        // Update the time of the last click
         lastClickedTime = Time.time;
         noOfClicks++;
+        // If noOfClicks is 1, set the Spear_Test1 animator bool parameter to true
         if (noOfClicks == 1)
         {
             anim.SetBool("Spear_Test1", true);
         }
+        // Clamp noOfClicks between 0 and 3
         noOfClicks = Mathf.Clamp(noOfClicks, 0, 3);
 
+        // If noOfClicks is >= 2 and the Spear_Test1 animation has finished, set the Hit2 animator bool parameter to true
         if (noOfClicks >= 2 && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && anim.GetCurrentAnimatorStateInfo(0).IsName("Spear_Test1"))
         {
             anim.SetBool("Spear_Test1", false);
             anim.SetBool("Hit2", true);
         }
+        // If noOfClicks is >= 2 and the Hit2 animation has finished, set the Hit3 animator bool parameter to true
         if (noOfClicks >= 3 && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && anim.GetCurrentAnimatorStateInfo(0).IsName("Hit2"))
         {
             anim.SetBool("Hit2", false);
             anim.SetBool("Hit3", true);
         }
     }
+    
+    private IEnumerator ChargedAttack()
+    {
+        float startTime = Time.time;
+        float endTime = 0f;
+
+        isCharging = true;
+        while (Mouse.current.rightButton.isPressed)
+        {
+            endTime = Time.time;
+            yield return null;
+        }
+
+        chargeTime = endTime - startTime;
+        chargedDamage = damage * chargeTime;
+        isCharging = false;
+        anim.SetBool("ChargeHit2", true);
+    }
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("RatTeam"))
         {
             health = other.GetComponent<Health>();
-            health.TakingDamage(damage);
-            print("hej");
+
+            if (anim.GetCurrentAnimatorStateInfo(0).IsName("ChargeHit2"))
+            {
+                health.TakingDamage(chargedDamage);
+                print("1");
+            }
+            else if (anim.GetCurrentAnimatorStateInfo(0).IsName("Spear_Test1") ||
+                     anim.GetCurrentAnimatorStateInfo(0).IsName("Hit2") ||
+                     anim.GetCurrentAnimatorStateInfo(0).IsName("Hit3"))
+            {
+                health.TakingDamage(damage);
+                print("2");
+            }
         }
     }
 }
