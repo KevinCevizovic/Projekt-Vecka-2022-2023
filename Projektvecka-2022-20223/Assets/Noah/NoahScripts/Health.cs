@@ -27,4 +27,14 @@ public class Health : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
+
+    public void Heal(int amount)
+    {
+        CurrentHealth += amount;
+
+        if(CurrentHealth > maxHealth)
+        {
+            CurrentHealth = maxHealth;
+        }
+    }
 }
