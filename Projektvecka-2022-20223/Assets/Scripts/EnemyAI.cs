@@ -18,6 +18,7 @@ public class EnemyAI : MonoBehaviour
     public Transform[] coverPoints;
     public Vector3 randomPosition = Vector3.zero;
     public GameObject closestTarget;
+    public GameObject bullet;
 
     [Header("Numbers you change")]
     [Range(6f, 20f)]
@@ -26,27 +27,32 @@ public class EnemyAI : MonoBehaviour
     public float runRadius = 5f;
     [Range(0, 3f)]
     public float hitRadius = 3f;
+    [Range(0, 100)]
+    public float damage = 3f;
+    [Range(0.1f, 10f)]
+    public float timeBetweenShooting = 2.5f;
 
     [Range(0.5f, 3.5f)]
     public float speedNotChasing = 1.5f;
     [Range(3.5f, 6f)]
     public float speedChasing = 3.5f;
 
-    private Animator anim;
     public LayerMask enemyMask;
     private LayerMask myMask;
     public LayerMask obstacleMask;
 
     EnemyAI[] enemyAIs;
+    Coroutine myRoutine;
+    protected States currentState;
 
     public float followUpTimer = 2f;
 
+    private bool isCallingCoroutine = false;
     private Vector3 homePos;
 
     // Start is called before the first frame update
     private void Awake()
     {
-        anim = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player");
         agent = GetComponent<NavMeshAgent>();
         //randomPosition = new Vector3(transform.position.x + Random.Range(-10, 10), transform.position.y, transform.position.z + Random.Range(-10, 10));
@@ -56,6 +62,13 @@ public class EnemyAI : MonoBehaviour
     {
         homePos = transform.position;
         homePos.y = 0;
+    }
+
+    protected enum States
+    {
+        IdleWalking,
+        Chasing,
+        Attacking
     }
 
     // Update is called once per frame
@@ -86,7 +99,10 @@ public class EnemyAI : MonoBehaviour
         {
             if (Physics.CheckSphere(transform.position, hitRadius, enemyMask))
             {
-                ShootPlayer();
+                FaceTarget();
+                if (!isCallingCoroutine)
+                    StartCoroutine(ShootPlayer());
+
             }
             else if (Physics.CheckSphere(transform.position, shootRadius, enemyMask) &&
                 !Physics.Linecast(transform.position + Vector3.up, closestTarget.transform.position, obstacleMask) &&
@@ -115,7 +131,7 @@ public class EnemyAI : MonoBehaviour
             if (Physics.CheckSphere(transform.position, hitRadius, enemyMask))
             {
                 Debug.Log("Hitting");
-                ShootPlayer();
+                StartCoroutine(ShootPlayer());
             }
             else if (Physics.CheckSphere(transform.position, runRadius, enemyMask))
             {
@@ -126,7 +142,12 @@ public class EnemyAI : MonoBehaviour
                 !Physics.Linecast(transform.position + Vector3.up, closestTarget.transform.position, obstacleMask) &&
                 Vector3.Dot(transform.forward, toOther) > 0.25f)
             {
-                ShootPlayer();
+                FaceTarget();
+                if (!isCallingCoroutine)
+                {
+                    StartCoroutine(ShootPlayer());
+                }
+                
                 Debug.Log("Shooting");
             }
             else
@@ -137,10 +158,43 @@ public class EnemyAI : MonoBehaviour
     }
 
 
-    private void ShootPlayer()
+    private IEnumerator ShootPlayer()
     {
-        agent.SetDestination(transform.position);
-        FaceTarget();
+        isCallingCoroutine = true;
+        currentState = States.Attacking;
+        if (archer)
+        {
+            agent.SetDestination(transform.position);
+            yield return new WaitForSeconds(timeBetweenShooting);
+            isCallingCoroutine = false;
+            Debug.Log("Hit");
+            GameObject newBullet = Instantiate(bullet, transform.position + transform.forward, Quaternion.identity);
+            newBullet.GetComponent<Rigidbody>().AddForce(transform.forward * 1000f);
+            newBullet.GetComponent<Projectile>().damage = this.damage;
+            newBullet.GetComponent<Projectile>().attackLayer = enemyMask;
+        }
+        else if (grunt)
+        {
+            agent.SetDestination(transform.position);
+            yield return new WaitForSeconds(timeBetweenShooting);
+            isCallingCoroutine = false;
+            Debug.Log("Hit");
+            Collider[] hitTargets = Physics.OverlapSphere(transform.position + transform.forward, hitRadius, enemyMask);
+            foreach (Collider enemy in hitTargets)
+            {
+                try
+                {
+                    enemy.GetComponent<Health>().TakingDamage(damage);
+                }
+                catch
+                {
+                    Debug.Log("No health script in target");
+                }
+
+            }
+        }
+        
+        
     }
     /*
     private void MessageOtherTeammates()
@@ -162,6 +216,7 @@ public class EnemyAI : MonoBehaviour
     */
     private void AvoidPlayer()
     {
+        currentState = States.Attacking;
         agent.speed = speedChasing;
         Vector3 dirToPlayer = transform.position - player.transform.position;
 
@@ -175,6 +230,7 @@ public class EnemyAI : MonoBehaviour
     {
         if (archer)
             return;
+        currentState = States.Chasing;
         agent.speed = speedChasing;
         agent.SetDestination(closestTarget.transform.position);
     }
@@ -182,6 +238,7 @@ public class EnemyAI : MonoBehaviour
     private void MoveToCover()
     {
         // Animation things
+        currentState = States.IdleWalking;
         agent.speed = speedNotChasing;
         Vector3 newPos = transform.position;
         newPos.y = 0;
@@ -205,7 +262,7 @@ public class EnemyAI : MonoBehaviour
     {
         Vector3 direction = (closestTarget.transform.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 8.5f);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
     }
 
     private void OnDrawGizmosSelected()
@@ -216,6 +273,8 @@ public class EnemyAI : MonoBehaviour
             Gizmos.DrawWireSphere(transform.position, shootRadius);
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, hitRadius);
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position + transform.forward, hitRadius);
         }
         else if (archer)
         {
