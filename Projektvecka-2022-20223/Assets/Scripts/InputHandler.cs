@@ -8,6 +8,8 @@ public class InputHandler : MonoBehaviour
 {
     public InputEvent drop;
 
+    public InputEvent communicate;
+
     public Vector2 InputVector { get; private set; }
 
     public Vector3 MousePosition { get; private set; }

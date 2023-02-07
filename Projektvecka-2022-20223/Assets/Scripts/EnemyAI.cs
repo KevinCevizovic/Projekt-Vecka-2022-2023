@@ -43,7 +43,7 @@ public class EnemyAI : MonoBehaviour
 
     EnemyAI[] enemyAIs;
     Coroutine myRoutine;
-    protected States currentState;
+    public States currentState;
 
     public float followUpTimer = 2f;
 
@@ -64,17 +64,27 @@ public class EnemyAI : MonoBehaviour
         homePos.y = 0;
     }
 
-    protected enum States
+    public enum States
     {
         IdleWalking,
         Chasing,
-        Attacking
+        Shooting,
+        Hitting,
+        FollowingPlayer,
+        Avoiding
     }
 
     // Update is called once per frame
     void Update()
     {
-        CollisionChecks();
+        if (currentState == States.FollowingPlayer)
+        {
+            FollowPlayer();
+        }
+        else
+        {
+            CollisionChecks();
+        }
         // anim.SetFloat("move", agent.velocity.magnitude);
     }
 
@@ -100,24 +110,23 @@ public class EnemyAI : MonoBehaviour
             if (Physics.CheckSphere(transform.position, hitRadius, enemyMask))
             {
                 FaceTarget();
+                currentState = States.Hitting;
                 if (!isCallingCoroutine)
-                    StartCoroutine(ShootPlayer());
-
+                    StartCoroutine(Attack());
             }
             else if (Physics.CheckSphere(transform.position, shootRadius, enemyMask) &&
                 !Physics.Linecast(transform.position + Vector3.up, closestTarget.transform.position, obstacleMask) &&
                 Vector3.Dot(transform.forward, toOther) > 0.2)
             {
-                ChasePlayer();
+                ChaseTarget();
                 followUpTimer = 2f;
             }
-
             else
             {
                 followUpTimer -= Time.deltaTime;
                 if (followUpTimer > 0)
                 {
-                    ChasePlayer();
+                    ChaseTarget();
                 }
                 else
                 {
@@ -131,7 +140,11 @@ public class EnemyAI : MonoBehaviour
             if (Physics.CheckSphere(transform.position, hitRadius, enemyMask))
             {
                 Debug.Log("Hitting");
-                StartCoroutine(ShootPlayer());
+                currentState = States.Hitting;
+                if (!isCallingCoroutine)
+                {
+                    StartCoroutine(Attack());
+                }
             }
             else if (Physics.CheckSphere(transform.position, runRadius, enemyMask))
             {
@@ -145,9 +158,9 @@ public class EnemyAI : MonoBehaviour
                 FaceTarget();
                 if (!isCallingCoroutine)
                 {
-                    StartCoroutine(ShootPlayer());
+                    StartCoroutine(Attack());
                 }
-                
+
                 Debug.Log("Shooting");
             }
             else
@@ -157,23 +170,17 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    private void FollowPlayer()
+    {
+        currentState = States.FollowingPlayer;
+        agent.SetDestination(player.transform.position);
+    }
 
-    private IEnumerator ShootPlayer()
+    private IEnumerator Attack()
     {
         isCallingCoroutine = true;
-        currentState = States.Attacking;
-        if (archer)
-        {
-            agent.SetDestination(transform.position);
-            yield return new WaitForSeconds(timeBetweenShooting);
-            isCallingCoroutine = false;
-            Debug.Log("Hit");
-            GameObject newBullet = Instantiate(bullet, transform.position + transform.forward, Quaternion.identity);
-            newBullet.GetComponent<Rigidbody>().AddForce(transform.forward * 1000f);
-            newBullet.GetComponent<Projectile>().damage = this.damage;
-            newBullet.GetComponent<Projectile>().attackLayer = enemyMask;
-        }
-        else if (grunt)
+        currentState = States.Shooting;
+        if (grunt || currentState == States.Hitting)
         {
             agent.SetDestination(transform.position);
             yield return new WaitForSeconds(timeBetweenShooting);
@@ -193,8 +200,17 @@ public class EnemyAI : MonoBehaviour
 
             }
         }
-        
-        
+        else if (archer)
+        {
+            agent.SetDestination(transform.position);
+            yield return new WaitForSeconds(timeBetweenShooting);
+            isCallingCoroutine = false;
+            Debug.Log("Hit");
+            GameObject newBullet = Instantiate(bullet, transform.position + transform.forward, Quaternion.identity);
+            newBullet.GetComponent<Rigidbody>().AddForce(transform.forward * 1000f);
+            newBullet.GetComponent<Projectile>().damage = this.damage;
+            newBullet.GetComponent<Projectile>().attackLayer = enemyMask;
+        }
     }
     /*
     private void MessageOtherTeammates()
@@ -216,7 +232,7 @@ public class EnemyAI : MonoBehaviour
     */
     private void AvoidPlayer()
     {
-        currentState = States.Attacking;
+        currentState = States.Avoiding;
         agent.speed = speedChasing;
         Vector3 dirToPlayer = transform.position - player.transform.position;
 
@@ -226,7 +242,7 @@ public class EnemyAI : MonoBehaviour
         FaceTarget();
     }
 
-    private void ChasePlayer()
+    private void ChaseTarget()
     {
         if (archer)
             return;
@@ -293,6 +309,6 @@ public class EnemyAI : MonoBehaviour
         {
             Gizmos.DrawLine(transform.position, randomPosition);
         }
-        
+
     }
 }
