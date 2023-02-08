@@ -50,7 +50,7 @@ public class Pickup : MonoBehaviour
 
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.LabelField("Object on ground", EditorStyles.boldLabel, GUILayout.MaxWidth(120));
-                script.objectOnGroundPrefab = (GameObject)EditorGUILayout.ObjectField(script.objectOnGroundPrefab == null ? null : script.objectOnGroundPrefab, typeof(Object), true, GUILayout.MaxWidth(150));
+                script.objectOnGroundPrefab = (GameObject)EditorGUILayout.ObjectField(script.objectOnGroundPrefab, typeof(Object), true, GUILayout.MaxWidth(150));
                 EditorGUILayout.EndHorizontal();
             }
         }
@@ -151,7 +151,8 @@ public class Pickup : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        itemOnGroundShower = other.GetComponent<ItemShower>(); // get script
+        // checks if its a itemshower
+        if (!other.TryGetComponent(out ItemShower itemOnGroundShower)) return;
 
         Item item = itemOnGroundShower.item;
 
