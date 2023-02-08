@@ -38,7 +38,7 @@
                     "id": "d7188fe2-314e-440a-bc9b-77b79387a32c",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Hold",
+                    "interactions": "",
                     "initialStateCheck": false
                 }
             ],
@@ -190,7 +190,7 @@
                     "name": "",
                     "id": "c689ceef-03f3-4434-89c9-c6cd5e7a71e7",
                     "path": "<Keyboard>/h",
-                    "interactions": "Hold",
+                    "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Communicate",

@@ -1766,11 +1766,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0886102e2f9e4794484bee76ba7ff0b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _input: {fileID: 0}
-  myMask:
+  teamateLayer:
     serializedVersion: 2
     m_Bits: 128
   callingRange: 27
+  isFollowing: 0
+  teamates: []
 --- !u!1 &1852978381
 GameObject:
   m_ObjectHideFlags: 0

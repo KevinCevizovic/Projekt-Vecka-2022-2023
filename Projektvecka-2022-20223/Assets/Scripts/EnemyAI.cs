@@ -172,6 +172,7 @@ public class EnemyAI : MonoBehaviour
     private void FollowPlayer()
     {
         currentState = States.FollowingPlayer;
+        agent.speed = speedChasing;
         agent.SetDestination(player.transform.position);
     }
 
