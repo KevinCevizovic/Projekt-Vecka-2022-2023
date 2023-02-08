@@ -18,10 +18,10 @@ public class ItemShower : MonoBehaviour
 
     private void Start()
     {
-        ChangeObject(item);
+        ChangeObject(item, item == null ? false : item.GetType() != typeof(Weapon)); // when implement weapons
     }
 
-    public void ChangeObject(Item _object, bool keepCollider = false)
+    public void ChangeObject(Item _object, bool removeCollider = false)
     {
         item = _object;
 
@@ -32,7 +32,7 @@ public class ItemShower : MonoBehaviour
         {
             Instantiate(item._object, transform);
 
-            if (!keepCollider)
+            if (removeCollider)
                 foreach (Collider collider in GetComponentsInChildren<Collider>())
                     if (collider != this.collider)
                         Destroy(collider);
