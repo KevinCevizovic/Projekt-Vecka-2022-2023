@@ -6,9 +6,11 @@ using UnityEngine.InputSystem;
 [Serializable] public class InputEvent : UnityEvent { }
 public class InputHandler : MonoBehaviour
 {
-    public InputEvent drop;
+    public InputEvent OnDrop;
 
-    public InputEvent communicate;
+    public InputEvent OnLeftClick, OnRightClick;
+
+    public InputEvent OnCommunicate;
 
     public Vector2 InputVector { get; private set; }
 
@@ -28,6 +30,19 @@ public class InputHandler : MonoBehaviour
     public void DropItem(InputAction.CallbackContext ctx)
     {
         if (ctx.performed)
-            drop?.Invoke();
+            OnDrop?.Invoke();
     }
+
+    public void LeftClick(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+            OnLeftClick?.Invoke();
+    }
+
+    public void RightClick(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+            OnRightClick?.Invoke();
+    }
+
 }

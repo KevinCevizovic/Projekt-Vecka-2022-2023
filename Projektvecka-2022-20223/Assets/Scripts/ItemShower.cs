@@ -21,7 +21,7 @@ public class ItemShower : MonoBehaviour
         ChangeObject(item);
     }
 
-    public void ChangeObject(Item _object)
+    public void ChangeObject(Item _object, bool keepCollider = false)
     {
         item = _object;
 
@@ -32,9 +32,10 @@ public class ItemShower : MonoBehaviour
         {
             Instantiate(item._object, transform);
 
-            foreach (Collider collider in GetComponentsInChildren<Collider>())
-                if (collider != this.collider)
-                    Destroy(collider);
+            if (!keepCollider)
+                foreach (Collider collider in GetComponentsInChildren<Collider>())
+                    if (collider != this.collider)
+                        Destroy(collider);
         }
 
         name = item != null ? item.name : "Empty"; // changes name to item name or Empty
