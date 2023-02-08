@@ -151,7 +151,8 @@ public class Pickup : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        itemOnGroundShower = other.GetComponent<ItemShower>(); // get script
+        // checks if its a itemshower
+        if (!other.TryGetComponent(out ItemShower itemOnGroundShower)) return;
 
         Item item = itemOnGroundShower.item;
 
