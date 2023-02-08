@@ -71,7 +71,8 @@ public class EnemyAI : MonoBehaviour
         Shooting,
         Hitting,
         FollowingPlayer,
-        Avoiding
+        Avoiding,
+        GoingHome
     }
 
     // Update is called once per frame
@@ -252,19 +253,20 @@ public class EnemyAI : MonoBehaviour
     private void MoveToCover()
     {
         // Animation things
-        currentState = States.IdleWalking;
+        
         agent.speed = speedNotChasing;
         Vector3 newPos = transform.position;
         newPos.y = 0;
-        /*
+
         if ((homePos - newPos).magnitude > 30f)
         {
-            agent.SetDestination(homePos + new Vector3(Random.Range(-3, 3), 0, Random.Range(-3, 3)));
+            currentState = States.GoingHome;
+            agent.SetDestination(homePos);
             Debug.Log("Going home");
         }
-        */
         if ((transform.position - randomPosition).magnitude < 1.5f)
         {
+            currentState = States.IdleWalking;
             FaceTarget();
             randomPosition = new Vector3(transform.position.x + Random.Range(-10, 10), transform.position.y, transform.position.z + Random.Range(-10, 10));
         }
