@@ -14,8 +14,8 @@ public class SpeedChecker : MonoBehaviour
 
             // speed text
             EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField("Speed", EditorStyles.boldLabel, GUILayout.MaxWidth(75)); // bold text
-            EditorGUILayout.LabelField(script.speed.ToString(), GUILayout.MaxWidth(75)); // normal text
+            EditorGUILayout.LabelField("Speed", EditorStyles.boldLabel, GUILayout.MaxWidth(45)); // bold text
+            EditorGUILayout.LabelField(script.speed.ToString(), GUILayout.MinWidth(100)); // normal text
             EditorGUILayout.EndHorizontal();
 
             // debug avg speed toggle

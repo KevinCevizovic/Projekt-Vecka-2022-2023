@@ -11,8 +11,8 @@ public class CameraFollow : MonoBehaviour
 
     private void Awake()
     {
-        if (_input == null)
-            _input = FindObjectOfType<InputHandler>();
+        //if (_input == null)
+        //    _input = FindObjectOfType<InputHandler>();
 
         if (target == null)
             target = GameObject.FindGameObjectWithTag("Player").transform;
@@ -25,7 +25,8 @@ public class CameraFollow : MonoBehaviour
 
     void FixedUpdate()
     {
-        Vector3 newPosition = target.position + offset + new Vector3(_input.InputVector.x, 0, _input.InputVector.y) * aheadDistance;
+        Vector3 newPosition = target.position + offset + 
+            (_input != null ? (new Vector3(_input.InputVector.x, 0, _input.InputVector.y) * aheadDistance) : Vector3.zero);
 
         transform.position = Vector3.Lerp(transform.position, newPosition, smoothing * Time.fixedDeltaTime);
     }
