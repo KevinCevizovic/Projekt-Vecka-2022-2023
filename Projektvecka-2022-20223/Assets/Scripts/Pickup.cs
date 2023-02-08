@@ -125,7 +125,7 @@ public class Pickup : MonoBehaviour
 
             GameObject itemShower = Instantiate(objectOnGroundPrefab, dropPosition, Quaternion.identity); // create itemshower on ground
 
-            itemShower.GetComponent<ItemShower>().ChangeObject(heldItem); // set item in itemshower to held 
+            itemShower.GetComponent<ItemShower>().ChangeObject(heldItem, true); // set item in itemshower to held 
             itemShower.transform.rotation = transform.rotation; // rotate itemshower to player rotation
 
             // remove held item
@@ -144,7 +144,7 @@ public class Pickup : MonoBehaviour
 
             GameObject itemShower = Instantiate(objectOnGroundPrefab, dropPosition, Quaternion.identity); // create itemshower on ground
 
-            itemShower.GetComponent<ItemShower>().ChangeObject(item); // set item in itemshower to held 
+            itemShower.GetComponent<ItemShower>().ChangeObject(item, true); // set item in itemshower to held 
             itemShower.transform.rotation = transform.rotation; // rotate itemshower to player rotation
         }
     }
@@ -174,7 +174,7 @@ public class Pickup : MonoBehaviour
         Item newItemOnGround = heldItem;
         heldItem = item;
 
-        itemOnGroundShower.ChangeObject(newItemOnGround); // change item on ground to held item
+        itemOnGroundShower.ChangeObject(newItemOnGround, true); // change item on ground to held item
         itemOnGroundShower.transform.rotation = transform.rotation; // rotate item on ground with character
 
         // if no item in hand destroy itemOnGroundObject

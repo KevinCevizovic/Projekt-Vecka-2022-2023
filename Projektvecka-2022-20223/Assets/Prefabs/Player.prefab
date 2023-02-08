@@ -686,3 +686,5 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   callingRange: 27
+  isFollowing: 0
+  teamates: []
