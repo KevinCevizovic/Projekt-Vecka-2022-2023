@@ -155,11 +155,11 @@ public class Pickup : MonoBehaviour
 
         Item item = itemOnGroundShower.item;
 
-        if (item.collictible /*item.GetType() == typeof(Collectible)*/)
+        if (item.GetType().BaseType == typeof(Collectible))
         {
-            Debug.Log("Collectible collected");
+            Debug.Log($"{item.GetType()} collected");
 
-            other.GetComponentInChildren<CollectibleScript>().Activate(gameObject); // activate collectibles script
+            ((Collectible)item).Activate(gameObject);
             Destroy(itemOnGroundShower.gameObject);
             return;
         }

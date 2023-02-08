@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 8585481330474852069}
   - component: {fileID: 8585481330474852066}
   m_Layer: 0
-  m_Name: HealthPotion
+  m_Name: Empty
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: 8585481331091606722}
   - component: {fileID: 8585481331091606723}
   - component: {fileID: 8585481330590268411}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}

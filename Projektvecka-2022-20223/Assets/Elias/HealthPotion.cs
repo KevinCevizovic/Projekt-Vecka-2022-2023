@@ -1,6 +1,7 @@
 using UnityEngine;
 
-public class HealthPotion : CollectibleScript
+[CreateAssetMenu(fileName = "New HealthPotion", menuName = "Collectible/HealthPotion")]
+public class HealthPotion : Collectible
 {
     public float potency = 10f;
 
