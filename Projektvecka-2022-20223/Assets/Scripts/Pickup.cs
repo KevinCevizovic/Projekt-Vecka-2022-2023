@@ -50,7 +50,7 @@ public class Pickup : MonoBehaviour
 
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.LabelField("Object on ground", EditorStyles.boldLabel, GUILayout.MaxWidth(120));
-                script.objectOnGroundPrefab = (GameObject)EditorGUILayout.ObjectField(script.objectOnGroundPrefab == null ? null : script.objectOnGroundPrefab, typeof(Object), true, GUILayout.MaxWidth(150));
+                script.objectOnGroundPrefab = (GameObject)EditorGUILayout.ObjectField(script.objectOnGroundPrefab, typeof(Object), true, GUILayout.MaxWidth(150));
                 EditorGUILayout.EndHorizontal();
             }
         }
