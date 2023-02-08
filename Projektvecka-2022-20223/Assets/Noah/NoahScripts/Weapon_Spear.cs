@@ -9,7 +9,7 @@ public class Weapon_Spear : MonoBehaviour
     public float cooldownTime = 2f;
     private float nextFireTime = 0f;
     public static int noOfClicks = 0;
-    float lastClickedTime = 0;
+    float lastClickedTime = 1;
     float maxComboDelay = 1;
 
     public float chargeTime;
@@ -28,27 +28,27 @@ public class Weapon_Spear : MonoBehaviour
 
         spearCollider = gameObject.GetComponentInParent<BoxCollider>();
     }
-
-    private void Awake()
-    {
-
-    }
-
     void Update()
     {
-        // If tanimation is past 0.7 in normalized time and has a specific name, set the corresponding animator bool parameter to false
+        // If animation is past 0.7 in normalized time and has a specific name, set the corresponding animator bool parameter to false
         if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && anim.GetCurrentAnimatorStateInfo(0).IsName("Spear_Test1"))
         {
             anim.SetBool("Spear_Test1", false);
+            anim.SetBool("ChargeHit2", false);
+            anim.SetBool("ChargeHit1", false);
         }
         if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && anim.GetCurrentAnimatorStateInfo(0).IsName("Hit2"))
         {
             anim.SetBool("Hit2", false);
+            anim.SetBool("ChargeHit2", false);
+            anim.SetBool("ChargeHit1", false);
         }
         if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && anim.GetCurrentAnimatorStateInfo(0).IsName("Hit3"))
         {
             anim.SetBool("Hit3", false);
             noOfClicks = 0;
+            anim.SetBool("ChargeHit2", false);
+            anim.SetBool("ChargeHit1", false);
         }
         if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && anim.GetCurrentAnimatorStateInfo(0).IsName("ChargeHit1"))
         {
@@ -57,6 +57,7 @@ public class Weapon_Spear : MonoBehaviour
         if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && anim.GetCurrentAnimatorStateInfo(0).IsName("ChargeHit2"))
         {
             anim.SetBool("ChargeHit2", false);
+            anim.SetBool("ChargeHit1", false);
             noOfClicks = 0;
         }
 
@@ -79,17 +80,17 @@ public class Weapon_Spear : MonoBehaviour
         {
             if (Mouse.current.rightButton.wasPressedThisFrame)
             {
+                anim.SetBool("ChargeHit2", false);
                 anim.SetBool("ChargeHit1", true);
                 StartCoroutine(ChargedAttack());
             }
-            if (Mouse.current.rightButton.wasReleasedThisFrame && !isCharging && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f)
+            if (Mouse.current.rightButton.wasReleasedThisFrame && !isCharging && anim.GetCurrentAnimatorStateInfo(1).normalizedTime > 0.7f)
             {
                 anim.SetBool("ChargeHit1", false);
                 anim.SetBool("ChargeHit2", true);
             }
         }
     }
-
     void OnClick()
     {
         // Update the time of the last click
@@ -123,7 +124,7 @@ public class Weapon_Spear : MonoBehaviour
         float endTime = 0f;
 
         isCharging = true;
-        while (Mouse.current.rightButton.isPressed)
+        while (Mouse.current.rightButton.IsActuated())
         {
             endTime = Time.time;
             yield return null;

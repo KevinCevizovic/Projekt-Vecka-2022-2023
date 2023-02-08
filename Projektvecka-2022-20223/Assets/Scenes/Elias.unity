@@ -344,7 +344,7 @@ PrefabInstance:
     - target: {fileID: 6773475101690018263, guid: 145e9300076677944b9acb8418ffe52a,
         type: 3}
       propertyPath: m_Name
-      value: HealthPotion
+      value: Empty
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 145e9300076677944b9acb8418ffe52a, type: 3}
@@ -489,12 +489,12 @@ PrefabInstance:
         type: 3}
       propertyPath: item
       value: 
-      objectReference: {fileID: 11400000, guid: acd96e21cf45e8044800cfe9c2526189,
+      objectReference: {fileID: 11400000, guid: a0bc8547a1984b647868cfcc668ba70d,
         type: 2}
     - target: {fileID: 6773475101690018263, guid: 145e9300076677944b9acb8418ffe52a,
         type: 3}
       propertyPath: m_Name
-      value: Coin
+      value: hp
       objectReference: {fileID: 0}
     - target: {fileID: 6773475101690018263, guid: 145e9300076677944b9acb8418ffe52a,
         type: 3}
