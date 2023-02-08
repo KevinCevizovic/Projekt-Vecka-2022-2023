@@ -363,6 +363,7 @@ GameObject:
   - component: {fileID: 8585481331091606723}
   - component: {fileID: 8585481330590268411}
   - component: {fileID: 7437791504969163009}
+  - component: {fileID: 1150429021}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -494,7 +495,19 @@ MonoBehaviour:
     m_ActionId: b733f265-38fe-4762-838a-ec80afff1d50
     m_ActionName: Player/DropItem[/Keyboard/e]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7437791504969163009}
+        m_TargetAssemblyTypeName: PlayerCommunication, Assembly-CSharp
+        m_MethodName: Communicate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: d7188fe2-314e-440a-bc9b-77b79387a32c
     m_ActionName: Player/Communicate[/Keyboard/h]
   - m_PersistentCalls:
@@ -618,10 +631,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b54947b9f43da4c4991a13cd1a85668d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateTowardMouse: 0
-  walkingSpeed: 10
+  rotateTowardMouse: 1
+  walkingSpeed: 6
   rotationSpeed: 14
-  maxRunningSpeed: 20
+  maxRunningSpeed: 12
   lerpDuration: 1
   curve:
     serializedVersion: 2
@@ -688,3 +701,16 @@ MonoBehaviour:
   callingRange: 27
   isFollowing: 0
   teamates: []
+--- !u!114 &1150429021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8585481331091606720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07edbbb1181757d4c99a6dd9af29c538, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 300
