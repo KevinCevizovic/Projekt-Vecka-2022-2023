@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 
 public class Weapon_Spear : MonoBehaviour
 {
+
     private Animator anim;
     public float cooldownTime = 2f;
     private float nextFireTime = 0f;
@@ -30,7 +31,7 @@ public class Weapon_Spear : MonoBehaviour
 
     private void Awake()
     {
-        
+
     }
 
     void Update()
@@ -49,7 +50,7 @@ public class Weapon_Spear : MonoBehaviour
             anim.SetBool("Hit3", false);
             noOfClicks = 0;
         }
-        if(anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && anim.GetCurrentAnimatorStateInfo(0).IsName("ChargeHit1"))
+        if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && anim.GetCurrentAnimatorStateInfo(0).IsName("ChargeHit1"))
         {
             anim.SetBool("ChargeHit1", false);
         }
@@ -81,7 +82,7 @@ public class Weapon_Spear : MonoBehaviour
                 anim.SetBool("ChargeHit1", true);
                 StartCoroutine(ChargedAttack());
             }
-            if (Mouse.current.rightButton.wasReleasedThisFrame && !isCharging)
+            if (Mouse.current.rightButton.wasReleasedThisFrame && !isCharging && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f)
             {
                 anim.SetBool("ChargeHit1", false);
                 anim.SetBool("ChargeHit2", true);
@@ -115,7 +116,7 @@ public class Weapon_Spear : MonoBehaviour
             anim.SetBool("Hit3", true);
         }
     }
-    
+
     private IEnumerator ChargedAttack()
     {
         float startTime = Time.time;
@@ -133,7 +134,7 @@ public class Weapon_Spear : MonoBehaviour
         isCharging = false;
         anim.SetBool("ChargeHit2", true);
     }
-    
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("RatTeam"))
@@ -143,14 +144,12 @@ public class Weapon_Spear : MonoBehaviour
             if (anim.GetCurrentAnimatorStateInfo(0).IsName("ChargeHit2"))
             {
                 health.TakingDamage(chargedDamage);
-                print("1");
             }
             else if (anim.GetCurrentAnimatorStateInfo(0).IsName("Spear_Test1") ||
                      anim.GetCurrentAnimatorStateInfo(0).IsName("Hit2") ||
                      anim.GetCurrentAnimatorStateInfo(0).IsName("Hit3"))
             {
                 health.TakingDamage(damage);
-                print("2");
             }
         }
     }

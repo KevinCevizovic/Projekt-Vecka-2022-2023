@@ -20,11 +20,6 @@ public class Pickup : MonoBehaviour
             script.heldItem = (Item)EditorGUILayout.ObjectField(script.heldItem, typeof(ScriptableObject), true, GUILayout.MaxWidth(150));
             EditorGUILayout.EndHorizontal();
 
-            EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField("e", EditorStyles.boldLabel, GUILayout.MaxWidth(75));
-            script.e = (Item)EditorGUILayout.ObjectField(script.e, typeof(ScriptableObject), true, GUILayout.MaxWidth(150));
-            EditorGUILayout.EndHorizontal();
-
             EditorGUILayout.Space();
 
             // pickup settings
@@ -48,16 +43,10 @@ public class Pickup : MonoBehaviour
                 script.dropAbleOn = InternalEditorUtility.ConcatenatedLayersMaskToLayerMask(tempMask);
                 EditorGUILayout.EndHorizontal();
 
-                GameObject e;
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.LabelField("Held item shower", EditorStyles.boldLabel, GUILayout.MaxWidth(120));
-                e = (GameObject)EditorGUILayout.ObjectField(script.heldItemShower == null ? null : script.heldItemShower.gameObject, typeof(Object), true, GUILayout.MaxWidth(150));
+                script.heldItemShower = (ItemShower)EditorGUILayout.ObjectField(script.heldItemShower, typeof(ItemShower), true, GUILayout.MaxWidth(150));
                 EditorGUILayout.EndHorizontal();
-
-                if (e != null)
-                    if (script.heldItemShower == null || script.heldItemShower.gameObject != e)
-                        script.heldItemShower = e.GetComponent<ItemShower>();
-
 
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.LabelField("Object on ground", EditorStyles.boldLabel, GUILayout.MaxWidth(120));
@@ -93,8 +82,6 @@ public class Pickup : MonoBehaviour
         }
     }
 #endif
-
-    [SerializeField] private Item e;
 
     public Item heldItem;
 
@@ -166,13 +153,25 @@ public class Pickup : MonoBehaviour
     {
         itemOnGroundShower = other.GetComponent<ItemShower>(); // get script
 
+        Item item = itemOnGroundShower.item;
+
+        if (item.collictible /*item.GetType() == typeof(Collectible)*/)
+        {
+            Debug.Log("Collectible collected");
+
+            other.GetComponentInChildren<CollectibleScript>().Activate(gameObject); // activate collectibles script
+            Destroy(itemOnGroundShower.gameObject);
+            return;
+        }
+
+
         if (!pickupCooldown.HasEnded) return;
 
         pickupCooldown.StartCoolDown(); // pickup cooldown
 
         // change held item
         Item newItemOnGround = heldItem;
-        heldItem = itemOnGroundShower.item;
+        heldItem = item;
 
         itemOnGroundShower.ChangeObject(newItemOnGround); // change item on ground to held item
         itemOnGroundShower.transform.rotation = transform.rotation; // rotate item on ground with character
