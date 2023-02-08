@@ -140,7 +140,6 @@ public class EnemyAI : MonoBehaviour
             if (Physics.CheckSphere(transform.position, hitRadius, enemyMask))
             {
                 Debug.Log("Hitting");
-                currentState = States.Hitting;
                 if (!isCallingCoroutine)
                 {
                     StartCoroutine(Attack());
@@ -160,7 +159,6 @@ public class EnemyAI : MonoBehaviour
                 {
                     StartCoroutine(Attack());
                 }
-
                 Debug.Log("Shooting");
             }
             else
@@ -180,7 +178,7 @@ public class EnemyAI : MonoBehaviour
     {
         isCallingCoroutine = true;
         currentState = States.Shooting;
-        if (grunt || currentState == States.Hitting)
+        if (grunt)
         {
             agent.SetDestination(transform.position);
             yield return new WaitForSeconds(timeBetweenShooting);
@@ -258,14 +256,13 @@ public class EnemyAI : MonoBehaviour
         agent.speed = speedNotChasing;
         Vector3 newPos = transform.position;
         newPos.y = 0;
-
+        /*
         if ((homePos - newPos).magnitude > 30f)
         {
             agent.SetDestination(homePos + new Vector3(Random.Range(-3, 3), 0, Random.Range(-3, 3)));
             Debug.Log("Going home");
-            return;
         }
-
+        */
         if ((transform.position - randomPosition).magnitude < 1.5f)
         {
             FaceTarget();
