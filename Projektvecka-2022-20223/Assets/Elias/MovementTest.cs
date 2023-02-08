@@ -1,7 +1,6 @@
 using UnityEngine;
 
-[RequireComponent(typeof(InputHandler))]
-public class TopDownCharacterMover : MonoBehaviour
+public class MovementTest : MonoBehaviour
 {
     [SerializeField] bool rotateTowardMouse = true;
 
@@ -16,6 +15,8 @@ public class TopDownCharacterMover : MonoBehaviour
     [SerializeField] Camera Camera;
     [SerializeField] InputHandler _input;
 
+    Vector3 lastPosition;
+
     private void Awake()
     {
         if (_input == null)
@@ -28,17 +29,25 @@ public class TopDownCharacterMover : MonoBehaviour
     void Update()
     {
         var targetVector = new Vector3(_input.InputVector.x, 0, _input.InputVector.y);
-        var movementVector = MoveTowardTarget(targetVector);
 
         if (rotateTowardMouse)
             RotateFromMouseVector();
         else
-            RotateTowardMovementVector(movementVector);
+            RotateTowardMovementVector(lastPosition - transform.position);
+
+        Move(targetVector);
+
+        lastPosition = transform.position; // temporary
+    }
+
+    private void Move(Vector3 targetVector)
+    {
+        transform.position += targetVector;
     }
 
     private void RotateFromMouseVector()
     {
-        Ray ray = Camera.ScreenPointToRay(_input.MousePosition);
+        Ray ray = Camera.main.ScreenPointToRay(_input.MousePosition);
 
         if (Physics.Raycast(ray, out RaycastHit hitInfo, maxDistance: 300f))
         {
@@ -52,26 +61,5 @@ public class TopDownCharacterMover : MonoBehaviour
         if (movementDirection.magnitude == 0) { return; }
         var rotation = Quaternion.LookRotation(movementDirection);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, rotationSpeed);
-    }
-
-    private Vector3 MoveTowardTarget(Vector3 targetVector)
-    {
-        if (_input.Running) // run
-        {
-            // lerping speed
-            elapsedTime += Time.deltaTime;
-            float percentageComplete = elapsedTime / lerpDuration;
-
-            runningSpeed = Mathf.Lerp(walkingSpeed, maxRunningSpeed, curve.Evaluate(percentageComplete));
-        }
-        else elapsedTime = 0; // not run
-
-        // if running you go faster
-        speed = (_input.Running ? runningSpeed : walkingSpeed) * Time.deltaTime;
-
-        targetVector = Quaternion.Euler(0, Camera.gameObject.transform.rotation.eulerAngles.y, 0) * targetVector.normalized;
-        var targetPosition = transform.position + targetVector * speed;
-        transform.position = targetPosition;
-        return targetVector;
     }
 }
