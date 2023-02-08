@@ -498,11 +498,35 @@ MonoBehaviour:
     m_ActionId: d7188fe2-314e-440a-bc9b-77b79387a32c
     m_ActionName: Player/Communicate[/Keyboard/h]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8585481331091606722}
+        m_TargetAssemblyTypeName: InputHandler, Assembly-CSharp
+        m_MethodName: LeftClick
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 0866d75e-4d40-4787-8eda-7350d2b86a18
     m_ActionName: Player/LeftClick[/Mouse/leftButton]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8585481331091606722}
+        m_TargetAssemblyTypeName: InputHandler, Assembly-CSharp
+        m_MethodName: RightClick
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: fbf1f4f0-8000-4915-a37e-dc6d305740a7
     m_ActionName: Player/RightClick[/Mouse/rightButton]
   m_NeverAutoSwitchControlSchemes: 0
