@@ -4,7 +4,6 @@ using UnityEngine.InputSystem;
 
 public class Weapon_Spear : MonoBehaviour
 {
-
     private Animator anim;
     public float cooldownTime = 2f;
     private float nextFireTime = 0f;
@@ -20,41 +19,42 @@ public class Weapon_Spear : MonoBehaviour
 
     public BoxCollider spearCollider;
 
-    public Health health;
-
-    private void Start()
+    private void Awake()
     {
         anim = GetComponent<Animator>();
 
         spearCollider = gameObject.GetComponentInParent<BoxCollider>();
     }
+
     void Update()
     {
+        bool noahVetInte = anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f;
         // If animation is past 0.7 in normalized time and has a specific name, set the corresponding animator bool parameter to false
-        if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && anim.GetCurrentAnimatorStateInfo(0).IsName("Spear_Test1"))
+        if (noahVetInte && anim.GetCurrentAnimatorStateInfo(0).IsName("Spear_Test1"))
         {
             anim.SetBool("Spear_Test1", false);
             anim.SetBool("ChargeHit2", false);
             anim.SetBool("ChargeHit1", false);
         }
-        if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && anim.GetCurrentAnimatorStateInfo(0).IsName("Hit2"))
+        if (noahVetInte && anim.GetCurrentAnimatorStateInfo(0).IsName("Hit2"))
         {
             anim.SetBool("Hit2", false);
             anim.SetBool("ChargeHit2", false);
             anim.SetBool("ChargeHit1", false);
         }
-        if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && anim.GetCurrentAnimatorStateInfo(0).IsName("Hit3"))
+
+        if (noahVetInte && anim.GetCurrentAnimatorStateInfo(0).IsName("Hit3"))
         {
             anim.SetBool("Hit3", false);
             noOfClicks = 0;
             anim.SetBool("ChargeHit2", false);
             anim.SetBool("ChargeHit1", false);
         }
-        if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && anim.GetCurrentAnimatorStateInfo(0).IsName("ChargeHit1"))
+        if (noahVetInte && anim.GetCurrentAnimatorStateInfo(0).IsName("ChargeHit1"))
         {
             anim.SetBool("ChargeHit1", false);
         }
-        if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && anim.GetCurrentAnimatorStateInfo(0).IsName("ChargeHit2"))
+        if (noahVetInte && anim.GetCurrentAnimatorStateInfo(0).IsName("ChargeHit2"))
         {
             anim.SetBool("ChargeHit2", false);
             anim.SetBool("ChargeHit1", false);
@@ -63,36 +63,29 @@ public class Weapon_Spear : MonoBehaviour
 
         // Reset noOfClicks if the maxComboDelay time has passed since the last click
         if (Time.time - lastClickedTime > maxComboDelay)
-        {
             noOfClicks = 0;
-        }
 
-        //cooldown time
-        if (Time.time > nextFireTime)
-        {
-            if (Mouse.current.leftButton.isPressed)
-            {
-                OnClick();
-            }
-        }
 
-        if (Time.time > nextFireTime)
+        if (Mouse.current.rightButton.wasReleasedThisFrame && !isCharging && anim.GetCurrentAnimatorStateInfo(1).normalizedTime > 0.7f)
         {
-            if (Mouse.current.rightButton.wasPressedThisFrame)
-            {
-                anim.SetBool("ChargeHit2", false);
-                anim.SetBool("ChargeHit1", true);
-                StartCoroutine(ChargedAttack());
-            }
-            if (Mouse.current.rightButton.wasReleasedThisFrame && !isCharging && anim.GetCurrentAnimatorStateInfo(1).normalizedTime > 0.7f)
-            {
-                anim.SetBool("ChargeHit1", false);
-                anim.SetBool("ChargeHit2", true);
-            }
+            anim.SetBool("ChargeHit1", false);
+            anim.SetBool("ChargeHit2", true);
         }
     }
-    void OnClick()
+
+    public void RightClick()
     {
+        if (Time.time <= nextFireTime) return;
+
+        anim.SetBool("ChargeHit2", false);
+        anim.SetBool("ChargeHit1", true);
+        StartCoroutine(ChargedAttack());
+    }
+
+    public void LeftClick()
+    {
+        if (Time.time <= nextFireTime) return; //cooldown time
+
         // Update the time of the last click
         lastClickedTime = Time.time;
         noOfClicks++;
@@ -140,7 +133,7 @@ public class Weapon_Spear : MonoBehaviour
     {
         if (other.gameObject.CompareTag("RatTeam"))
         {
-            health = other.GetComponent<Health>();
+            Health health = other.GetComponent<Health>();
 
             if (anim.GetCurrentAnimatorStateInfo(0).IsName("ChargeHit2"))
             {
