@@ -134,20 +134,20 @@ public class Pickup : MonoBehaviour
         }
     }
 
-    public void DropItem(Item item)
-    {
-        pickupCooldown.StartCoolDown(); // pickup cooldown
+    //public void DropItem(Item item)
+    //{
+    //    pickupCooldown.StartCoolDown(); // pickup cooldown
 
-        if (Physics.Raycast(heldItemShower.transform.position, Vector3.down, out var hit, maxDropDistance, dropAbleOn))
-        {
-            Vector3 dropPosition = hit.point;
+    //    if (Physics.Raycast(heldItemShower.transform.position, Vector3.down, out var hit, maxDropDistance, dropAbleOn))
+    //    {
+    //        Vector3 dropPosition = hit.point;
 
-            GameObject itemShower = Instantiate(objectOnGroundPrefab, dropPosition, Quaternion.identity); // create itemshower on ground
+    //        GameObject itemShower = Instantiate(objectOnGroundPrefab, dropPosition, Quaternion.identity); // create itemshower on ground
 
-            itemShower.GetComponent<ItemShower>().ChangeObject(item, true); // set item in itemshower to held 
-            itemShower.transform.rotation = transform.rotation; // rotate itemshower to player rotation
-        }
-    }
+    //        itemShower.GetComponent<ItemShower>().ChangeObject(item, true); // set item in itemshower to held 
+    //        itemShower.transform.rotation = transform.rotation; // rotate itemshower to player rotation
+    //    }
+    //}
 
     private void OnTriggerEnter(Collider other)
     {

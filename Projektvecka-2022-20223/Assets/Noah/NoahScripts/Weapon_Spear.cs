@@ -17,13 +17,9 @@ public class Weapon_Spear : MonoBehaviour
 
     public float damage = 0;
 
-    public BoxCollider spearCollider;
-
     private void Awake()
     {
         anim = GetComponent<Animator>();
-
-        spearCollider = gameObject.GetComponentInParent<BoxCollider>();
     }
 
     void Update()

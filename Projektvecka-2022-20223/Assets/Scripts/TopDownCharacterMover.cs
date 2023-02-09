@@ -16,6 +16,10 @@ public class TopDownCharacterMover : MonoBehaviour
     [SerializeField] Camera Camera;
     [SerializeField] InputHandler _input;
 
+    Vector3 previousPositionXZ;
+
+    Vector3 TransformPositionXZ => new Vector3(transform.position.x, 0, transform.position.z);
+
     private void Awake()
     {
         if (_input == null)
@@ -28,26 +32,40 @@ public class TopDownCharacterMover : MonoBehaviour
     void Update()
     {
         var targetVector = new Vector3(_input.InputVector.x, 0, _input.InputVector.y);
-        var movementVector = MoveTowardTarget(targetVector);
+        /* var movementVector = */
+        MoveTowardTarget(targetVector);
 
         if (rotateTowardMouse)
-            RotateFromMouseVector();
+            RotateToMouseVector();
         else
-            RotateTowardMovementVector(movementVector);
+            RotateTowardsVector(TransformPositionXZ - previousPositionXZ);
+        //RotateTowardMovementVector(movementVector);
+
+        previousPositionXZ = TransformPositionXZ;
     }
 
-    private void RotateFromMouseVector()
+    private void RotateToMouseVector()
     {
         Ray ray = Camera.ScreenPointToRay(_input.MousePosition);
 
-        if (Physics.Raycast(ray, out RaycastHit hitInfo, maxDistance: 300f))
+        if (Physics.Raycast(ray, out var hit, maxDistance: 300f))
         {
-            var target = hitInfo.point;
+            var target = hit.point;
             target.y = transform.position.y;
-            transform.LookAt(target);
+
+            RotateTowardsVector(target);
         }
     }
 
+    private void RotateTowardsVector(Vector3 vector)
+    {
+        if (vector.magnitude == 0) return;
+
+        var rotation = Quaternion.LookRotation(new Vector3(vector.x, 0f, vector.z));
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, rotationSpeed);
+    }
+
+    // change this
     private Vector3 MoveTowardTarget(Vector3 targetVector)
     {
         if (_input.Running) // run
@@ -67,12 +85,5 @@ public class TopDownCharacterMover : MonoBehaviour
         var targetPosition = transform.position + targetVector * speed;
         transform.position = targetPosition;
         return targetVector;
-    }
-
-    private void RotateTowardMovementVector(Vector3 movementDirection)
-    {
-        if (movementDirection.magnitude == 0) { return; }
-        var rotation = Quaternion.LookRotation(movementDirection);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, rotationSpeed);
     }
 }
