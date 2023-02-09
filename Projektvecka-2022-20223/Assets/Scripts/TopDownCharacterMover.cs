@@ -16,9 +16,7 @@ public class TopDownCharacterMover : MonoBehaviour
     [SerializeField] Camera Camera;
     [SerializeField] InputHandler _input;
 
-    Vector3 previousPositionXZ;
-
-    Vector3 TransformPositionXZ => new Vector3(transform.position.x, 0, transform.position.z);
+    Vector3 previousPosition;
 
     private void Awake()
     {
@@ -32,26 +30,30 @@ public class TopDownCharacterMover : MonoBehaviour
     void Update()
     {
         var targetVector = new Vector3(_input.InputVector.x, 0, _input.InputVector.y);
-        /* var movementVector = */
         MoveTowardTarget(targetVector);
 
         if (rotateTowardMouse)
-            RotateToMouseVector();
+            RotateTowardsMouseVector();
         else
-            RotateTowardsVector(TransformPositionXZ - previousPositionXZ);
-        //RotateTowardMovementVector(movementVector);
+        {
+            //RotateTowardsVector(TransformPositionXZ - previousPositionXZ);
+            previousPosition.y = transform.position.y;
+            RotateTowardsVector(transform.position - previousPosition);
+        }
 
-        previousPositionXZ = TransformPositionXZ;
+        //previousPositionXZ = TransformPositionXZ;
+        previousPosition = transform.position;
     }
 
-    private void RotateToMouseVector()
+    private void RotateTowardsMouseVector()
     {
         Ray ray = Camera.ScreenPointToRay(_input.MousePosition);
 
-        if (Physics.Raycast(ray, out var hit, maxDistance: 300f))
+        if (Physics.Raycast(ray, out var hit, 100f))
         {
-            var target = hit.point;
-            target.y = transform.position.y;
+            var target = hit.point- transform.position;
+            //target.y = transform.position.y;
+            target.y = 0;
 
             RotateTowardsVector(target);
         }
@@ -61,7 +63,7 @@ public class TopDownCharacterMover : MonoBehaviour
     {
         if (vector.magnitude == 0) return;
 
-        var rotation = Quaternion.LookRotation(new Vector3(vector.x, 0f, vector.z));
+        var rotation = Quaternion.LookRotation(vector);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, rotationSpeed);
     }
 
