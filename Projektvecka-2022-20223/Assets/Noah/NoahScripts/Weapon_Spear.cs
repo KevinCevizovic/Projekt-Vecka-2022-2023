@@ -2,6 +2,13 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Hit1 = First animation for light combo
+/// Hit2 = Second animation for light combo
+/// Hit3 = Third animation for light combo
+/// ChargeHit1 = First animation for charged attack (Hold)
+/// ChargeHit2 = Second animation for charged attack (Released)
+/// </summary>
 public class Weapon_Spear : MonoBehaviour
 {
     private Animator anim;
@@ -56,10 +63,23 @@ public class Weapon_Spear : MonoBehaviour
             anim.SetBool("ChargeHit1", false);
             noOfClicks = 0;
         }
+        if (noahVetInte && anim.GetCurrentAnimatorStateInfo(0).IsName("SpearThrow1"))
+        {
+            anim.SetBool("SpearThrow1", false);
+        }
+        if (noahVetInte && anim.GetCurrentAnimatorStateInfo(0).IsName("SpearThrow2"))
+        {
+            anim.SetBool("SpearThrow2", false);
+        }
 
         // Reset noOfClicks if the maxComboDelay time has passed since the last click
         if (Time.time - lastClickedTime > maxComboDelay)
             noOfClicks = 0;
+
+        if (Keyboard.current.qKey.wasReleasedThisFrame)
+        {
+            anim.SetBool("SpearThrow2", true);
+        }
 
 
         if (Mouse.current.rightButton.wasReleasedThisFrame && !isCharging && anim.GetCurrentAnimatorStateInfo(1).normalizedTime > 0.7f)
@@ -67,6 +87,18 @@ public class Weapon_Spear : MonoBehaviour
             anim.SetBool("ChargeHit1", false);
             anim.SetBool("ChargeHit2", true);
         }
+    }
+
+    public void SpearThrow()
+    {
+        if (Time.time <= nextFireTime) return;
+
+        anim.SetBool("SpearThrow2", false);
+        anim.SetBool("SpearThrow1", true);
+
+        print("is woking!");
+        SpearThrow spearThrow = GetComponent<SpearThrow>();
+        spearThrow.Release();
     }
 
     public void RightClick()
@@ -118,7 +150,6 @@ public class Weapon_Spear : MonoBehaviour
             endTime = Time.time;
             yield return null;
         }
-
         chargeTime = endTime - startTime;
         chargedDamage = damage * chargeTime;
         isCharging = false;
