@@ -122,7 +122,6 @@ MonoBehaviour:
   chargeTime: 0.1
   chargedDamage: 0.1
   damage: 20
-  spearCollider: {fileID: 136559790}
 --- !u!65 &136559790
 BoxCollider:
   m_ObjectHideFlags: 0
