@@ -24,7 +24,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 180946
+  controlID: 208351
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 180947
+  controlID: 208352
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -168,7 +168,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 8096}
   vertical: 0
-  controlID: 180948
+  controlID: 208353
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -226,10 +226,10 @@ MonoBehaviour:
     m_SaveData: []
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: b0c90200
-      m_LastClickedID: 182704
-      m_ExpandedIDs: d4acdcffb6e2dcffd0f5dcff4444ddfff846ddff6463ddff5465ddffbaccdefffae6defff81bdfff768adfff06dee0ff462ce1ffe057e1ff129be1ffcaace1ff9ed3e1ff08afe4ff9c3ce6ff2e66e6ff5a69e6ff1416ebff5e1debff8466ebff2e78f0ff9279f0ffac98fcfffea1feff14fbffff606c0000ac6c0000447d0200cec30200
+      scrollPos: {x: 0, y: 576}
+      m_SelectedIDs: 
+      m_LastClickedID: 0
+      m_ExpandedIDs: 802cd4ff882cd4ff902cd4ffa02cd4ff8402d9fffc03d9ffc204d9ffbc05d9ffb207d9ff800dd9ff960ed9ff6c49daffec4bdaffb450daff9257daffd4acdcffb6e2dcffd0f5dcff4444ddfff846ddff6463ddff5465ddffbaccdefffae6defff81bdfff768adfff06dee0ff462ce1ffe057e1ff129be1ffcaace1ff9ed3e1ff08afe4ff9c3ce6ff2e66e6ff5a69e6ff1416ebff5e1debff8466ebff2e78f0ff9279f0ffac98fcfffea1feff14fbffff606c0000ac6c0000447d0200cec302000ae60200
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -506,9 +506,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -18.204557, y: -3.4647808, z: -9.800723}
+    m_Target: {x: -112.910904, y: -14.127889, z: 218.54025}
     speed: 2
-    m_Value: {x: -18.204557, y: -3.4647808, z: -9.800723}
+    m_Value: {x: -112.910904, y: -14.127889, z: 218.54025}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -555,13 +555,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.22199798, y: -0.59036785, z: 0.17267513, w: 0.75694317}
+    m_Target: {x: -0.23286209, y: 0.22424197, z: -0.05496452, w: -0.9451305}
     speed: 2
-    m_Value: {x: 0.22219041, y: -0.58905596, z: 0.17229052, w: 0.75760174}
+    m_Value: {x: -0.23551804, y: 0.22540183, z: -0.055969067, w: -0.94371223}
   m_Size:
-    m_Target: 23.227999
+    m_Target: 127.50897
     speed: 2
-    m_Value: 22.22775
+    m_Value: 122.01816
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -748,22 +748,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Prefabs
+    - Assets/Shaders
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Prefabs
+  - Assets/Shaders
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\Kevin.cevizovic\Documents\GitHub\Projekt-Vecka-2022-2023\Projektvecka-2022-20223
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 52}
-    m_SelectedIDs: 406f0000
-    m_LastClickedID: 28480
-    m_ExpandedIDs: 000000009a6d00009c6d00009e6d0000a06d0000a26d0000a66d0000406f000000ca9a3b
+    m_SelectedIDs: 9a8d0100
+    m_LastClickedID: 101786
+    m_ExpandedIDs: 000000009a6d00009c6d00009e6d0000a06d0000a26d0000a66d000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -816,9 +816,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: b0c90200
-    m_LastClickedInstanceID: 182704
-    m_HadKeyboardFocusLastEvent: 1
+    m_SelectedInstanceIDs: 
+    m_LastClickedInstanceID: 0
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c62300001a900000be9e000000000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -940,7 +940,7 @@ MonoBehaviour:
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectInstanceID: -1
-  m_LastVerticalScrollValue: 215
+  m_LastVerticalScrollValue: 0
   m_GlobalObjectId: 
   m_InspectorMode: 0
   m_LockTracker:
@@ -996,9 +996,9 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 1457
+    x: 1473
     y: 73
-    width: 462
+    width: 446
     height: 926
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:

@@ -6,6 +6,7 @@ public class Wallet : MonoBehaviour
 
     public void AddCoins(int add)
     {
+        Debug.Log("Added amount: " + add);
         coins += add;
     }
 }
