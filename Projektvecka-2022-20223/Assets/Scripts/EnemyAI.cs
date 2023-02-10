@@ -104,7 +104,11 @@ public class EnemyAI : MonoBehaviour
             }
         }
 
-        Vector3 toOther = closestTarget.transform.position - transform.position;
+        Vector3 toOther = Vector3.zero;
+
+        if(closestTarget != null)
+        toOther = closestTarget.transform.position - transform.position;
+        
         // if grunt do this
         if (grunt)
         {
@@ -254,7 +258,7 @@ public class EnemyAI : MonoBehaviour
     private void MoveToCover()
     {
         // Animation things
-        
+
         agent.speed = speedNotChasing;
         Vector3 newPos = transform.position;
         newPos.y = 0;
