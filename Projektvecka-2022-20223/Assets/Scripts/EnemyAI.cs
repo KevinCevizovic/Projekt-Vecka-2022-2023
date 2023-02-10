@@ -259,7 +259,7 @@ public class EnemyAI : MonoBehaviour
         Vector3 newPos = transform.position;
         newPos.y = 0;
 
-        if ((homePos - newPos).magnitude > 30f)
+        if ((homePos - newPos).magnitude > 200)
         {
             currentState = States.GoingHome;
             agent.SetDestination(homePos);

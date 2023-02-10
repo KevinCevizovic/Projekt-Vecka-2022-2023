@@ -617,6 +617,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  OnKeyInput:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &8585481331091606723
 MonoBehaviour:
   m_ObjectHideFlags: 0
