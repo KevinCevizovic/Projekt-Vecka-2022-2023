@@ -38,10 +38,9 @@ public class SpeedChecker : MonoBehaviour
     {
         speed = (lastPosition - transform.position).magnitude / Time.deltaTime; // speed of object
 
-
         speeds[i] = speed;
 
-        // gets the avarage speed of the array
+        // gets the avarage speed of the last 10 frames
         avarageSpeed = 0;
         foreach (var previousSpeed in speeds)
             avarageSpeed += previousSpeed;

@@ -3,17 +3,13 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
     [SerializeField] Transform target;
-    [SerializeField] InputHandler _input;
 
-    private float smoothing = 5f, aheadDistance = 1f;
+    public float smoothing = 5f, aheadDistance = 1f;
 
-    private Vector3 offset;
+    private Vector3 offset, targetLastPos;
 
     private void Awake()
     {
-        //if (_input == null)
-        //    _input = FindObjectOfType<InputHandler>();
-
         if (target == null)
             target = GameObject.FindGameObjectWithTag("Player").transform;
     }
@@ -27,9 +23,14 @@ public class CameraFollow : MonoBehaviour
     {
         if (target == null) return;
 
-        Vector3 newPosition = target.position + offset + 
-            (_input != null ? (new Vector3(_input.InputVector.x, 0, _input.InputVector.y) * aheadDistance) : Vector3.zero);
+        Vector3 targetDirection = target.position - targetLastPos;
 
-        transform.position = Vector3.Lerp(transform.position, newPosition, smoothing * Time.fixedDeltaTime);
+        Vector3 newPosition = target.position + offset + (targetDirection * aheadDistance);
+
+        if (smoothing == 0)
+            transform.position = newPosition;
+        else transform.position = Vector3.Lerp(transform.position, newPosition, smoothing * Time.fixedDeltaTime);
+
+        targetLastPos = target.position;
     }
 }

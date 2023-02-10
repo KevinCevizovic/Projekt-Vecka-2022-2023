@@ -3,15 +3,21 @@ using UnityEngine;
 public class PauseAfterTime : MonoBehaviour
 {
     [SerializeField] private float time;
-    [SerializeField] private bool restartTime = true;
+    [SerializeField] private bool startTime = true;
 
     private float endTime;
 
+    private void Start()
+    {
+        if (!startTime)
+            endTime = Mathf.Infinity;
+    }
+
     private void Update()
     {
-        if (restartTime)
+        if (startTime)
         {
-            restartTime = false;
+            startTime = false;
             endTime = Time.time + time;
         }
 
