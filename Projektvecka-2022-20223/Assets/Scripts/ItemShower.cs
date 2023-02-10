@@ -20,7 +20,7 @@ public class ItemShower : MonoBehaviour
 
     private void Start()
     {
-        ChangeObject(item, held); // when implement weapons
+        ChangeObject(item, !held); // when implement weapons
     }
 
     public void ChangeObject(Item _object, bool removeCollider = false)

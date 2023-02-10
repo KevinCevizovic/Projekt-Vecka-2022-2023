@@ -211,6 +211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 0}
+  held: 1
 --- !u!1 &8585481331091606720
 GameObject:
   m_ObjectHideFlags: 0
