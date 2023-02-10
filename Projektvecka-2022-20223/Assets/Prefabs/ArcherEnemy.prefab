@@ -242,8 +242,8 @@ MonoBehaviour:
   randomPosition: {x: 0, y: 0, z: 0}
   closestTarget: {fileID: 0}
   bullet: {fileID: 9149762347611408286, guid: 45ef5b56ce6ec25419354c5705ea3a6b, type: 3}
-  shootRadius: 14
-  runRadius: 7
+  shootRadius: 30
+  runRadius: 5
   hitRadius: 2.16
   damage: 20
   timeBetweenShooting: 2.5

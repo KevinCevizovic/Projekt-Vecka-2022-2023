@@ -145,7 +145,7 @@ MonoBehaviour:
   randomPosition: {x: 0, y: 0, z: 0}
   closestTarget: {fileID: 0}
   bullet: {fileID: 0}
-  shootRadius: 14
+  shootRadius: 30
   runRadius: 7
   hitRadius: 2.16
   damage: 20
