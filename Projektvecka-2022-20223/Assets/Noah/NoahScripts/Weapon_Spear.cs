@@ -36,13 +36,11 @@ public class Weapon_Spear : MonoBehaviour
         if (noahVetInte && anim.GetCurrentAnimatorStateInfo(0).IsName("Spear_Test1"))
         {
             anim.SetBool("Spear_Test1", false);
-            anim.SetBool("ChargeHit2", false);
             anim.SetBool("ChargeHit1", false);
         }
         if (noahVetInte && anim.GetCurrentAnimatorStateInfo(0).IsName("Hit2"))
         {
             anim.SetBool("Hit2", false);
-            anim.SetBool("ChargeHit2", false);
             anim.SetBool("ChargeHit1", false);
         }
 
@@ -50,7 +48,6 @@ public class Weapon_Spear : MonoBehaviour
         {
             anim.SetBool("Hit3", false);
             noOfClicks = 0;
-            anim.SetBool("ChargeHit2", false);
             anim.SetBool("ChargeHit1", false);
         }
         if (noahVetInte && anim.GetCurrentAnimatorStateInfo(0).IsName("ChargeHit1"))
@@ -76,11 +73,10 @@ public class Weapon_Spear : MonoBehaviour
         if (Time.time - lastClickedTime > maxComboDelay)
             noOfClicks = 0;
 
-        if (Keyboard.current.qKey.wasReleasedThisFrame)
+        if (Keyboard.current.qKey.wasReleasedThisFrame && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f)
         {
             anim.SetBool("SpearThrow2", true);
         }
-
 
         if (Mouse.current.rightButton.wasReleasedThisFrame && !isCharging && anim.GetCurrentAnimatorStateInfo(1).normalizedTime > 0.7f)
         {
@@ -89,13 +85,12 @@ public class Weapon_Spear : MonoBehaviour
         }
     }
 
-    public void SpearThrow()
+    public void ThrowSpear()
     {
         if (Time.time <= nextFireTime) return;
-
-        anim.SetBool("SpearThrow2", false);
         anim.SetBool("SpearThrow1", true);
-
+        anim.SetBool("SpearThrow2", false);
+        
         print("is woking!");
         SpearThrow spearThrow = GetComponent<SpearThrow>();
         spearThrow.Release();
