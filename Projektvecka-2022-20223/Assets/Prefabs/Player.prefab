@@ -1,140 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &136559788
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 136559789}
-  - component: {fileID: 136559794}
-  - component: {fileID: 136559793}
-  - component: {fileID: 136559792}
-  - component: {fileID: 136559791}
-  - component: {fileID: 136559790}
-  m_Layer: 0
-  m_Name: Spear
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &136559789
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 136559788}
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.5, y: 4.09, z: -0.56}
-  m_LocalScale: {x: 0.0751579, y: 1.4353036, z: 0.07515792}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8585481331091606726}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!33 &136559794
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 136559788}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &136559793
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 136559788}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 6b4852fa402f9424cb66d42f3ea832d6, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!95 &136559792
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 136559788}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 775703bc28e89f64e8576b736b6fc6b2, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &136559791
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 136559788}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 921ac7b7063068f449c906a7646005c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cooldownTime: 1
-  chargeTime: 0.1
-  chargedDamage: 0.1
-  damage: 20
---- !u!65 &136559790
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 136559788}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 3.0999467, y: 0.39357892, z: 3.3836303}
-  m_Center: {x: 0.017092006, y: 0.88081944, z: 0.08839336}
 --- !u!1 &6407867408910631744
 GameObject:
   m_ObjectHideFlags: 0
@@ -166,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8585481331091606726}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8173265849201817938
 MeshFilter:
@@ -249,7 +114,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8585481331091606726}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8585481329663469386
 MeshFilter:
@@ -312,7 +177,7 @@ GameObject:
   - component: {fileID: 8585481330474852069}
   - component: {fileID: 8585481330474852066}
   m_Layer: 0
-  m_Name: Empty
+  m_Name: Spear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -331,7 +196,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 8585481331091606726}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8585481330474852066
 MonoBehaviour:
@@ -345,7 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34ff50bd9aab3904bb46284dc12bb63e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: c96945503028bc041b159f26362410d7, type: 2}
+  item: {fileID: 11400000, guid: 6e1871453e045d54db241d80e6bc2177, type: 2}
 --- !u!1 &8585481331091606720
 GameObject:
   m_ObjectHideFlags: 0
@@ -381,7 +246,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 136559789}
   - {fileID: 8585481330474852069}
   - {fileID: 4661522000420389383}
   - {fileID: 8585481329663469385}
@@ -540,6 +404,14 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: fbf1f4f0-8000-4915-a37e-dc6d305740a7
     m_ActionName: Player/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 890acd75-c923-44b5-81f5-d57eb46e2f50
+    m_ActionName: Player/PauseMenu[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 79c8483b-de27-406d-a3d2-dee2fb83a840
+    m_ActionName: Player/ThrowSpear[/Keyboard/q]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -575,7 +447,7 @@ MonoBehaviour:
   OnLeftClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 136559791}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Weapon_Spear, Assembly-CSharp
         m_MethodName: LeftClick
         m_Mode: 1
@@ -590,7 +462,7 @@ MonoBehaviour:
   OnRightClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 136559791}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Weapon_Spear, Assembly-CSharp
         m_MethodName: RightClick
         m_Mode: 1
