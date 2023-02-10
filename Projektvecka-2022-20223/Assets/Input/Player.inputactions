@@ -272,7 +272,7 @@
                     "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "ThrowSpear",
                     "isComposite": false,
                     "isPartOfComposite": false
