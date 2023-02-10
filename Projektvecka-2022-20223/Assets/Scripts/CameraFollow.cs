@@ -19,7 +19,7 @@ public class CameraFollow : MonoBehaviour
         offset = transform.position - target.position;
     }
 
-    void FixedUpdate()
+    void LateUpdate()
     {
         if (target == null) return;
 
@@ -29,7 +29,7 @@ public class CameraFollow : MonoBehaviour
 
         if (smoothing == 0)
             transform.position = newPosition;
-        else transform.position = Vector3.Lerp(transform.position, newPosition, smoothing * Time.fixedDeltaTime);
+        else transform.position = Vector3.Lerp(transform.position, newPosition, smoothing * Time.deltaTime);
 
         targetLastPos = target.position;
     }

@@ -52,6 +52,7 @@ public class SpeedChecker : MonoBehaviour
         lastPosition = transform.position; // saves position for next frame
 
         i++;
+
         if (i >= 10)
             i = 0;
     }

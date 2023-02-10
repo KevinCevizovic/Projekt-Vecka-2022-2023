@@ -1,32 +1,32 @@
 using UnityEngine;
 
-public class DroneMovement : MonoBehaviour
+public class BirdMovement : MonoBehaviour
 {
-    public enum DroneStates
+    public enum BirdStates
     {
         idle,
         hovering,
         chasing,
         controlling
     }
-    public DroneStates droneState;
+    public BirdStates birdState;
 
-    [SerializeField] float hoverHeight = 3f;
+    [SerializeField] float flightHeight = 3f,saga;
 
     [SerializeField] LayerMask ground = 1 << 9;
 
     private void Update()
     {
-        switch (droneState)
+        switch (birdState)
         {
-            case DroneStates.idle:
+            case BirdStates.idle:
                 break;
-            case DroneStates.hovering:
+            case BirdStates.hovering:
                 Hover();
                 break;
-            case DroneStates.chasing:
+            case BirdStates.chasing:
                 break;
-            case DroneStates.controlling:
+            case BirdStates.controlling:
                 break;
             default:
                 break;
@@ -38,7 +38,12 @@ public class DroneMovement : MonoBehaviour
     {
         if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 10f, ground))
         {
-            transform.position = hit.point + Vector3.one * 3f;
+            Vector3.Lerp(transform.position, transform.position = hit.point + Vector3.up * 3f, Time.deltaTime);
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(transform.position, transform.position + Vector3.down * 3f);
     }
 }

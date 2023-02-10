@@ -6,10 +6,10 @@ public class TopDownCharacterMover : MonoBehaviour
     [SerializeField] bool rotateTowardMouse = true;
 
     [SerializeField] float walkingSpeed = 10, rotationSpeed = 5, runningSpeed = 20;
-    private float speed;
+    //private float speed;
 
     [SerializeField] float lerpDuration = 1;
-    private float elapsedTime;
+    //private float elapsedTime;
 
     [SerializeField] AnimationCurve curve;
 
