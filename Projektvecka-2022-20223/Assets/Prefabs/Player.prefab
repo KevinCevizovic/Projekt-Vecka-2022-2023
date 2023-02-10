@@ -362,7 +362,6 @@ GameObject:
   - component: {fileID: 8585481331091606723}
   - component: {fileID: 8585481330590268411}
   - component: {fileID: 7437791504969163009}
-  - component: {fileID: 1150429021}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -700,16 +699,3 @@ MonoBehaviour:
   callingRange: 27
   isFollowing: 0
   teamates: []
---- !u!114 &1150429021
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8585481331091606720}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07edbbb1181757d4c99a6dd9af29c538, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 300

@@ -12,6 +12,8 @@ public class InputHandler : MonoBehaviour
 
     public InputEvent OnCommunicate;
 
+    public InputEvent OnKeyInput;
+
     public Vector2 InputVector { get; private set; }
 
     public Vector3 MousePosition { get; private set; }
@@ -45,4 +47,9 @@ public class InputHandler : MonoBehaviour
             OnRightClick?.Invoke();
     }
 
+    public void ThrowSpear(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+            OnRightClick?.Invoke();
+    }
 }

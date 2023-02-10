@@ -1978,6 +1978,21 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8585481331091606713, guid: b0cd39248ade5c747b566b96b1a53d16,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8585481331091606713, guid: b0cd39248ade5c747b566b96b1a53d16,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_ActionId
+      value: 890acd75-c923-44b5-81f5-d57eb46e2f50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8585481331091606713, guid: b0cd39248ade5c747b566b96b1a53d16,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_ActionName
+      value: Player/PauseMenu[/Keyboard/escape]
+      objectReference: {fileID: 0}
     - target: {fileID: 8585481331091606720, guid: b0cd39248ade5c747b566b96b1a53d16,
         type: 3}
       propertyPath: m_Name
