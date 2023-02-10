@@ -40,7 +40,6 @@ public class Spawner : MonoBehaviour
 
         // Spawn allies
         ObjectPool.Spawn(gruntAlly, allySpawnPoint.position + new Vector3(Random.Range(0, 10), 0, Random.Range(0, 10)), Quaternion.identity);
-        ObjectPool.Spawn(gruntAlly, allySpawnPoint.position + new Vector3(Random.Range(0, 10), 0, Random.Range(0, 10)), Quaternion.identity);
         ObjectPool.Spawn(archerAlly, allySpawnPoint.position + new Vector3(Random.Range(0, 10), 0, Random.Range(0, 10)), Quaternion.identity);
     }
 }
