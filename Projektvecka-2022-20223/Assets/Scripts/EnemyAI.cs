@@ -21,8 +21,8 @@ public class EnemyAI : MonoBehaviour
     public GameObject bullet;
 
     [Header("Numbers you change")]
-    [Range(6f, 20f)]
-    public float shootRadius = 12.5f;
+    [Range(6f, 30f)]
+    public float shootRadius = 30f;
     [Range(2f, 6f)]
     public float runRadius = 5f;
     [Range(0, 3f)]
