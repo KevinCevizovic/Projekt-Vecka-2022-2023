@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 8585481330474852069}
   - component: {fileID: 8585481330474852066}
   m_Layer: 0
-  m_Name: Spear
+  m_Name: Empty
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -210,7 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34ff50bd9aab3904bb46284dc12bb63e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 6e1871453e045d54db241d80e6bc2177, type: 2}
+  item: {fileID: 0}
 --- !u!1 &8585481331091606720
 GameObject:
   m_ObjectHideFlags: 0
@@ -547,7 +547,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 972e9410d02fb0b4baa7bb1a3a450463, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heldItem: {fileID: 11400000, guid: 7507b8665977e474dba2ad0631faea73, type: 2}
+  heldItem: {fileID: 11400000, guid: 6e1871453e045d54db241d80e6bc2177, type: 2}
   pickupCooldownTime: 0.2
   maxDropDistance: 3
   dropAbleOn:
