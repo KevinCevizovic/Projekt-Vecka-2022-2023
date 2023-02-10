@@ -1,26 +1,26 @@
-using UnityEditor;
+//using UnityEditor;
 using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-#if UNITY_EDITOR
-    [CustomEditor(typeof(Health))]
-    public class HealthEditor : Editor
-    {
-        public override void OnInspectorGUI()
-        {
-            base.OnInspectorGUI();
+//#if UNITY_EDITOR
+//    [CustomEditor(typeof(Health))]
+//    public class HealthEditor : Editor
+//    {
+//        public override void OnInspectorGUI()
+//        {
+//            base.OnInspectorGUI();
 
-            Health script = (Health)target;
+//            Health script = (Health)target;
 
-            // health text
-            EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField("Current Health", EditorStyles.label, GUILayout.MaxWidth(120));
-            EditorGUILayout.LabelField(script.CurrentHealth.ToString(), GUILayout.MaxWidth(200));
-            EditorGUILayout.EndHorizontal();
-        }
-    }
-#endif
+//            // health text
+//            EditorGUILayout.BeginHorizontal();
+//            EditorGUILayout.LabelField("Current Health", EditorStyles.label, GUILayout.MaxWidth(120));
+//            EditorGUILayout.LabelField(script.CurrentHealth.ToString(), GUILayout.MaxWidth(200));
+//            EditorGUILayout.EndHorizontal();
+//        }
+//    }
+//#endif
 
     [SerializeField] private float maxHealth = 100f;
 
