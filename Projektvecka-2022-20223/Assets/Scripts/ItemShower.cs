@@ -4,9 +4,9 @@ public class ItemShower : MonoBehaviour
 {
     public Item item;
 
-    new private Collider collider;
-
     [SerializeField] bool keepCollider = false;
+
+    new private Collider collider;
 
     private void OnValidate()
     {
@@ -20,12 +20,14 @@ public class ItemShower : MonoBehaviour
 
     private void Start()
     {
-        ChangeObject(item, !keepCollider); // when implement weapons
+        if (item != null && item._object != null)
+            ChangeObject(item, !keepCollider);
+        else Debug.Log("Item is null or doesnt have a object in " + gameObject);
     }
 
-    public void ChangeObject(Item _object, bool removeCollider = false)
+    public void ChangeObject(Item item, bool removeCollider = false)
     {
-        item = _object;
+        this.item = item;
 
         foreach (Transform child in transform)
             Destroy(child.gameObject);
