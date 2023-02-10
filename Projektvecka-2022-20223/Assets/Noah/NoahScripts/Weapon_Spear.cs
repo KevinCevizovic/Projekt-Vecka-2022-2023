@@ -73,7 +73,7 @@ public class Weapon_Spear : MonoBehaviour
         if (Time.time - lastClickedTime > maxComboDelay)
             noOfClicks = 0;
 
-        if (Keyboard.current.qKey.wasReleasedThisFrame && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f)
+        if (Keyboard.current.qKey.wasReleasedThisFrame && !isCharging && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f)
         {
             anim.SetBool("SpearThrow2", true);
         }
@@ -88,6 +88,7 @@ public class Weapon_Spear : MonoBehaviour
     public void ThrowSpear()
     {
         if (Time.time <= nextFireTime) return;
+
         anim.SetBool("SpearThrow1", true);
         anim.SetBool("SpearThrow2", false);
         
