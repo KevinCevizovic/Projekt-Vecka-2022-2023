@@ -6,6 +6,8 @@ public class ItemShower : MonoBehaviour
 
     new private Collider collider;
 
+    [SerializeField] bool held = false;
+
     private void OnValidate()
     {
         name = item != null ? item.name : "Empty"; // changes name to item name
@@ -18,7 +20,7 @@ public class ItemShower : MonoBehaviour
 
     private void Start()
     {
-        ChangeObject(item, item == null ? false : item.GetType() != typeof(Weapon)); // when implement weapons
+        ChangeObject(item, held); // when implement weapons
     }
 
     public void ChangeObject(Item _object, bool removeCollider = false)
