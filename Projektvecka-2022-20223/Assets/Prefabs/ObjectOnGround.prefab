@@ -60,7 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 0}
-  held: 0
+  keepCollider: 0
 --- !u!114 &2676060856675302553
 MonoBehaviour:
   m_ObjectHideFlags: 0

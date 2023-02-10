@@ -25,6 +25,8 @@ public class CameraFollow : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (target == null) return;
+
         Vector3 newPosition = target.position + offset + 
             (_input != null ? (new Vector3(_input.InputVector.x, 0, _input.InputVector.y) * aheadDistance) : Vector3.zero);
 
