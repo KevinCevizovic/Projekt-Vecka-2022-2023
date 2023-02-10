@@ -6,7 +6,7 @@ public class ItemShower : MonoBehaviour
 
     new private Collider collider;
 
-    [SerializeField] bool held = false;
+    [SerializeField] bool keepCollider = false;
 
     private void OnValidate()
     {
@@ -20,7 +20,7 @@ public class ItemShower : MonoBehaviour
 
     private void Start()
     {
-        ChangeObject(item, !held); // when implement weapons
+        ChangeObject(item, !keepCollider); // when implement weapons
     }
 
     public void ChangeObject(Item _object, bool removeCollider = false)
