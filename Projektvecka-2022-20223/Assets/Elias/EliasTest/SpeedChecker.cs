@@ -36,7 +36,7 @@ public class SpeedChecker : MonoBehaviour
 
     private void Update()
     {
-        speed = (lastPosition - transform.position).magnitude / Time.deltaTime; // speed of object
+        speed = (transform.position - lastPosition).magnitude / Time.deltaTime; // speed of object
 
         speeds[i] = speed;
 

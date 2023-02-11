@@ -14,7 +14,7 @@ public class Item : ScriptableObject
 
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("Object", EditorStyles.boldLabel, GUILayout.MaxWidth(45));
-            script._object = (GameObject)EditorGUILayout.ObjectField(script._object, typeof(GameObject), true, GUILayout.MaxWidth(200));
+            script._object = (GameObject)EditorGUILayout.ObjectField(script._object, typeof(GameObject), false, GUILayout.MaxWidth(200));
             EditorGUILayout.EndHorizontal();
         }
     }

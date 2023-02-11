@@ -40,7 +40,7 @@ public class TopDownCharacterMover : MonoBehaviour
         {
             //RotateTowardsVector(TransformPositionXZ - previousPositionXZ);
             previousPosition.y = transform.position.y;
-            RotateTowardsVector(previousPosition - transform.position);
+            RotateTowardsVector(transform.position - previousPosition);
         }
 
         //previousPositionXZ = TransformPositionXZ;
@@ -53,7 +53,7 @@ public class TopDownCharacterMover : MonoBehaviour
 
         if (Physics.Raycast(ray, out var hit, 100f))
         {
-            var target = transform.position - hit.point;
+            var target = hit.point - transform.position;
             //target.y = transform.position.y;
             target.y = 0;
 
