@@ -12,35 +12,42 @@ public class PartisanAttacks : MonoBehaviour
     float lastClickedTime = 1;
     float maxComboDelay = 1;
 
+    public float chargeTime;
+    public float chargedDamage;
+    private bool isCharging = false;
+
+    public float damage;
+
     private void Start()
     {
         anim = GetComponent<Animator>();
+    }
 
-       // playerInput = new PlayerInput();
-    }
-    /*
-    private void OnEnable()
-    {
-        playerInput.Player.Enable();
-    }
-    private void OnDisable()
-    {
-        playerInput.Player.Disable();
-    }
-    */
     void Update()
     {
-        if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && anim.GetCurrentAnimatorStateInfo(0).IsName("Combo1"))
+        bool noahVet = anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f;
+
+        if (noahVet && anim.GetCurrentAnimatorStateInfo(0).IsName("Combo1"))
         {
             anim.SetBool("Combo1", false);
         }
-        if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && anim.GetCurrentAnimatorStateInfo(0).IsName("Combo2"))
+        if (noahVet && anim.GetCurrentAnimatorStateInfo(0).IsName("Combo2"))
         {
             anim.SetBool("Combo2", false);
         }
-        if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && anim.GetCurrentAnimatorStateInfo(0).IsName("Combo3"))
+        if (noahVet && anim.GetCurrentAnimatorStateInfo(0).IsName("Combo3"))
         {
             anim.SetBool("Combo3", false);
+            noOfClicks = 0;
+        }
+        if (noahVet && anim.GetCurrentAnimatorStateInfo(0).IsName("HeavyCombo1"))
+        {
+            anim.SetBool("HeavyCombo1", false);
+        }
+        if (noahVet && anim.GetCurrentAnimatorStateInfo(0).IsName("HeavyCombo2"))
+        {
+            anim.SetBool("HeavyCombo2", false);
+            anim.SetBool("HeavyCombo1", false);
             noOfClicks = 0;
         }
 
@@ -49,9 +56,24 @@ public class PartisanAttacks : MonoBehaviour
         {
             noOfClicks = 0;
         }
+
+        if (Mouse.current.rightButton.wasReleasedThisFrame && !isCharging && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f)
+        {
+            anim.SetBool("HeavyCombo1", false);
+            anim.SetBool("HeavyCombo2", true);
+        }
     }
 
-    public void Onclick()
+    public void RightClick()
+    {
+        if (Time.time <= nextFireTime) return;
+
+        anim.SetBool("HeavyCombo2", false);
+        anim.SetBool("HeavyCombo1", true);
+        StartCoroutine(ChargedAttack());
+    }
+
+    public void LeftClick()
     {
         if (Time.time <= nextFireTime) return;
         //so it looks at how many clicks have been made and if one animation has finished playing starts another one.
@@ -72,8 +94,43 @@ public class PartisanAttacks : MonoBehaviour
         }
         if (noOfClicks >= 3 && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && anim.GetCurrentAnimatorStateInfo(0).IsName("Combo2"))
         {
-            anim.SetBool("Combo2", false);
+            anim.SetBool("Combo2", true);
             anim.SetBool("Combo3", true);
+        }
+    }
+    private IEnumerator ChargedAttack()
+    {
+        float startTime = Time.time;
+        float endTime = 0f;
+
+        isCharging = true;
+        while (Mouse.current.rightButton.IsActuated())
+        {
+            endTime = Time.time;
+            yield return null;
+        }
+        chargeTime = endTime - startTime;
+        chargedDamage = damage * chargeTime;
+        isCharging = false;
+        anim.SetBool("HeavyCombo2", true);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("RatTeam"))
+        {
+            Health health = other.GetComponent<Health>();
+
+            if (anim.GetCurrentAnimatorStateInfo(0).IsName("HeavyCombo2"))
+            {
+                health.TakingDamage(chargedDamage);
+            }
+            else if (anim.GetCurrentAnimatorStateInfo(0).IsName("Combo1") ||
+                     anim.GetCurrentAnimatorStateInfo(0).IsName("Combo2") ||
+                     anim.GetCurrentAnimatorStateInfo(0).IsName("Combo3"))
+            {
+                health.TakingDamage(damage);
+            }
         }
     }
 }

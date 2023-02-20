@@ -4900,6 +4900,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 481146031}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &486393045 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8585481330474852069, guid: b0cd39248ade5c747b566b96b1a53d16,
+    type: 3}
+  m_PrefabInstance: {fileID: 2252790748611376581}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &496337107
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22123,6 +22129,69 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8585481331091606722, guid: b0cd39248ade5c747b566b96b1a53d16,
+        type: 3}
+      propertyPath: WeaponHolder
+      value: 
+      objectReference: {fileID: 486393045}
+    - target: {fileID: 8585481331091606722, guid: b0cd39248ade5c747b566b96b1a53d16,
+        type: 3}
+      propertyPath: weaponHolder
+      value: 
+      objectReference: {fileID: 4216513914977714471, guid: cd4072b871c6f5049934b3411f23d9e3,
+        type: 3}
+    - target: {fileID: 8585481331091606722, guid: b0cd39248ade5c747b566b96b1a53d16,
+        type: 3}
+      propertyPath: OnLeftClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8585481331091606722, guid: b0cd39248ade5c747b566b96b1a53d16,
+        type: 3}
+      propertyPath: OnRightClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8585481331091606722, guid: b0cd39248ade5c747b566b96b1a53d16,
+        type: 3}
+      propertyPath: OnLeftClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4216513914977714469, guid: cd4072b871c6f5049934b3411f23d9e3,
+        type: 3}
+    - target: {fileID: 8585481331091606722, guid: b0cd39248ade5c747b566b96b1a53d16,
+        type: 3}
+      propertyPath: OnRightClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 4216513914977714469, guid: cd4072b871c6f5049934b3411f23d9e3,
+        type: 3}
+    - target: {fileID: 8585481331091606722, guid: b0cd39248ade5c747b566b96b1a53d16,
+        type: 3}
+      propertyPath: OnLeftClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LeftClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 8585481331091606722, guid: b0cd39248ade5c747b566b96b1a53d16,
+        type: 3}
+      propertyPath: OnRightClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: RightClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 8585481331091606722, guid: b0cd39248ade5c747b566b96b1a53d16,
+        type: 3}
+      propertyPath: OnLeftClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Weapon_Spear, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8585481331091606722, guid: b0cd39248ade5c747b566b96b1a53d16,
+        type: 3}
+      propertyPath: OnRightClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Weapon_Spear, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8585481331091606722, guid: b0cd39248ade5c747b566b96b1a53d16,
+        type: 3}
+      propertyPath: OnLeftClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8585481331091606722, guid: b0cd39248ade5c747b566b96b1a53d16,
+        type: 3}
+      propertyPath: OnRightClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 8585481331091606726, guid: b0cd39248ade5c747b566b96b1a53d16,
         type: 3}
       propertyPath: m_RootOrder
@@ -22178,5 +22247,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8585481331091606713, guid: b0cd39248ade5c747b566b96b1a53d16, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b0cd39248ade5c747b566b96b1a53d16, type: 3}

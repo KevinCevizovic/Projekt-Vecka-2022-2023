@@ -493,6 +493,7 @@ MonoBehaviour:
   OnKeyInput:
     m_PersistentCalls:
       m_Calls: []
+  weaponHolder: {fileID: 0}
 --- !u!114 &8585481331091606723
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -249,7 +249,7 @@ GameObject:
   - component: {fileID: 182724011}
   - component: {fileID: 182724010}
   - component: {fileID: 182724009}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -429,6 +429,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &623342443
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 623342444}
+  m_Layer: 0
+  m_Name: SpearEnd
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &623342444
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 623342443}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 3.79}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6025827383049518689}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &683926740
 GameObject:
   m_ObjectHideFlags: 0
@@ -5662,15 +5693,16 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6407455381874582747}
-  m_LocalRotation: {x: 0.39101925, y: 0.6419744, z: 0.5891554, w: 0.2964267}
-  m_LocalPosition: {x: -0.18956758, y: -0.03424394, z: -0.5784532}
+  m_LocalRotation: {x: 0.65452236, y: 0.0011045125, z: -0.69817466, w: -0.29008877}
+  m_LocalPosition: {x: 0.01, y: 0.081, z: 0.699}
   m_LocalScale: {x: 0.5235328, y: 0.5235328, z: 0.37834668}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1324294000}
+  - {fileID: 623342444}
   m_Father: {fileID: 8585481331535918378}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -31.643, y: 98.787, z: 90}
+  m_LocalEulerAnglesHint: {x: -22.222, y: 278.899, z: 153.952}
 --- !u!1 &6407455381874582747
 GameObject:
   m_ObjectHideFlags: 0
@@ -5684,6 +5716,7 @@ GameObject:
   - component: {fileID: 4894048062791681294}
   - component: {fileID: 7210211882076205509}
   - component: {fileID: 7210211882076205510}
+  - component: {fileID: 7210211882076205511}
   m_Layer: 0
   m_Name: PartisanSpear
   m_TagString: Untagged
@@ -5750,6 +5783,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldownTime: 2
+  chargeTime: 0
+  chargedDamage: 0
+  damage: 0
+--- !u!114 &7210211882076205511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6407455381874582747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a48e9af47debb742aa22179c6b8cfbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleSystemPrefab: {fileID: 6688595521732751938, guid: dedc87c967cc35a40b81acc498f21931,
+    type: 3}
+  spearEnd: {fileID: 623342444}
+  maxScale: 5
+  holdTime: 5
 --- !u!114 &7437791504810006765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5784,7 +5837,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8585481329570897594}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.619, z: -0.22}
+  m_LocalPosition: {x: 0, y: 0.619, z: 0.259}
   m_LocalScale: {x: 0.65529, y: 0.1371391, z: 0.65529}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5904,7 +5957,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &8585481330950668823
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6015,7 +6068,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7210211882076205510}
         m_TargetAssemblyTypeName: PartisanAttacks, Assembly-CSharp
-        m_MethodName: Onclick
+        m_MethodName: LeftClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6027,7 +6080,19 @@ MonoBehaviour:
         m_CallState: 2
   OnRightClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7210211882076205510}
+        m_TargetAssemblyTypeName: PartisanAttacks, Assembly-CSharp
+        m_MethodName: RightClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnCommunicate:
     m_PersistentCalls:
       m_Calls:
