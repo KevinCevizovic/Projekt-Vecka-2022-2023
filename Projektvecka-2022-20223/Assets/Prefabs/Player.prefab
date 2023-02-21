@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 8585481330474852069}
   - component: {fileID: 8585481330474852066}
   m_Layer: 0
-  m_Name: Empty
+  m_Name: Empty(Itemshower)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -211,6 +211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 0}
+  keepCollider: 0
 --- !u!1 &8585481331091606720
 GameObject:
   m_ObjectHideFlags: 0
@@ -492,6 +493,7 @@ MonoBehaviour:
   OnKeyInput:
     m_PersistentCalls:
       m_Calls: []
+  weaponHolder: {fileID: 0}
 --- !u!114 &8585481331091606723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -505,10 +507,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotateTowardMouse: 1
-  walkingSpeed: 6
   rotationSpeed: 14
-  maxRunningSpeed: 12
-  lerpDuration: 1
+  runningSpeed: 20
   curve:
     serializedVersion: 2
     m_Curve:
@@ -550,6 +550,7 @@ MonoBehaviour:
   heldItem: {fileID: 11400000, guid: 6e1871453e045d54db241d80e6bc2177, type: 2}
   pickupCooldownTime: 0.2
   maxDropDistance: 3
+  keepColliderOnDrop: 0
   dropAbleOn:
     serializedVersion: 2
     m_Bits: 512

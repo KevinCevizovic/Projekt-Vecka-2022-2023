@@ -4,11 +4,13 @@ public class ItemShower : MonoBehaviour
 {
     public Item item;
 
+    [SerializeField] bool keepCollider = false;
+
     new private Collider collider;
 
     private void OnValidate()
     {
-        name = item != null ? item.name : "Empty"; // changes name to item name
+        name = item != null ? item.name + "(Itemshower)" : "Empty(Itemshower)"; // changes name to item name
     }
 
     private void Awake()
@@ -18,12 +20,15 @@ public class ItemShower : MonoBehaviour
 
     private void Start()
     {
-        ChangeObject(item, item == null ? false : item.GetType() != typeof(Weapon)); // when implement weapons
+        if (item != null && item._object != null)
+            ChangeObject(item, !keepCollider);
+        else Debug.Log("Item is null or doesnt have a object in " + gameObject);
     }
 
-    public void ChangeObject(Item _object, bool removeCollider = false)
+    public void ChangeObject(Item item, bool removeCollider = false)
     {
-        item = _object;
+        this.item = item;
+        keepCollider = !removeCollider;
 
         foreach (Transform child in transform)
             Destroy(child.gameObject);
@@ -38,7 +43,7 @@ public class ItemShower : MonoBehaviour
                         Destroy(collider);
         }
 
-        name = item != null ? item.name : "Empty"; // changes name to item name or Empty
+        name = item != null ? item.name + "(Itemshower)" : "Empty(Itemshower)"; // changes name to item name or Empty
     }
 
     private void OnDrawGizmos()
