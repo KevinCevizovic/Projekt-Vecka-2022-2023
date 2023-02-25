@@ -13,6 +13,15 @@ public class PartisanSlam : MonoBehaviour
 
     private float currentScale = 1.0f;
 
+    void Update()
+    {
+        if (Mouse.current.rightButton.wasPressedThisFrame)
+        {
+            currentScale = 1.0f;
+            StartCoroutine(ParticleSizeManipulator());
+        }
+    }
+
     public void PlayParticleSystem()
     {
         // Instantiate the particle system prefab
@@ -47,14 +56,5 @@ public class PartisanSlam : MonoBehaviour
             yield return null;
         }
         isHolding = false;
-    }
-
-    void Update()
-    {
-        if (Mouse.current.rightButton.wasPressedThisFrame)
-        {
-            currentScale = 1.0f;
-            StartCoroutine(ParticleSizeManipulator());
-        }
     }
 }
