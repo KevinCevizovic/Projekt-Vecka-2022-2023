@@ -16,11 +16,32 @@ public class GreatSwordAttack : MonoBehaviour
     public float chargedDamage;
     private bool isCharging = false;
 
+    private PlayerInput playerInput;
+
     public float damage;
 
     private void Start()
     {
         anim = GetComponent<Animator>();
+    }
+
+    private void Awake()
+    {
+        playerInput = new PlayerInput();
+    }
+
+    private void OnEnable()
+    {
+        playerInput.Player.Enable();
+        playerInput.Player.LeftClick.performed += LeftClick;
+        playerInput.Player.RightClick.canceled += RightClick;
+    }
+
+    private void OnDisable()
+    {
+        playerInput.Player.Disable();
+        playerInput.Player.LeftClick.performed += LeftClick;
+        playerInput.Player.RightClick.canceled += RightClick;
     }
 
     void Update()
@@ -66,24 +87,30 @@ public class GreatSwordAttack : MonoBehaviour
             noOfClicks = 0;
         }
 
+        /*
         if (Mouse.current.rightButton.wasReleasedThisFrame && !isCharging && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f)
         {
             anim.SetBool("HeavyCombo1", false);
             anim.SetBool("HeavyCombo2", true);
         }
+        */
     }
 
-    public void RightClick()
+    public void RightClick(InputAction.CallbackContext other)
     {
         if (Time.time <= nextFireTime) return;
 
-        anim.SetBool("HeavyCombo2", false);
-        anim.SetBool("HeavyCombo1", true);
-        StartCoroutine(ChargedAttack());
+        if(!isCharging && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f)
+        {
+            anim.SetBool("HeavyCombo2", false);
+            anim.SetBool("HeavyCombo1", true);
+            StartCoroutine(ChargedAttack());
+        }
     }
 
-    public void LeftClick()
+    public void LeftClick(InputAction.CallbackContext other)
     {
+        print("jes");
         if (Time.time <= nextFireTime) return;
         //so it looks at how many clicks have been made and if one animation has finished playing starts another one.
         lastClickedTime = Time.time;
