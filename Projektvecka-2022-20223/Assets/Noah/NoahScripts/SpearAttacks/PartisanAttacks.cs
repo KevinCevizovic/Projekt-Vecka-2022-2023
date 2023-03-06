@@ -77,6 +77,7 @@ public class PartisanAttacks : MonoBehaviour
     {
         if (Time.time <= nextFireTime) return;
         //so it looks at how many clicks have been made and if one animation has finished playing starts another one.
+
         lastClickedTime = Time.time;
         noOfClicks++;
         if (noOfClicks == 1)
