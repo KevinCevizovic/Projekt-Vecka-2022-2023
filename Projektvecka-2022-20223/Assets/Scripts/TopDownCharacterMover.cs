@@ -1,81 +1,82 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(InputHandler))]
 public class TopDownCharacterMover : MonoBehaviour
 {
-    [SerializeField] bool rotateTowardMouse = true;
+    [SerializeField] private bool rotateTowardMouse = true;
 
-    //[SerializeField] float walkingSpeed = 10;
-    [SerializeField] float rotationSpeed = 5;
-    [SerializeField] float runningSpeed = 20;
-    //private float speed;
+    [SerializeField] private float rotationSpeed = 5, speed = 10/*, rollingSpeed = 15*/;
+
+    //[SerializeField] private float accelerationSpeed, deaccelerationSpeed;
+    [SerializeField] private float accelerationTime = 0.3f;
+    private float accelerationDuration = 0;
+
+    [SerializeField] AnimationCurve accelerationCurve;
+    private float acceleration;
+
+
+    //float walkingSpeed = 10,
+    //, maxRunningSpeed = 20;
+    //private float speed, runningSpeed;
 
     //[SerializeField] float lerpDuration = 1;
     //private float elapsedTime;
 
-    [SerializeField] AnimationCurve curve;
 
-    [SerializeField] Camera Camera;
+    [SerializeField] new Camera camera;
     [SerializeField] InputHandler _input;
 
-    Vector3 previousPosition;
+    Vector3 lastPosition;
+
+    Vector2 inputVector;
 
     private void Awake()
     {
         if (_input == null)
             _input = GetComponent<InputHandler>();
 
-        if (Camera == null)
-            Camera = Camera.main;
+        if (camera == null)
+            camera = Camera.main;
     }
 
     void Update()
     {
-        var targetVector = new Vector3(_input.InputVector.x, 0, _input.InputVector.y);
-        MoveTowardTarget(targetVector);
+        //var targetVector = new Vector3(_input.InputVector.x, 0, _input.InputVector.y);
+
+        var moveDir = transform.position - lastPosition;
 
         if (rotateTowardMouse)
-            RotateTowardsMouseVector();
+            RotateTowardsMousePosition();
         else
-        {
-            //RotateTowardsVector(TransformPositionXZ - previousPositionXZ);
-            previousPosition.y = transform.position.y;
-            RotateTowardsVector(transform.position - previousPosition);
-        }
+            RotateTowardMovementVector(new Vector3(moveDir.x, 0f, moveDir.z));
 
-        //previousPositionXZ = TransformPositionXZ;
-        previousPosition = transform.position;
+        lastPosition = transform.position;
+
+        //Move(targetVector);
+
+        CalculateAcceleration();
+
+        Move(new Vector3(inputVector.x, 0, inputVector.y));
     }
 
-    private void RotateTowardsMouseVector()
+    private void CalculateAcceleration()
     {
-        Ray ray = Camera.ScreenPointToRay(_input.MousePosition);
+        accelerationDuration += Time.deltaTime;
 
-        if (Physics.Raycast(ray, out var hit, 100f))
-        {
-            var target = hit.point - transform.position;
-            //target.y = transform.position.y;
-            target.y = 0;
-
-            RotateTowardsVector(target);
-        }
+        acceleration = accelerationCurve.Evaluate(Mathf.Clamp01(accelerationDuration / accelerationTime));
     }
 
-    private void RotateTowardsVector(Vector3 vector)
+    private void Move(Vector3 movementVector)
     {
-        if (vector.magnitude == 0) return;
+        transform.position += Quaternion.Euler(0, camera.transform.rotation.eulerAngles.y, 0) * movementVector * acceleration * speed * Time.deltaTime;
 
-        var rotation = Quaternion.LookRotation(vector);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, rotationSpeed);
-    }
-
-    // change this(ok)
-    private void MoveTowardTarget(Vector3 targetVector)
-    {
-        targetVector = Quaternion.Euler(0, Camera.gameObject.transform.rotation.eulerAngles.y, 0) * targetVector.normalized;
-
-        transform.position += runningSpeed * Time.deltaTime * targetVector;
-
+        //Debug.Log("1" + targetVector);
+        //targetVector = Quaternion.Euler(0, Camera.gameObject.transform.rotation.eulerAngles.y, 0) * targetVector.normalized;
+        //Debug.Log("2" + targetVector);
+        //transform.position += targetVector * speed * Time.deltaTime;
+        //Debug.Log(inputVector);
+        //var posY = transform.position.y * Vector3.up;
+        //transform.position = Vector3.MoveTowards(transform.position, transform.position /*+ posY*/ + inputVector, speed * Time.deltaTime);
 
         //if (_input.Running) // run
         //{
@@ -94,4 +95,29 @@ public class TopDownCharacterMover : MonoBehaviour
         //var targetPosition = transform.position + targetVector * speed;
         //transform.position = targetPosition;
     }
+
+    private void RotateTowardsMousePosition()
+    {
+        Ray ray = camera.ScreenPointToRay(_input.MousePosition);
+
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, maxDistance: 300f))
+        {
+            var target = hitInfo.point;
+            target.y = transform.position.y;
+            transform.LookAt(target);
+        }
+    }
+
+    private void RotateTowardMovementVector(Vector3 movementDirection)
+    {
+        if (movementDirection.magnitude == 0) { return; }
+        var rotation = Quaternion.LookRotation(movementDirection);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, rotationSpeed);
+    }
+
+    #region Input
+
+    public void MovementInput(InputAction.CallbackContext ctx) => inputVector = ctx.ReadValue<Vector2>();
+
+    #endregion
 }
