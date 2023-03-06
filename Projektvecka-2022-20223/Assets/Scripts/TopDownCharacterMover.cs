@@ -1,104 +1,93 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class TopDownCharacterMover : MonoBehaviour
+public class MovementTest : MonoBehaviour
 {
+    [Header("Rotation")]
     [SerializeField] private bool rotateTowardMouse = true;
+    [SerializeField] private float rotationSpeed = 5f;
 
-    [SerializeField] private float rotationSpeed = 5, speed = 10/*, rollingSpeed = 15*/;
+    [Header("Movement")]
+    [SerializeField] private float speed = 10f;
+    private Vector3 lastPosition;
 
-    //[SerializeField] private float accelerationSpeed, deaccelerationSpeed;
-    [SerializeField] private float accelerationTime = 0.3f;
-    private float accelerationDuration = 0;
+    [Header("Roll")]
+    [SerializeField] private float rollingSpeed = 17f;
+    [SerializeField] private float rollTime = 1f;
+    public bool Rolling { get; private set; }
+    private Vector3 rollDir;
 
-    [SerializeField] AnimationCurve accelerationCurve;
-    private float acceleration;
+    [Header("Acceleration")]
+    [SerializeField] private float accelerationDuration = 0.3f;
+    [SerializeField] private AnimationCurve accelerationCurve;
+    private float acceleration, accelerationStartTime, accelerationElapsedTime;
 
+    // refrences
+    new private Camera camera;
 
-    //float walkingSpeed = 10,
-    //, maxRunningSpeed = 20;
-    //private float speed, runningSpeed;
-
-    //[SerializeField] float lerpDuration = 1;
-    //private float elapsedTime;
-
-
-    [SerializeField] new Camera camera;
-    [SerializeField] InputHandler _input;
-
-    Vector3 lastPosition;
-
-    Vector2 inputVector;
+    // input
+    private Vector2 inputVector;
 
     private void Awake()
     {
-        if (_input == null)
-            _input = GetComponent<InputHandler>();
-
         if (camera == null)
             camera = Camera.main;
     }
 
     void Update()
     {
-        //var targetVector = new Vector3(_input.InputVector.x, 0, _input.InputVector.y);
+        if (Rolling)
+        {
+            if (rollDir == Vector3.zero) // when first rolling
+                rollDir = -transform.forward; // set roll dir
+
+            Roll();
+
+            return;
+        }
+        else rollDir = Vector3.zero; // when not rolling
 
         var moveDir = transform.position - lastPosition;
 
         if (rotateTowardMouse)
             RotateTowardsMousePosition();
         else
-            RotateTowardMovementVector(new Vector3(moveDir.x, 0f, moveDir.z));
+        {
+            var moveDirXZ = new Vector3(moveDir.x, 0f, moveDir.z);
+            if (moveDirXZ != Vector3.zero)
+                RotateTowardMovementVector(moveDirXZ);
+        }
 
         lastPosition = transform.position;
 
-        //Move(targetVector);
-
-        CalculateAcceleration();
+        if (accelerationDuration != 0)
+            CalculateAcceleration();
+        else acceleration = 1f;
 
         Move(new Vector3(inputVector.x, 0, inputVector.y));
     }
 
+    private void Roll()
+    {
+        transform.position += Quaternion.Euler(0, camera.transform.rotation.eulerAngles.y, 0) * rollDir * rollingSpeed * Time.deltaTime;
+    }
+
     private void CalculateAcceleration()
     {
-        accelerationDuration += Time.deltaTime;
+        accelerationElapsedTime = Time.time - accelerationStartTime;
 
-        acceleration = accelerationCurve.Evaluate(Mathf.Clamp01(accelerationDuration / accelerationTime));
+        acceleration = accelerationCurve.Evaluate(Mathf.Clamp01(accelerationElapsedTime) / accelerationDuration);
     }
 
     private void Move(Vector3 movementVector)
     {
         transform.position += Quaternion.Euler(0, camera.transform.rotation.eulerAngles.y, 0) * movementVector * acceleration * speed * Time.deltaTime;
-
-        //Debug.Log("1" + targetVector);
-        //targetVector = Quaternion.Euler(0, Camera.gameObject.transform.rotation.eulerAngles.y, 0) * targetVector.normalized;
-        //Debug.Log("2" + targetVector);
-        //transform.position += targetVector * speed * Time.deltaTime;
-        //Debug.Log(inputVector);
-        //var posY = transform.position.y * Vector3.up;
-        //transform.position = Vector3.MoveTowards(transform.position, transform.position /*+ posY*/ + inputVector, speed * Time.deltaTime);
-
-        //if (_input.Running) // run
-        //{
-        //    // lerping speed
-        //    elapsedTime += Time.deltaTime;
-        //    float percentageComplete = elapsedTime / lerpDuration;
-
-        //    runningSpeed = Mathf.Lerp(walkingSpeed, maxRunningSpeed, curve.Evaluate(percentageComplete));
-        //}
-        //else elapsedTime = 0; // not run
-
-        //// if running you go faster
-        //speed = (_input.Running ? runningSpeed : walkingSpeed) * Time.deltaTime;
-
-        //targetVector = Quaternion.Euler(0, Camera.gameObject.transform.rotation.eulerAngles.y, 0) * targetVector.normalized;
-        //var targetPosition = transform.position + targetVector * speed;
-        //transform.position = targetPosition;
     }
 
     private void RotateTowardsMousePosition()
     {
-        Ray ray = camera.ScreenPointToRay(_input.MousePosition);
+        var mousePos = Mouse.current.position.ReadValue();
+        Ray ray = camera.ScreenPointToRay(mousePos);
 
         if (Physics.Raycast(ray, out RaycastHit hitInfo, maxDistance: 300f))
         {
@@ -117,7 +106,24 @@ public class TopDownCharacterMover : MonoBehaviour
 
     #region Input
 
-    public void MovementInput(InputAction.CallbackContext ctx) => inputVector = ctx.ReadValue<Vector2>();
+    public void MovementInput(InputAction.CallbackContext ctx)
+    {
+        inputVector = ctx.ReadValue<Vector2>();
+
+        if (ctx.started)
+            accelerationStartTime = Time.time;
+    }
+
+    public void RollInput(InputAction.CallbackContext ctx)
+    {
+        if (ctx.started && !Rolling)
+        {
+            Rolling = true;
+            Invoke(nameof(ResetRolling), rollTime);
+        }
+    }
+
+    void ResetRolling() => Rolling = false;
 
     #endregion
 }

@@ -924,7 +924,19 @@ MonoBehaviour:
     m_ActionId: 3da2db0b-fc55-4134-868a-4e8b202f5aa3
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 487474649990260564}
+        m_TargetAssemblyTypeName: MovementTest, Assembly-CSharp
+        m_MethodName: RollInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 6fe33817-9960-49a6-8f17-5eaa66e7a811
     m_ActionName: Player/Run[/Keyboard/leftShift]
   - m_PersistentCalls:
@@ -971,8 +983,32 @@ MonoBehaviour:
   rotateTowardMouse: 0
   rotationSpeed: 5
   speed: 13
-  accelerationSpeed: 1
-  deaccelerationSpeed: 1
+  rollingSpeed: 15
+  accelerationDuration: 0
+  accelerationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   camera: {fileID: 7988322590505881300}
   _input: {fileID: 487474649990260565}
 --- !u!114 &487474649990260565
@@ -1163,7 +1199,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1993904392668316173}
-  m_LocalRotation: {x: -0.00034892565, y: 0.9087596, z: -0.4173193, w: -0.00075982476}
+  m_LocalRotation: {x: -0.00034894247, y: 0.9087596, z: -0.41731933, w: -0.0007598613}
   m_LocalPosition: {x: 0.020000458, y: 13.92, z: 11.96}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1505,7 +1541,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7988322590505881298}
-  m_LocalRotation: {x: -0.00034892565, y: 0.9087596, z: -0.4173193, w: -0.00075982476}
+  m_LocalRotation: {x: -0.00034894247, y: 0.9087596, z: -0.41731933, w: -0.0007598613}
   m_LocalPosition: {x: 0.020000458, y: 13.92, z: 11.96}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
