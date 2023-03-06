@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   time: 20
-  restartTime: 0
+  startTime: 1
 --- !u!1 &4018770780723073730
 GameObject:
   m_ObjectHideFlags: 0

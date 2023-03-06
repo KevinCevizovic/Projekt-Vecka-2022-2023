@@ -110,7 +110,6 @@ public class GreatSwordAttack : MonoBehaviour
 
     public void LeftClick(InputAction.CallbackContext other)
     {
-        print("jes");
         if (Time.time <= nextFireTime) return;
         //so it looks at how many clicks have been made and if one animation has finished playing starts another one.
         lastClickedTime = Time.time;

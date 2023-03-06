@@ -7,6 +7,7 @@ public class Coin : Collectible
     {
         Debug.Log($"{_object.name} collected {name}");
         Wallet wallet = _object.GetComponent<Wallet>();
-        wallet.AddCoins(1);
+        if (wallet != null)
+            wallet.AddCoins(1);
     }
 }
