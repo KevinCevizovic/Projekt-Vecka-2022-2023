@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ItemShower : MonoBehaviour
 {
-    public Item item;
+    [field: SerializeField] public Item Item { get; private set; }
 
     [SerializeField] bool keepCollider = false;
 
@@ -10,7 +10,7 @@ public class ItemShower : MonoBehaviour
 
     private void OnValidate()
     {
-        name = item != null ? item.name + "(Itemshower)" : "Empty(Itemshower)"; // changes name to item name
+        name = Item != null ? Item.name + "(Itemshower)" : "Empty(Itemshower)"; // changes name to item name
     }
 
     private void Awake()
@@ -20,14 +20,14 @@ public class ItemShower : MonoBehaviour
 
     private void Start()
     {
-        if (item != null && item._object != null)
-            ChangeObject(item, !keepCollider);
+        if (Item != null && Item._object != null)
+            ChangeObject(Item, !keepCollider);
         else Debug.Log("Item is null or doesnt have a object in " + gameObject);
     }
 
     public void ChangeObject(Item item, bool removeCollider = false)
     {
-        this.item = item;
+        Item = item;
         keepCollider = !removeCollider;
 
         foreach (Transform child in transform)
@@ -49,6 +49,8 @@ public class ItemShower : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(transform.position, transform.lossyScale * 2f);
+
+        if(collider != null)
+        Gizmos.DrawWireCube(collider.bounds.center, collider.bounds.size);
     }
 }

@@ -10,7 +10,7 @@ public class Pickup : MonoBehaviour
     [SerializeField] private float maxDropDistance = 3f;
     [SerializeField] private bool keepColliderOnDrop = false;
     [SerializeField] private LayerMask dropAbleOn = 1 << 9;
-    private ItemShower itemShowerOnGround;
+    private ItemShower itemShowerOnGround; // if player is standing on a item this is a refrence to that
 
     [Header("Other")]
     [SerializeField] private GameObject objectOnGroundPrefab;
@@ -24,10 +24,9 @@ public class Pickup : MonoBehaviour
         if (heldItemShower == null)
             heldItemShower = GetComponentInChildren<ItemShower>();
 
-        heldItemShower.item = heldItem; // this shouldnt have a null check, cant be set in start
+        heldItemShower.ChangeObject(heldItem); // this shouldnt have a null check, cant be set in start
 
         canvasScript = FindObjectOfType<PickupCanvasScript>();
-
         if (canvasScript == null)
             Debug.Log("No pickup canvas or pickup canvas doesnt have script attached");
 
@@ -42,14 +41,12 @@ public class Pickup : MonoBehaviour
         canvasScript.Hide();
     }
 
-    /// <summary> Drops HeldItem </summary>
-    public void DropItem()
+    /// <summary> Drops item </summary>
+    public void DropItem(Item item)
     {
-        if (heldItem == null) return;
+        if (item == null) return;
 
-        Debug.Log("Drop " + heldItem);
-
-        pickupCooldown.StartCoolDown(); // pickup cooldown
+        Debug.Log("Droped " + item.ItemName);
 
         if (Physics.Raycast(heldItemShower.transform.position, Vector3.down, out var hit, maxDropDistance, dropAbleOn))
         {
@@ -57,8 +54,54 @@ public class Pickup : MonoBehaviour
 
             GameObject itemShower = Instantiate(objectOnGroundPrefab, dropPosition, Quaternion.identity); // create itemshower on ground
 
-            itemShower.GetComponent<ItemShower>().ChangeObject(heldItem, !keepColliderOnDrop); // set item in itemshower to held 
+            itemShower.GetComponent<ItemShower>().ChangeObject(item, !keepColliderOnDrop); // set item in itemshower to held 
             itemShower.transform.rotation = transform.rotation; // rotate itemshower to player rotation
+        }
+    }
+
+    /// <summary> Picks up item from itemshower and returns it </summary>
+    private Item PickupItem(ItemShower itemShower)
+    {
+        if (itemShower == null) return null;
+
+        Debug.Log("Picked up " + itemShower.Item.ItemName);
+
+        Item pickedupItem = itemShower.Item;
+
+        Destroy(itemShower.gameObject);
+
+        return pickedupItem;
+    }
+
+    public void PickupInput(InputAction.CallbackContext ctx)
+    {
+        // pickup and drop
+        //if (ctx.started)
+        //{
+        //    Debug.Log("Switch held item and item on ground");
+        //    return;
+        //}
+
+        // pickup
+        if (ctx.started && itemShowerOnGround != null && pickupCooldown.HasEnded)
+        {
+            pickupCooldown.StartCoolDown(); // pickup cooldown
+
+            heldItem = PickupItem(itemShowerOnGround);
+            heldItemShower.ChangeObject(heldItem);
+
+            if (canvasScript != null)
+                canvasScript.Hide();
+
+            return;
+        }
+        else
+        // drop
+        if (ctx.started && heldItem != null)
+        {
+            pickupCooldown.StartCoolDown(); // pickup cooldown
+
+            DropItem(heldItem);
 
             // remove held item
             heldItem = null;
@@ -66,19 +109,14 @@ public class Pickup : MonoBehaviour
         }
     }
 
-    public void PickupInput(InputAction.CallbackContext ctx)
+    private void CollectCollectible(ItemShower itemShower)
     {
-        // pickup
-        if (ctx.canceled && itemShowerOnGround != null && pickupCooldown.HasEnded)
-        {
-            pickupCooldown.StartCoolDown(); // pickup cooldown
+        Item item = itemShower.Item;
 
-            PickupFromGround(itemShowerOnGround);
-        }
+        Debug.Log($"{item.GetType()} collected");
 
-        // drop
-        if (ctx.started && heldItem != null)
-            DropItem();
+        ((Collectible)item).Activate(gameObject);
+        Destroy(itemShower.gameObject);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -88,14 +126,11 @@ public class Pickup : MonoBehaviour
 
         itemShowerOnGround = itemOnGroundShower;
 
-        Item item = itemOnGroundShower.item;
+        Item item = itemOnGroundShower.Item;
 
         if (item.GetType().BaseType == typeof(Collectible)) // checks if its a collectible
         {
-            Debug.Log($"{item.GetType()} collected");
-
-            ((Collectible)item).Activate(gameObject);
-            Destroy(itemOnGroundShower.gameObject);
+            CollectCollectible(itemOnGroundShower);
             return;
         }
         else // not a collectible
@@ -108,32 +143,9 @@ public class Pickup : MonoBehaviour
         }
     }
 
+
     private void OnTriggerExit(Collider other)
     {
-        itemShowerOnGround = null;
-
-        if (canvasScript != null)
-            canvasScript.Hide();
-    }
-
-    private void PickupFromGround(ItemShower itemOnGroundShower)
-    {
-        Debug.Log("Pickup " + itemOnGroundShower.item);
-
-        Item newHeldItem = itemOnGroundShower.item;
-
-        // change held item
-        Item newItemOnGround = heldItem;
-        heldItem = newHeldItem;
-
-        itemOnGroundShower.ChangeObject(newItemOnGround, !keepColliderOnDrop); // change item on ground to held item
-        itemOnGroundShower.transform.rotation = transform.rotation; // rotate item on ground with character
-
-        // if no item in hand destroy itemOnGroundObject
-        if (newItemOnGround == null)
-            Destroy(itemOnGroundShower.gameObject);
-
-        heldItemShower.ChangeObject(newHeldItem);
         itemShowerOnGround = null;
 
         if (canvasScript != null)
