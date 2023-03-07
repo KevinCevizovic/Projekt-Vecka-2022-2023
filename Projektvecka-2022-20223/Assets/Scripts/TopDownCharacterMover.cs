@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class MovementTest : MonoBehaviour
+public class TopDonCharacterMover : MonoBehaviour
 {
     [Header("Rotation")]
     [SerializeField] private bool rotateTowardMouse = true;
