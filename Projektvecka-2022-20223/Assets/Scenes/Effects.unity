@@ -6122,7 +6122,7 @@ PrefabInstance:
     - target: {fileID: 9088640365942397979, guid: 023c3d207aed426459506d7bcdaabeae,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 023c3d207aed426459506d7bcdaabeae, type: 3}
@@ -6340,7 +6340,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34ff50bd9aab3904bb46284dc12bb63e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 0}
+  <Item>k__BackingField: {fileID: 0}
   keepCollider: 0
 --- !u!1 &8585481330902902543
 GameObject:
@@ -6378,9 +6378,9 @@ MonoBehaviour:
   dropAbleOn:
     serializedVersion: 2
     m_Bits: 512
-  heldItemShower: {fileID: 8585481330902902542}
   objectOnGroundPrefab: {fileID: 6773475101690018263, guid: 145e9300076677944b9acb8418ffe52a,
     type: 3}
+  heldItemShower: {fileID: 8585481330902902542}
 --- !u!136 &8585481331535918377
 CapsuleCollider:
   m_ObjectHideFlags: 0

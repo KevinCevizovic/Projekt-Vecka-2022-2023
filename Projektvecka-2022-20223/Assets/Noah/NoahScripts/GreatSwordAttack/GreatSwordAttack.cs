@@ -34,14 +34,14 @@ public class GreatSwordAttack : MonoBehaviour
     {
         playerInput.Player.Enable();
         playerInput.Player.LeftClick.performed += LeftClick;
-        playerInput.Player.RightClick.canceled += RightClick;
+        playerInput.Player.RightClick.performed += RightClick;
     }
 
     private void OnDisable()
     {
         playerInput.Player.Disable();
         playerInput.Player.LeftClick.performed += LeftClick;
-        playerInput.Player.RightClick.canceled += RightClick;
+        playerInput.Player.RightClick.performed += RightClick;
     }
 
     void Update()
@@ -100,7 +100,7 @@ public class GreatSwordAttack : MonoBehaviour
     {
         if (Time.time <= nextFireTime) return;
 
-        if(!isCharging && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f)
+        if(!isCharging && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.1f)
         {
             anim.SetBool("HeavyCombo2", false);
             anim.SetBool("HeavyCombo1", true);
