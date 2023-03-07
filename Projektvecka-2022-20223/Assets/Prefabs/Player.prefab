@@ -192,7 +192,7 @@ Transform:
   m_GameObject: {fileID: 8585481330474852067}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.75, y: 0.30999994, z: 0.55}
-  m_LocalScale: {x: 0.41, y: 0.41, z: 0.41}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 8585481331091606726}
@@ -311,9 +311,9 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8585481331091606722}
-        m_TargetAssemblyTypeName: InputHandler, Assembly-CSharp
-        m_MethodName: Movement
+      - m_Target: {fileID: 8585481331091606723}
+        m_TargetAssemblyTypeName: TopDownCharacterMover, Assembly-CSharp
+        m_MethodName: MovementInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -327,9 +327,9 @@ MonoBehaviour:
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8585481331091606722}
-        m_TargetAssemblyTypeName: InputHandler, Assembly-CSharp
-        m_MethodName: Run
+      - m_Target: {fileID: 8585481331091606723}
+        m_TargetAssemblyTypeName: TopDownCharacterMover, Assembly-CSharp
+        m_MethodName: RollInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -343,9 +343,9 @@ MonoBehaviour:
     m_ActionName: Player/Run[/Keyboard/leftShift]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8585481331091606722}
-        m_TargetAssemblyTypeName: InputHandler, Assembly-CSharp
-        m_MethodName: DropItem
+      - m_Target: {fileID: 8585481330590268411}
+        m_TargetAssemblyTypeName: Pickup, Assembly-CSharp
+        m_MethodName: PickupInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -507,17 +507,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotateTowardMouse: 1
-  rotationSpeed: 14
-  speed: 10
-  accelerationTime: 0.3
+  rotationSpeed: 5
+  speed: 14
+  rollingSpeed: 17
+  rollTime: 0.3
+  accelerationDuration: 0.3
   accelerationCurve:
     serializedVersion: 2
     m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  camera: {fileID: 0}
-  _input: {fileID: 8585481331091606722}
 --- !u!114 &8585481330590268411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -537,9 +537,9 @@ MonoBehaviour:
   dropAbleOn:
     serializedVersion: 2
     m_Bits: 512
-  heldItemShower: {fileID: 8585481330474852066}
   objectOnGroundPrefab: {fileID: 6773475101690018263, guid: 145e9300076677944b9acb8418ffe52a,
     type: 3}
+  heldItemShower: {fileID: 8585481330474852066}
 --- !u!114 &7437791504969163009
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -8,12 +8,12 @@ public class TopDownCharacterMover : MonoBehaviour
     [SerializeField] private float rotationSpeed = 5f;
 
     [Header("Movement")]
-    [SerializeField] private float speed = 10f;
+    [SerializeField] private float speed = 14f;
     private Vector3 lastPosition;
 
     [Header("Roll")]
     [SerializeField] private float rollingSpeed = 17f;
-    [SerializeField] private float rollTime = 1f;
+    [SerializeField] private float rollTime = 0.3f;
     public bool Rolling { get; private set; }
     private Vector3 rollDir;
 
@@ -32,6 +32,12 @@ public class TopDownCharacterMover : MonoBehaviour
     {
         if (camera == null)
             camera = Camera.main;
+
+        if (accelerationCurve.length == 0)
+        {
+            accelerationCurve.AddKey(0f, 0f);
+            accelerationCurve.AddKey(1f, 1f);
+        }
     }
 
     void Update()

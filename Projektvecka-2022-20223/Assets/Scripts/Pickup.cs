@@ -28,6 +28,9 @@ public class Pickup : MonoBehaviour
 
         canvasScript = FindObjectOfType<PickupCanvasScript>();
 
+        if (canvasScript == null)
+            Debug.Log("No pickup canvas or pickup canvas doesnt have script attached");
+
         if (objectOnGroundPrefab == null)
             objectOnGroundPrefab = Resources.Load("ObjectOnGround") as GameObject;
     }
