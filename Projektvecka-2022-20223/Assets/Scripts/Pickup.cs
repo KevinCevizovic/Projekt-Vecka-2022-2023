@@ -1,16 +1,45 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class Pickup : MonoBehaviour
 {
-    public Item heldItem;
+#if UNITY_EDITOR
+    [CustomEditor(typeof(Pickup))]
+    public class PickupEditor : Editor
+    {
+        public override void OnInspectorGUI()
+        {
+            Pickup script = (Pickup)target;
+
+            // held item
+            try
+            {
+                script.HeldItem = (Item)EditorGUILayout.ObjectField("Held item", script.HeldItem, typeof(Item), true, GUILayout.MinWidth(100));
+            }
+            catch (System.Exception)
+            {
+            }
+            base.OnInspectorGUI();
+        }
+    }
+#endif
+
+    public Item HeldItem
+    {
+        get { return heldItemShower.Item; }
+        set => heldItemShower.ChangeObject(value);
+    }
 
     [Header("Variables")]
     [SerializeField] private float pickupCooldownTime = 0.2f;
     [SerializeField] private float maxDropDistance = 3f;
     [SerializeField] private bool keepColliderOnDrop = false;
     [SerializeField] private LayerMask dropAbleOn = 1 << 9;
-    private ItemShower itemShowerOnGround; // if player is standing on a item this is a refrence to that
+    /// <summary> If player is standing on a item this is a refrence to that </summary>
+    private ItemShower itemShowerOnGround;
 
     [Header("Other")]
     [SerializeField] private GameObject objectOnGroundPrefab;
@@ -22,9 +51,12 @@ public class Pickup : MonoBehaviour
     private void Awake()
     {
         if (heldItemShower == null)
+        {
             heldItemShower = GetComponentInChildren<ItemShower>();
 
-        heldItemShower.ChangeObject(heldItem); // this shouldnt have a null check, cant be set in start
+            if (heldItemShower == null)
+                Debug.LogError("No heldItemShower");
+        }
 
         canvasScript = FindObjectOfType<PickupCanvasScript>();
         if (canvasScript == null)
@@ -89,40 +121,43 @@ public class Pickup : MonoBehaviour
 
     public void PickupInput(InputAction.CallbackContext ctx)
     {
-        // swap
-        if (ctx.started && itemShowerOnGround != null && heldItem != null && pickupCooldown.HasEnded)
+        if (ctx.started)
         {
-            heldItem = SwapItem(itemShowerOnGround, heldItem); // like doing pickup and drop but without creating and deleting objects
+            var canPickup = itemShowerOnGround != null && pickupCooldown.HasEnded;
+            var canDrop = HeldItem != null;
 
-            return;
-        }
+            // swap
+            if (canPickup && canDrop) // can pickup and can drop
+            {
+                HeldItem = SwapItem(itemShowerOnGround, HeldItem); // like doing pickup and drop but without creating and deleting objects
 
-        // pickup
-        if (ctx.started && itemShowerOnGround != null && pickupCooldown.HasEnded)
-        {
-            pickupCooldown.StartCoolDown(); // pickup cooldown
+                return;
+            }
 
-            heldItem = PickupItem(itemShowerOnGround);
-            heldItemShower.ChangeObject(heldItem);
+            // pickup
+            if (canPickup)
+            {
+                pickupCooldown.StartCoolDown(); // pickup cooldown
 
-            if (canvasScript != null)
-                canvasScript.Hide();
+                HeldItem = PickupItem(itemShowerOnGround);
 
-            return;
-        }
+                if (canvasScript != null)
+                    canvasScript.Hide(); // hide pickup canvas
 
-        // drop
-        if (ctx.started && heldItem != null)
-        {
-            pickupCooldown.StartCoolDown(); // pickup cooldown
+                return;
+            }
 
-            DropItem(heldItem);
+            // drop
+            if (canDrop)
+            {
+                pickupCooldown.StartCoolDown(); // pickup cooldown
 
-            // remove held item
-            heldItem = null;
-            heldItemShower.ChangeObject(null);
+                DropItem(HeldItem); // drop held item
 
-            return; // useless return
+                HeldItem = null; // remove held item
+
+                return; // useless return
+            }
         }
     }
 

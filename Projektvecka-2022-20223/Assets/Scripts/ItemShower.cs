@@ -28,12 +28,19 @@ public class ItemShower : MonoBehaviour
     public void ChangeObject(Item item, bool removeCollider = false)
     {
         Item = item;
+
+        name = item != null ? item.name + "(Itemshower)" : "Empty(Itemshower)"; // changes name to item name or Empty
+
+        if (!Application.isPlaying) return; // so it doesnt try to destroy and instantiate stuff in editor
+
         keepCollider = !removeCollider;
 
+        // remove already existing objects
         foreach (Transform child in transform)
             Destroy(child.gameObject);
 
-        if (item != null && item._object != null)
+        // create object
+        if (item != null && item._object != null) // item and object isnt null
         {
             Instantiate(item._object, transform);
 
@@ -42,15 +49,13 @@ public class ItemShower : MonoBehaviour
                     if (collider != this.collider)
                         Destroy(collider);
         }
-
-        name = item != null ? item.name + "(Itemshower)" : "Empty(Itemshower)"; // changes name to item name or Empty
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
 
-        if(collider != null)
-        Gizmos.DrawWireCube(collider.bounds.center, collider.bounds.size);
+        if (collider != null)
+            Gizmos.DrawWireCube(collider.bounds.center, collider.bounds.size);
     }
 }
