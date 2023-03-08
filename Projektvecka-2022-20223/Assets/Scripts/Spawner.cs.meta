@@ -3,7 +3,17 @@ guid: 01d81d9986d6b0746a0894ca140dcf94
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - gruntEnemy: {fileID: 1427859389867307942, guid: 15e11f518352e2d419f63e3da8ce3366,
+      type: 3}
+  - archerEnemy: {fileID: 1146738585488514631, guid: fb4309a396ed3924c9d8bd17e9079a68,
+      type: 3}
+  - gruntAlly: {fileID: 4701560051883860318, guid: d43bcc06cb3b8b74fb7977f970218288,
+      type: 3}
+  - archerAlly: {fileID: 4618873395217178715, guid: d8f712911c0635d4cafafd7bb0577f90,
+      type: 3}
+  - enemySpawnPoint: {instanceID: 0}
+  - allySpawnPoint: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

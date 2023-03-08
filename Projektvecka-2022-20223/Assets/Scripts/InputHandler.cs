@@ -12,6 +12,8 @@ public class InputHandler : MonoBehaviour
 
     public UnityEvent OnCommunicate;
 
+    public UnityEvent OnHeal;
+
     public UnityEvent OnKeyInput;
 
     public Transform weaponHolder;
@@ -29,6 +31,7 @@ public class InputHandler : MonoBehaviour
         // When perfomed the method plays
 
         PlayerInput.Player.Move.performed += Movement;
+
         PlayerInput.Player.Move.canceled += Movement;
 
         PlayerInput.Player.Run.performed += Run;
@@ -40,7 +43,12 @@ public class InputHandler : MonoBehaviour
         PlayerInput.Player.RightClick.performed += RightClick;
 
         PlayerInput.Player.ThrowSpear.performed += ThrowSpear;
+
+        PlayerInput.Player.UseHealthPotion.performed += Heal;
+
+        // PlayerInput.Player.Communicate.performed += OnCommunicate;
     }
+
     private void Awake()
     {
         PlayerInput = new PlayerInput();
@@ -70,6 +78,12 @@ public class InputHandler : MonoBehaviour
         Running = !Running; 
     }
 
+    public void Heal(InputAction.CallbackContext ctx)
+    {
+        OnHeal.Invoke();
+    }
+
+
     public void DropItem(InputAction.CallbackContext ctx)
     {
         OnDrop.Invoke();
@@ -93,4 +107,11 @@ public class InputHandler : MonoBehaviour
         // weaponHolder.GetChild(0).GetComponent<Weapon_Spear>().ThrowSpear();
         OnRightClick.Invoke();
     }
+    /*
+    public void OnCommunicate(InputAction.CallbackContext ctx)
+    {
+        // weaponHolder.GetChild(0).GetComponent<Weapon_Spear>().ThrowSpear();
+        OnCommunicate.Invoke();
+    }
+    */
 }

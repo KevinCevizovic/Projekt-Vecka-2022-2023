@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 231b31f59354cd04ab7c85e4c2789759, type: 3}
   m_Name: Spear
   m_EditorClassIdentifier: 
-  _object: {fileID: 0}
+  itemName: 
+  _object: {fileID: 6143116689108775368, guid: 7d96b9e7c91e7774c8badc7cf2932708, type: 3}

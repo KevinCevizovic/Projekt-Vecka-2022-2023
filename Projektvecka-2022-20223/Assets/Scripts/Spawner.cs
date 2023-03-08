@@ -7,9 +7,11 @@ public class Spawner : MonoBehaviour
     [SerializeField] private GameObject gruntAlly;
     [SerializeField] private GameObject archerAlly;
     private float timer = 10f;
-    private float targetTime = 15f;
+    public float targetTime = 15f;
     [SerializeField] private Transform enemySpawnPoint;
     [SerializeField] private Transform allySpawnPoint;
+    [SerializeField] bool enemySpawner;
+
 
     //void Awake()
     //{
@@ -33,10 +35,15 @@ public class Spawner : MonoBehaviour
     void Spawn()
     {
         // Spawn enemies
-        ObjectPool.Spawn(gruntEnemy, enemySpawnPoint.position + new Vector3(Random.Range(0, 10), 0, Random.Range(0, 10)), Quaternion.identity).transform.parent = transform;
-        ObjectPool.Spawn(gruntEnemy, enemySpawnPoint.position + new Vector3(Random.Range(0, 10), 0, Random.Range(0, 10)), Quaternion.identity).transform.parent = transform;
-        ObjectPool.Spawn(archerEnemy, enemySpawnPoint.position + new Vector3(Random.Range(0, 10), 0, Random.Range(0, 10)), Quaternion.identity).transform.parent = transform;
+        if (enemySpawner)
+        {
+            ObjectPool.Spawn(gruntEnemy, enemySpawnPoint.position + new Vector3(Random.Range(0, 10), 0, Random.Range(0, 10)), Quaternion.identity).transform.parent = transform;
+            ObjectPool.Spawn(gruntEnemy, enemySpawnPoint.position + new Vector3(Random.Range(0, 10), 0, Random.Range(0, 10)), Quaternion.identity).transform.parent = transform;
+            ObjectPool.Spawn(archerEnemy, enemySpawnPoint.position + new Vector3(Random.Range(0, 10), 0, Random.Range(0, 10)), Quaternion.identity).transform.parent = transform;
+        }
 
+        if (enemySpawner)
+            return;
         // Spawn allies
         ObjectPool.Spawn(gruntAlly, allySpawnPoint.position + new Vector3(Random.Range(0, 10), 0, Random.Range(0, 10)), Quaternion.identity).transform.parent = transform;
         ObjectPool.Spawn(archerAlly, allySpawnPoint.position + new Vector3(Random.Range(0, 10), 0, Random.Range(0, 10)), Quaternion.identity).transform.parent = transform;

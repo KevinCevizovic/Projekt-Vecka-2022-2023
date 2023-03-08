@@ -16,7 +16,6 @@ public class PlayerCommunication : MonoBehaviour
         foreach (Collider teamate in teamates)
             teamate.GetComponent<EnemyAI>().currentState = EnemyAI.States.FollowingPlayer;
     }
-
     private void Update()
     {
         if (!isFollowing)
@@ -25,20 +24,12 @@ public class PlayerCommunication : MonoBehaviour
             {
                 foreach (Collider teamate in teamates)
                     teamate.GetComponent<EnemyAI>().currentState = EnemyAI.States.IdleWalking;
+                Array.Clear(teamates, 0, teamates.Length);
             }
             catch
             {
                 
             }
-            
-        }
-        try
-        {
-            Array.Clear(teamates, 0, teamates.Length);
-        }
-        catch
-        {
-
         }
     }
 }
