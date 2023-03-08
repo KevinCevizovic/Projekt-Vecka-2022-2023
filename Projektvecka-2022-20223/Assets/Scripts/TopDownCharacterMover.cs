@@ -51,7 +51,7 @@ public class TopDownCharacterMover : MonoBehaviour
 
         if (MovedThruWall())
         {
-            transform.position += (-moveDir * goBackStrength);
+            transform.position += -moveDir * goBackStrength;
             return;
         }
 
