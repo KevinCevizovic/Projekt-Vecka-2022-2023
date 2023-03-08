@@ -16,7 +16,7 @@ public class TopDownCharacterMover : MonoBehaviour
 
     [Header("Roll")]
     [SerializeField] private float rollingSpeed = 17f;
-    [SerializeField] private float rollTime = 0.3f;
+    [SerializeField] private float rollDuration = 0.3f;
     [SerializeField] private float rollCooldownDuration = 0.5f;
     public bool Rolling { get; private set; }
     private Vector3 rollDir;
@@ -51,7 +51,7 @@ public class TopDownCharacterMover : MonoBehaviour
 
         if (MovedThruWall())
         {
-            transform.position = transform.position + (-moveDir * goBackStrength);
+            transform.position += (-moveDir * goBackStrength);
             return;
         }
 
@@ -149,11 +149,11 @@ public class TopDownCharacterMover : MonoBehaviour
         if (ctx.started && rollCooldown.HasEnded && !Rolling)
         {
             Rolling = true;
-            Invoke(nameof(ResetRolling), rollTime);
+            Invoke(nameof(StopRolling), rollDuration);
         }
     }
 
-    void ResetRolling() => Rolling = false;
+    void StopRolling() => Rolling = false;
 
     #endregion
 
