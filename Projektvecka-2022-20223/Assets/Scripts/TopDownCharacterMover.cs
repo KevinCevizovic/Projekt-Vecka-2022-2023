@@ -19,7 +19,6 @@ public class TopDownCharacterMover : MonoBehaviour
     [SerializeField] private float rollTime = 0.3f;
     [SerializeField] private float rollCooldownDuration = 0.5f;
     public bool Rolling { get; private set; }
-    //private bool rolled;
     private Vector3 rollDir;
     private Cooldown rollCooldown = new();
 
