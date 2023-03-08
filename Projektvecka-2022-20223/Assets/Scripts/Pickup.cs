@@ -131,6 +131,9 @@ public class Pickup : MonoBehaviour
             {
                 HeldItem = SwapItem(itemShowerOnGround, HeldItem); // like doing pickup and drop but without creating and deleting objects
 
+                if (canvasScript != null)
+                    canvasScript.ChangeText($"Press E to pickup {itemShowerOnGround.Item.Name}");
+
                 return;
             }
 

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlaceOnGround : MonoBehaviour
 {
-    [SerializeField] LayerMask ground = (1 << 9); // define ground
+    [SerializeField] LayerMask ground = 1 << 9;
 
     private void Start()
     {

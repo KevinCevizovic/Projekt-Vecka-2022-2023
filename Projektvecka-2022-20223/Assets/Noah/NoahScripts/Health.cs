@@ -1,8 +1,13 @@
+using System;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
+[Serializable] public class HealthEvent : UnityEvent { }
 public class Health : MonoBehaviour
 {
+    public HealthEvent OnDeath;
+
     public float maxHealth = 100f;
     [SerializeField] private Image healthBarImage;
     [SerializeField] private GameObject healthBarImageAI;
@@ -44,6 +49,8 @@ public class Health : MonoBehaviour
     {
         if (CurrentHealth <= 0)
         {
+            OnDeath?.Invoke();
+
             try
             {
                 GetComponent<EnemyAI>().healthBarImageSpawned.SetActive(false);
@@ -52,7 +59,9 @@ public class Health : MonoBehaviour
             {
 
             }
-            gameObject.SetActive(false);
+
+            if (!gameObject.CompareTag("Player"))
+                gameObject.SetActive(false);
         }
     }
 
@@ -64,5 +73,8 @@ public class Health : MonoBehaviour
             CurrentHealth = maxHealth;
         }
         UpdateHealthBar();
+
+        if (CurrentHealth <= 0f)
+            OnDeath?.Invoke();
     }
 }
