@@ -20196,7 +20196,19 @@ MonoBehaviour:
     m_ActionId: 79c8483b-de27-406d-a3d2-dee2fb83a840
     m_ActionName: Player/ThrowSpear[/Keyboard/q]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 585250629}
+        m_TargetAssemblyTypeName: HealthPotionScript, Assembly-CSharp
+        m_MethodName: UsePotion
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 314ba614-f498-4c0e-9d62-f30f24e6deb0
     m_ActionName: Player/UseHealthPotion[/Keyboard/h]
   m_NeverAutoSwitchControlSchemes: 0
