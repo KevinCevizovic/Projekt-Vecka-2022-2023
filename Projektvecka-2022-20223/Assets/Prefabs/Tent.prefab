@@ -124,6 +124,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2118705436}
+  - component: {fileID: 2118705437}
   m_Layer: 0
   m_Name: SpawnPoint
   m_TagString: Untagged
@@ -139,13 +140,37 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2118705435}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 4.19}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7859252011814528234}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2118705437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118705435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01d81d9986d6b0746a0894ca140dcf94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gruntEnemy: {fileID: 1427859389867307942, guid: 15e11f518352e2d419f63e3da8ce3366,
+    type: 3}
+  archerEnemy: {fileID: 1146738585488514631, guid: fb4309a396ed3924c9d8bd17e9079a68,
+    type: 3}
+  gruntAlly: {fileID: 4701560051883860318, guid: d43bcc06cb3b8b74fb7977f970218288,
+    type: 3}
+  archerAlly: {fileID: 4618873395217178715, guid: d8f712911c0635d4cafafd7bb0577f90,
+    type: 3}
+  targetTime: 15
+  enemySpawnPoint: {fileID: 2118705436}
+  allySpawnPoint: {fileID: 2118705436}
+  enemySpawner: 1
 --- !u!1 &2882674667931428669
 GameObject:
   m_ObjectHideFlags: 0

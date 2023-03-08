@@ -3,7 +3,7 @@ using TMPro;
 
 public class Wallet : MonoBehaviour
 {
-    private int coins = 0;
+    public int coins = 0;
 
     public static Wallet instance;
     [SerializeField]private TMP_Text coinText;
@@ -19,6 +19,7 @@ public class Wallet : MonoBehaviour
 
         UpdateUI();
     }
+
     public void UpdateUI()
     {
         if (coinText != null)
