@@ -222,8 +222,8 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""4efe8810-e09c-4d32-942a-8df07ab7ac99"",
-                    ""path"": ""<Keyboard>/leftShift"",
+                    ""id"": ""dc6b60ae-ecd5-4188-82a9-89bd7a5b63b1"",
+                    ""path"": ""<Keyboard>/shift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",

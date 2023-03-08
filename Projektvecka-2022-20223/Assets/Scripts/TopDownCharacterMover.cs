@@ -9,13 +9,19 @@ public class TopDownCharacterMover : MonoBehaviour
 
     [Header("Movement")]
     [SerializeField] private float speed = 14f;
+    [SerializeField] private float spherecastRadius = 0.5f;
+    [SerializeField] private float goBackStrength = 0.5f;
+    [SerializeField] private LayerMask wallLayers = 1 << 8;
     private Vector3 lastPosition;
 
     [Header("Roll")]
     [SerializeField] private float rollingSpeed = 17f;
     [SerializeField] private float rollTime = 0.3f;
+    [SerializeField] private float rollCooldownDuration = 0.5f;
     public bool Rolling { get; private set; }
+    private bool rolled;
     private Vector3 rollDir;
+    private Cooldown rollCooldown = new();
 
     [Header("Acceleration")]
     [SerializeField] private float accelerationDuration = 0.3f;
@@ -33,7 +39,7 @@ public class TopDownCharacterMover : MonoBehaviour
         if (camera == null)
             camera = Camera.main;
 
-        if (accelerationCurve.length == 0)
+        if (accelerationCurve.length == 0) // unset
         {
             accelerationCurve.AddKey(0f, 0f);
             accelerationCurve.AddKey(1f, 1f);
@@ -42,12 +48,20 @@ public class TopDownCharacterMover : MonoBehaviour
 
     void Update()
     {
-        var moveDir = transform.position - lastPosition;
+        var moveDir = (transform.position - lastPosition).normalized;
+
+        if (MovedThruWall())
+        {
+            transform.position = transform.position + (-moveDir * goBackStrength);
+            return;
+        }
 
         if (Rolling)
         {
             if (rollDir == Vector3.zero) // when first rolling
                 rollDir = moveDir.normalized; // set roll dir
+
+            lastPosition = transform.position;
 
             Roll();
 
@@ -72,6 +86,14 @@ public class TopDownCharacterMover : MonoBehaviour
         else acceleration = 1f;
 
         Move(new Vector3(inputVector.x, 0, inputVector.y));
+    }
+
+    private bool MovedThruWall()
+    {
+        var changeInPos = transform.position - lastPosition;
+
+        return Physics.SphereCast(transform.position, spherecastRadius, changeInPos.normalized, out var _, changeInPos.magnitude, wallLayers) // moved thru wall
+            || Physics.CheckSphere(transform.position, spherecastRadius, wallLayers); // in wall rn
     }
 
     private void Roll()
@@ -133,4 +155,11 @@ public class TopDownCharacterMover : MonoBehaviour
     void ResetRolling() => Rolling = false;
 
     #endregion
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, spherecastRadius);
+        Gizmos.DrawWireSphere(lastPosition, spherecastRadius);
+    }
 }
