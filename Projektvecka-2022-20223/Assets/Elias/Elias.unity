@@ -645,7 +645,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 972e9410d02fb0b4baa7bb1a3a450463, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heldItem: {fileID: 0}
+  heldItem: {fileID: 11400000, guid: 18d88da9cc5083348b6556c84c557d38, type: 2}
   pickupCooldownTime: 0.2
   maxDropDistance: 3
   keepColliderOnDrop: 0
@@ -670,7 +670,7 @@ MonoBehaviour:
   rotationSpeed: 5
   speed: 10
   rollingSpeed: 17
-  rollTime: 1
+  rollTime: 0.3
   accelerationDuration: 0
   accelerationCurve:
     serializedVersion: 2

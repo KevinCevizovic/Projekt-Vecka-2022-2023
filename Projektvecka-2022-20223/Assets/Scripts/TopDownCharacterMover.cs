@@ -42,10 +42,12 @@ public class TopDownCharacterMover : MonoBehaviour
 
     void Update()
     {
+        var moveDir = transform.position - lastPosition;
+
         if (Rolling)
         {
             if (rollDir == Vector3.zero) // when first rolling
-                rollDir = -transform.forward; // set roll dir
+                rollDir = moveDir.normalized; // set roll dir
 
             Roll();
 
@@ -53,7 +55,6 @@ public class TopDownCharacterMover : MonoBehaviour
         }
         else rollDir = Vector3.zero; // when not rolling
 
-        var moveDir = transform.position - lastPosition;
 
         if (rotateTowardMouse)
             RotateTowardsMousePosition();
