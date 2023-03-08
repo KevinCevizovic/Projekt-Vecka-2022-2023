@@ -111,11 +111,11 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 2.5
+  m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 1
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -146,12 +146,12 @@ MonoBehaviour:
   closestTarget: {fileID: 0}
   bullet: {fileID: 0}
   shootRadius: 30
-  runRadius: 4
-  hitRadius: 2
+  runRadius: 6
+  hitRadius: 2.15
   damage: 20
   timeBetweenShooting: 2.5
-  speedNotChasing: 1.5
-  speedChasing: 3.5
+  speedNotChasing: 2
+  speedChasing: 5
   enemyMask:
     serializedVersion: 2
     m_Bits: 64

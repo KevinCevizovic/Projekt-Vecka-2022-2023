@@ -146,12 +146,12 @@ MonoBehaviour:
   closestTarget: {fileID: 0}
   bullet: {fileID: 0}
   shootRadius: 30
-  runRadius: 7
-  hitRadius: 2.16
+  runRadius: 6
+  hitRadius: 2.15
   damage: 20
   timeBetweenShooting: 2.5
-  speedNotChasing: 1.5
-  speedChasing: 3.5
+  speedNotChasing: 2
+  speedChasing: 5
   enemyMask:
     serializedVersion: 2
     m_Bits: 136

@@ -44,7 +44,14 @@ public class Health : MonoBehaviour
     {
         if (CurrentHealth <= 0)
         {
-            GetComponent<EnemyAI>().healthBarImageSpawned.SetActive(false);
+            try
+            {
+                GetComponent<EnemyAI>().healthBarImageSpawned.SetActive(false);
+            }
+            catch
+            {
+
+            }
             gameObject.SetActive(false);
         }
     }

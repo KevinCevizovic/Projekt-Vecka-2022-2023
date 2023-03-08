@@ -2793,8 +2793,14 @@ MonoBehaviour:
   rotateTowardMouse: 1
   rotationSpeed: 10
   speed: 10
-  rollingSpeed: 17
+  spherecastRadius: 0.5
+  goBackStrength: 0.2
+  wallLayers:
+    serializedVersion: 2
+    m_Bits: 256
+  rollingSpeed: -17
   rollTime: 0.3
+  rollCooldownDuration: 0.5
   accelerationDuration: 0
   accelerationCurve:
     serializedVersion: 2
@@ -4535,6 +4541,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tent_L1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2882674667931428669, guid: a2501f7ffd5b3fc46bc4b9116e1f74a7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7859252011814528234, guid: a2501f7ffd5b3fc46bc4b9116e1f74a7,
         type: 3}
