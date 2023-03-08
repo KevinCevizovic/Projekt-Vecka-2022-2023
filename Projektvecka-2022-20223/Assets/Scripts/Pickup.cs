@@ -84,7 +84,7 @@ public class Pickup : MonoBehaviour
         //}
 
         // pickup
-        if (ctx.started && itemShowerOnGround != null && pickupCooldown.HasEnded)
+        if (ctx.started && itemShowerOnGround != null && pickupCooldown.HasEnded && heldItem == null) // you cant pickup if you hold something bc that deletes helditem
         {
             pickupCooldown.StartCoolDown(); // pickup cooldown
 
@@ -96,7 +96,7 @@ public class Pickup : MonoBehaviour
 
             return;
         }
-        else
+
         // drop
         if (ctx.started && heldItem != null)
         {
@@ -143,7 +143,6 @@ public class Pickup : MonoBehaviour
             }
         }
     }
-
 
     private void OnTriggerExit(Collider other)
     {
