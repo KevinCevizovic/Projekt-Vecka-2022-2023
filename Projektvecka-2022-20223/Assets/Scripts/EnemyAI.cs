@@ -10,15 +10,21 @@ public class EnemyAI : MonoBehaviour
     public bool grunt;
     public bool archer;
 
+    [Header("What does the AI do?")]
+    public bool controller;
+    public bool attacker;
+    public bool gaurd;
+
     private GameObject player;
     NavMeshAgent agent;
 
-    [Header("Coverpoints")]
-    public int coverPointIndex;
-    public Transform[] coverPoints;
+    [Header("Gaurd")]
+    public int gaurdPositionIndex;
+    public Transform[] gaurdPositions;
     public Vector3 randomPosition = Vector3.zero;
     public GameObject closestTarget;
     public GameObject bullet;
+
 
     [Header("Numbers you change")]
     [Range(6f, 30f)]
@@ -37,11 +43,12 @@ public class EnemyAI : MonoBehaviour
     [Range(3.5f, 6f)]
     public float speedChasing = 3.5f;
 
+    private int areaPatroll;
     public LayerMask enemyMask;
     private LayerMask myMask;
     public LayerMask obstacleMask;
 
-    EnemyAI[] enemyAIs;
+    Collider[] allies;
     Coroutine myRoutine;
     public States currentState;
 
@@ -62,6 +69,8 @@ public class EnemyAI : MonoBehaviour
     {
         homePos = transform.position;
         homePos.y = 0;
+        int desiredGaurdIndex = Random.Range(0, 11);
+
     }
 
     public enum States
@@ -84,14 +93,17 @@ public class EnemyAI : MonoBehaviour
         }
         else
         {
-            CollisionChecks();
+            CollisionChecks(enemyMask, true);
         }
         // anim.SetFloat("move", agent.velocity.magnitude);
     }
 
-    private void CollisionChecks()
+    private void CollisionChecks(LayerMask mask, bool contnueOrNot)
     {
-        var enemies = Physics.OverlapSphere(transform.position, 1000000, enemyMask);
+        if(!contnueOrNot)
+            allies = Physics.OverlapSphere(transform.position, 1000000, mask);
+        
+        var enemies = Physics.OverlapSphere(transform.position, 1000000, mask);
 
         float distance = 0;
         for (int i = 0; i < enemies.Length; i++)
@@ -105,7 +117,8 @@ public class EnemyAI : MonoBehaviour
         }
 
         Vector3 toOther = Vector3.zero;
-
+        if (!contnueOrNot)
+            return;
         if(closestTarget != null)
         toOther = closestTarget.transform.position - transform.position;
         

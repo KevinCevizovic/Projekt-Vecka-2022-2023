@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Market : MonoBehaviour
 {
     Wallet wallet;
+    public GameObject UIShop;
 
     private void Awake()
     {
@@ -13,6 +12,21 @@ public class Market : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        
+        UIShop.SetActive(true);
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        UIShop.SetActive(false);
+    }
+
+    public void BuyHealthPotion()
+    {
+        if (wallet.coins < 10)
+        {
+            Debug.Log("You're poor");
+            return;
+        }
+        wallet.AddCoins(-10);
+        wallet.GetComponent<HealthPotionAmount>().AddAmount(1);
     }
 }

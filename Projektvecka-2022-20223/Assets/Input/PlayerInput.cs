@@ -98,6 +98,15 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UseHealthPotion"",
+                    ""type"": ""Button"",
+                    ""id"": ""314ba614-f498-4c0e-9d62-f30f24e6deb0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -247,7 +256,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""c689ceef-03f3-4434-89c9-c6cd5e7a71e7"",
-                    ""path"": ""<Keyboard>/h"",
+                    ""path"": ""<Keyboard>/c"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
@@ -298,6 +307,17 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""action"": ""ThrowSpear"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c8ad14ca-55a1-4f78-a5d4-bd734a6e57ba"",
+                    ""path"": ""<Keyboard>/h"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UseHealthPotion"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -342,6 +362,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_Player_RightClick = m_Player.FindAction("RightClick", throwIfNotFound: true);
         m_Player_PauseMenu = m_Player.FindAction("PauseMenu", throwIfNotFound: true);
         m_Player_ThrowSpear = m_Player.FindAction("ThrowSpear", throwIfNotFound: true);
+        m_Player_UseHealthPotion = m_Player.FindAction("UseHealthPotion", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -409,6 +430,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_RightClick;
     private readonly InputAction m_Player_PauseMenu;
     private readonly InputAction m_Player_ThrowSpear;
+    private readonly InputAction m_Player_UseHealthPotion;
     public struct PlayerActions
     {
         private @PlayerInput m_Wrapper;
@@ -421,6 +443,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @RightClick => m_Wrapper.m_Player_RightClick;
         public InputAction @PauseMenu => m_Wrapper.m_Player_PauseMenu;
         public InputAction @ThrowSpear => m_Wrapper.m_Player_ThrowSpear;
+        public InputAction @UseHealthPotion => m_Wrapper.m_Player_UseHealthPotion;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -454,6 +477,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @ThrowSpear.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnThrowSpear;
                 @ThrowSpear.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnThrowSpear;
                 @ThrowSpear.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnThrowSpear;
+                @UseHealthPotion.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUseHealthPotion;
+                @UseHealthPotion.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUseHealthPotion;
+                @UseHealthPotion.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUseHealthPotion;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -482,6 +508,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @ThrowSpear.started += instance.OnThrowSpear;
                 @ThrowSpear.performed += instance.OnThrowSpear;
                 @ThrowSpear.canceled += instance.OnThrowSpear;
+                @UseHealthPotion.started += instance.OnUseHealthPotion;
+                @UseHealthPotion.performed += instance.OnUseHealthPotion;
+                @UseHealthPotion.canceled += instance.OnUseHealthPotion;
             }
         }
     }
@@ -514,5 +543,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnRightClick(InputAction.CallbackContext context);
         void OnPauseMenu(InputAction.CallbackContext context);
         void OnThrowSpear(InputAction.CallbackContext context);
+        void OnUseHealthPotion(InputAction.CallbackContext context);
     }
 }

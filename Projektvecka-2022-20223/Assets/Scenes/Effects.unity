@@ -6049,7 +6049,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34ff50bd9aab3904bb46284dc12bb63e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 0}
+  item: {fileID: 11400000, guid: 6e1871453e045d54db241d80e6bc2177, type: 2}
   keepCollider: 0
 --- !u!1 &8585481330902902543
 GameObject:
@@ -6062,7 +6062,7 @@ GameObject:
   - component: {fileID: 8585481330902902537}
   - component: {fileID: 8585481330902902542}
   m_Layer: 0
-  m_Name: Empty(Itemshower)
+  m_Name: Spear(Itemshower)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6176,8 +6176,8 @@ MonoBehaviour:
   OnLeftClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Weapon_Spear, Assembly-CSharp
+      - m_Target: {fileID: 7210211882076205510}
+        m_TargetAssemblyTypeName: PartisanAttacks, Assembly-CSharp
         m_MethodName: LeftClick
         m_Mode: 1
         m_Arguments:
@@ -6191,8 +6191,8 @@ MonoBehaviour:
   OnRightClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Weapon_Spear, Assembly-CSharp
+      - m_Target: {fileID: 7210211882076205510}
+        m_TargetAssemblyTypeName: PartisanAttacks, Assembly-CSharp
         m_MethodName: RightClick
         m_Mode: 1
         m_Arguments:
