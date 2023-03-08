@@ -292,7 +292,7 @@
                     "path": "<Keyboard>/h",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "UseHealthPotion",
                     "isComposite": false,
                     "isPartOfComposite": false

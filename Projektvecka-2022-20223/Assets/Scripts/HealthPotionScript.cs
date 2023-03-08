@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class HealthPotionScript : MonoBehaviour
 {
@@ -44,6 +45,16 @@ public class HealthPotionScript : MonoBehaviour
     public void UsePotion()
     {
         if (HealthPotionAmount <= 0) return;
+
+        RemoveAmount(1);
+        playerHealth.Heal(healingStrength);
+
+        UpdateUI();
+    }
+
+    public void UsePotion(InputAction.CallbackContext ctx)
+    {
+        if (HealthPotionAmount <= 0 || !ctx.started) return;
 
         RemoveAmount(1);
         playerHealth.Heal(healingStrength);
