@@ -19,7 +19,7 @@ public class TopDownCharacterMover : MonoBehaviour
     [SerializeField] private float rollTime = 0.3f;
     [SerializeField] private float rollCooldownDuration = 0.5f;
     public bool Rolling { get; private set; }
-    private bool rolled;
+    //private bool rolled;
     private Vector3 rollDir;
     private Cooldown rollCooldown = new();
 
@@ -64,6 +64,8 @@ public class TopDownCharacterMover : MonoBehaviour
             lastPosition = transform.position;
 
             Roll();
+
+            rollCooldown.StartCoolDown(rollCooldownDuration);
 
             return;
         }
@@ -145,7 +147,7 @@ public class TopDownCharacterMover : MonoBehaviour
 
     public void RollInput(InputAction.CallbackContext ctx)
     {
-        if (ctx.started && !Rolling)
+        if (ctx.started && rollCooldown.HasEnded && !Rolling)
         {
             Rolling = true;
             Invoke(nameof(ResetRolling), rollTime);
