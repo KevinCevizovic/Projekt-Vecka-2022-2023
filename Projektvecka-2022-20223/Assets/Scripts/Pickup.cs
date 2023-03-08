@@ -28,7 +28,7 @@ public class Pickup : MonoBehaviour
 
         canvasScript = FindObjectOfType<PickupCanvasScript>();
         if (canvasScript == null)
-            Debug.Log("No pickup canvas or pickup canvas doesnt have script attached");
+            Debug.Log("No pickup canvas");
 
         if (objectOnGroundPrefab == null)
             objectOnGroundPrefab = Resources.Load("ObjectOnGround") as GameObject;
@@ -38,7 +38,7 @@ public class Pickup : MonoBehaviour
     {
         pickupCooldown.SetDuration(pickupCooldownTime);
 
-        if(canvasScript != null)
+        if (canvasScript != null)
             canvasScript.Hide();
     }
 
@@ -47,7 +47,7 @@ public class Pickup : MonoBehaviour
     {
         if (item == null) return;
 
-        Debug.Log("Droped " + item.ItemName);
+        Debug.Log("Droped " + item.Name);
 
         if (Physics.Raycast(heldItemShower.transform.position, Vector3.down, out var hit, maxDropDistance, dropAbleOn))
         {
@@ -60,12 +60,12 @@ public class Pickup : MonoBehaviour
         }
     }
 
-    /// <summary> Picks up item from itemshower and returns it </summary>
+    /// <summary> Picks up item from itemShower and returns it </summary>
     private Item PickupItem(ItemShower itemShower)
     {
         if (itemShower == null) return null;
 
-        Debug.Log("Picked up " + itemShower.Item.ItemName);
+        Debug.Log("Picked up " + itemShower.Item.Name);
 
         Item pickedupItem = itemShower.Item;
 
@@ -74,17 +74,31 @@ public class Pickup : MonoBehaviour
         return pickedupItem;
     }
 
+    /// <summary> Swaps itemShowers item with item and returns itemShowers item </summary>
+    private Item SwapItem(ItemShower itemShower, Item item)
+    {
+        if (itemShower == null || item == null) return null;
+
+        Debug.Log($"Swaped {itemShower.Item.Name} and {item.Name}");
+
+        var itemShowersItem = itemShower.Item;
+        itemShower.ChangeObject(item);
+
+        return itemShowersItem;
+    }
+
     public void PickupInput(InputAction.CallbackContext ctx)
     {
-        // pickup and drop
-        //if (ctx.started)
-        //{
-        //    Debug.Log("Switch held item and item on ground");
-        //    return;
-        //}
+        // swap
+        if (ctx.started && itemShowerOnGround != null && heldItem != null && pickupCooldown.HasEnded)
+        {
+            heldItem = SwapItem(itemShowerOnGround, heldItem); // like doing pickup and drop but without creating and deleting objects
+
+            return;
+        }
 
         // pickup
-        if (ctx.started && itemShowerOnGround != null && pickupCooldown.HasEnded && heldItem == null) // you cant pickup if you hold something bc that deletes helditem
+        if (ctx.started && itemShowerOnGround != null && pickupCooldown.HasEnded)
         {
             pickupCooldown.StartCoolDown(); // pickup cooldown
 
@@ -107,6 +121,8 @@ public class Pickup : MonoBehaviour
             // remove held item
             heldItem = null;
             heldItemShower.ChangeObject(null);
+
+            return; // useless return
         }
     }
 
@@ -116,7 +132,7 @@ public class Pickup : MonoBehaviour
 
         Debug.Log($"{item.GetType()} collected");
 
-        ((Collectible)item).Activate(gameObject);
+        ((Collectible)item).Collected(gameObject);
         Destroy(itemShower.gameObject);
     }
 
@@ -138,7 +154,7 @@ public class Pickup : MonoBehaviour
         {
             if (canvasScript != null && item != null)
             {
-                canvasScript.ChangeText($"Press E to pickup {item.ItemName}");
+                canvasScript.ChangeText($"Press E to pickup {item.Name}");
                 canvasScript.ShowAndSetPosition(itemOnGroundShower.transform.position);
             }
         }

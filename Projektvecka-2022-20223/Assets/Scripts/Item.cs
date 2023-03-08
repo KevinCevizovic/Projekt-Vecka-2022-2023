@@ -22,11 +22,11 @@ public class Item : ScriptableObject
     //    }
     //#endif
 
-    [SerializeField] private string itemName = ""; // so multiple items can have the same name
-    public string ItemName
+    [SerializeField] private string _name = ""; // so multiple items can have the same name
+    public string Name
     {
-        get { return itemName != "" ? itemName : name; }
-        set { itemName = value; }
+        get { return _name != "" ? _name : name; }
+        set { _name = value; }
     }
 
     public GameObject _object;
