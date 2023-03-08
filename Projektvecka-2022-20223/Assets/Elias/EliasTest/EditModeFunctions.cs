@@ -15,15 +15,15 @@ public class EditModeFunctions : EditorWindow
         {
             ItemShower[] itemShowerArray = FindObjectsOfType<ItemShower>();
             foreach (ItemShower itemShower in itemShowerArray)
-                if (itemShower.item != null && itemShower.item._object != null)
-                    Instantiate(itemShower.item._object, itemShower.transform.position, itemShower.transform.rotation, itemShower.transform);
+                if (itemShower.Item != null && itemShower.Item._object != null)
+                    Instantiate(itemShower.Item._object, itemShower.transform.position, itemShower.transform.rotation, itemShower.transform);
         }
 
         if (GUILayout.Button("Delete all items"))
         {
             ItemShower[] itemShowerArray = FindObjectsOfType<ItemShower>();
             foreach (ItemShower itemShower in itemShowerArray)
-                if (itemShower.item != null && itemShower.item._object != null)
+                if (itemShower.Item != null && itemShower.Item._object != null)
                     while (itemShower.transform.childCount > 0)
                         DestroyImmediate(itemShower.transform.GetChild(itemShower.transform.childCount - 1).gameObject, false);
         }

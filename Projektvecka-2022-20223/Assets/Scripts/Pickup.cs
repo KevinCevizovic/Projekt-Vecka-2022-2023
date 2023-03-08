@@ -1,122 +1,52 @@
-//using UnityEditor;
 using UnityEngine;
-//using UnityEditorInternal;
+using UnityEngine.InputSystem;
 
 public class Pickup : MonoBehaviour
 {
-    //#if UNITY_EDITOR
-    //    [CustomEditor(typeof(Pickup))]
-    //    public class PickupEditor : Editor
-    //    {
-    //        private bool showOtherGUI;
-
-    //        public override void OnInspectorGUI()
-    //        {
-    //            Pickup script = (Pickup)target;
-
-    //            // held item
-    //            EditorGUILayout.BeginHorizontal();
-    //            EditorGUILayout.LabelField("Held item", EditorStyles.boldLabel, GUILayout.MaxWidth(75));
-    //            script.heldItem = (Item)EditorGUILayout.ObjectField(script.heldItem, typeof(ScriptableObject), true, GUILayout.MaxWidth(150));
-    //            EditorGUILayout.EndHorizontal();
-
-    //            EditorGUILayout.Space();
-
-    //            // pickup settings
-    //            EditorGUILayout.LabelField("Pickup Settings", EditorStyles.boldLabel);
-
-    //            // cooldown time
-    //            script.pickupCooldownTime = SlideableFloatFieldWithWidth("Cooldown Time", script.pickupCooldownTime, 120f, 75f);
-
-    //            // drop distance
-    //            script.maxDropDistance = SlideableFloatFieldWithWidth("Drop Distance", script.maxDropDistance, 120f, 75f);
-
-    //            // other foldout
-    //            showOtherGUI = EditorGUILayout.Foldout(showOtherGUI, "Other");
-
-
-    //            if (showOtherGUI)
-    //            {
-    //                EditorGUILayout.BeginHorizontal();
-    //                EditorGUILayout.LabelField("Drop able on", EditorStyles.boldLabel, GUILayout.MaxWidth(120));
-    //                LayerMask tempMask = EditorGUILayout.MaskField(InternalEditorUtility.LayerMaskToConcatenatedLayersMask(script.dropAbleOn), InternalEditorUtility.layers, GUILayout.MaxWidth(75));
-    //                script.dropAbleOn = InternalEditorUtility.ConcatenatedLayersMaskToLayerMask(tempMask);
-    //                EditorGUILayout.EndHorizontal();
-
-    //                EditorGUILayout.BeginHorizontal();
-    //                EditorGUILayout.LabelField("Held item shower", EditorStyles.boldLabel, GUILayout.MaxWidth(120));
-    //                script.heldItemShower = (ItemShower)EditorGUILayout.ObjectField(script.heldItemShower, typeof(ItemShower), true, GUILayout.MaxWidth(150));
-    //                EditorGUILayout.EndHorizontal();
-
-    //                EditorGUILayout.BeginHorizontal();
-    //                EditorGUILayout.LabelField("Object on ground", EditorStyles.boldLabel, GUILayout.MaxWidth(120));
-    //                script.objectOnGroundPrefab = (GameObject)EditorGUILayout.ObjectField(script.objectOnGroundPrefab, typeof(Object), true, GUILayout.MaxWidth(150));
-    //                EditorGUILayout.EndHorizontal();
-    //            }
-    //        }
-
-    //        private static float SlideableFloatFieldWithWidth(float variable, float labelFieldWidth, float fieldWidth)
-    //        {
-    //            EditorGUILayout.BeginHorizontal();
-    //            EditorGUILayout.LabelField("", GUILayout.MaxWidth(labelFieldWidth));
-    //            variable = EditorGUILayout.FloatField(variable, GUILayout.MaxWidth(fieldWidth));
-    //            EditorGUILayout.EndHorizontal();
-
-    //            EditorGUILayout.Space(-22);
-    //            variable = EditorGUILayout.FloatField("\n", variable, GUILayout.MaxWidth(-122));
-
-    //            return variable;
-    //        }
-
-    //        private static float SlideableFloatFieldWithWidth(string label, float variable, float labelFieldWidth, float fieldWidth)
-    //        {
-    //            EditorGUILayout.BeginHorizontal();
-    //            EditorGUILayout.LabelField("", GUILayout.MaxWidth(labelFieldWidth));
-    //            variable = EditorGUILayout.FloatField(variable, GUILayout.MaxWidth(fieldWidth));
-    //            EditorGUILayout.EndHorizontal();
-
-    //            EditorGUILayout.Space(-22);
-    //            variable = EditorGUILayout.FloatField(label, variable, GUILayout.MaxWidth(-122));
-
-    //            return variable;
-    //        }
-    //    }
-    //#endif
-
     public Item heldItem;
 
     [Header("Variables")]
-    [SerializeField] float pickupCooldownTime = 0.2f;
-    [SerializeField] float maxDropDistance = 3f;
-    [SerializeField] bool keepColliderOnDrop = false;
-
+    [SerializeField] private float pickupCooldownTime = 0.2f;
+    [SerializeField] private float maxDropDistance = 3f;
+    [SerializeField] private bool keepColliderOnDrop = false;
+    [SerializeField] private LayerMask dropAbleOn = 1 << 9;
+    private ItemShower itemShowerOnGround; // if player is standing on a item this is a refrence to that
 
     [Header("Other")]
-    [SerializeField] LayerMask dropAbleOn = 1 << 9;
-    [SerializeField] ItemShower heldItemShower;
-    [SerializeField] GameObject objectOnGroundPrefab;
+    [SerializeField] private GameObject objectOnGroundPrefab;
+    [SerializeField] private ItemShower heldItemShower;
 
     private Cooldown pickupCooldown = new();
+    private PickupCanvasScript canvasScript;
 
     private void Awake()
     {
         if (heldItemShower == null)
             heldItemShower = GetComponentInChildren<ItemShower>();
 
-        heldItemShower.item = heldItem; // this shouldnt have a null check
+        heldItemShower.ChangeObject(heldItem); // this shouldnt have a null check, cant be set in start
+
+        canvasScript = FindObjectOfType<PickupCanvasScript>();
+        if (canvasScript == null)
+            Debug.Log("No pickup canvas or pickup canvas doesnt have script attached");
+
+        if (objectOnGroundPrefab == null)
+            objectOnGroundPrefab = Resources.Load("ObjectOnGround") as GameObject;
     }
 
     private void Start()
     {
         pickupCooldown.SetDuration(pickupCooldownTime);
+
+        canvasScript.Hide();
     }
 
-    /// <summary> Drops HeldItem </summary>
-    public void DropItem()
+    /// <summary> Drops item </summary>
+    public void DropItem(Item item)
     {
-        if (heldItem == null) return;
+        if (item == null) return;
 
-        pickupCooldown.StartCoolDown(); // pickup cooldown
+        Debug.Log("Droped " + item.ItemName);
 
         if (Physics.Raycast(heldItemShower.transform.position, Vector3.down, out var hit, maxDropDistance, dropAbleOn))
         {
@@ -124,8 +54,54 @@ public class Pickup : MonoBehaviour
 
             GameObject itemShower = Instantiate(objectOnGroundPrefab, dropPosition, Quaternion.identity); // create itemshower on ground
 
-            itemShower.GetComponent<ItemShower>().ChangeObject(heldItem, !keepColliderOnDrop); // set item in itemshower to held 
+            itemShower.GetComponent<ItemShower>().ChangeObject(item, !keepColliderOnDrop); // set item in itemshower to held 
             itemShower.transform.rotation = transform.rotation; // rotate itemshower to player rotation
+        }
+    }
+
+    /// <summary> Picks up item from itemshower and returns it </summary>
+    private Item PickupItem(ItemShower itemShower)
+    {
+        if (itemShower == null) return null;
+
+        Debug.Log("Picked up " + itemShower.Item.ItemName);
+
+        Item pickedupItem = itemShower.Item;
+
+        Destroy(itemShower.gameObject);
+
+        return pickedupItem;
+    }
+
+    public void PickupInput(InputAction.CallbackContext ctx)
+    {
+        // pickup and drop
+        //if (ctx.started)
+        //{
+        //    Debug.Log("Switch held item and item on ground");
+        //    return;
+        //}
+
+        // pickup
+        if (ctx.started && itemShowerOnGround != null && pickupCooldown.HasEnded)
+        {
+            pickupCooldown.StartCoolDown(); // pickup cooldown
+
+            heldItem = PickupItem(itemShowerOnGround);
+            heldItemShower.ChangeObject(heldItem);
+
+            if (canvasScript != null)
+                canvasScript.Hide();
+
+            return;
+        }
+        else
+        // drop
+        if (ctx.started && heldItem != null)
+        {
+            pickupCooldown.StartCoolDown(); // pickup cooldown
+
+            DropItem(heldItem);
 
             // remove held item
             heldItem = null;
@@ -133,54 +109,47 @@ public class Pickup : MonoBehaviour
         }
     }
 
-    //public void DropItem(Item item)
-    //{
-    //    pickupCooldown.StartCoolDown(); // pickup cooldown
+    private void CollectCollectible(ItemShower itemShower)
+    {
+        Item item = itemShower.Item;
 
-    //    if (Physics.Raycast(heldItemShower.transform.position, Vector3.down, out var hit, maxDropDistance, dropAbleOn))
-    //    {
-    //        Vector3 dropPosition = hit.point;
+        Debug.Log($"{item.GetType()} collected");
 
-    //        GameObject itemShower = Instantiate(objectOnGroundPrefab, dropPosition, Quaternion.identity); // create itemshower on ground
-
-    //        itemShower.GetComponent<ItemShower>().ChangeObject(item, true); // set item in itemshower to held 
-    //        itemShower.transform.rotation = transform.rotation; // rotate itemshower to player rotation
-    //    }
-    //}
+        ((Collectible)item).Activate(gameObject);
+        Destroy(itemShower.gameObject);
+    }
 
     private void OnTriggerEnter(Collider other)
     {
         // checks if its a itemshower
         if (!other.TryGetComponent(out ItemShower itemOnGroundShower)) return;
 
-        Item item = itemOnGroundShower.item;
+        itemShowerOnGround = itemOnGroundShower;
 
-        if (item.GetType().BaseType == typeof(Collectible))
+        Item item = itemOnGroundShower.Item;
+
+        if (item.GetType().BaseType == typeof(Collectible)) // checks if its a collectible
         {
-            Debug.Log($"{item.GetType()} collected");
-
-            ((Collectible)item).Activate(gameObject);
-            Destroy(itemOnGroundShower.gameObject);
+            CollectCollectible(itemOnGroundShower);
             return;
         }
+        else // not a collectible
+        {
+            if (canvasScript != null && item != null)
+            {
+                canvasScript.ChangeText($"Press E to pickup {item.ItemName}");
+                canvasScript.ShowAndSetPosition(itemOnGroundShower.transform.position);
+            }
+        }
+    }
 
 
-        if (!pickupCooldown.HasEnded) return;
+    private void OnTriggerExit(Collider other)
+    {
+        itemShowerOnGround = null;
 
-        pickupCooldown.StartCoolDown(); // pickup cooldown
-
-        // change held item
-        Item newItemOnGround = heldItem;
-        heldItem = item;
-
-        itemOnGroundShower.ChangeObject(newItemOnGround, !keepColliderOnDrop); // change item on ground to held item
-        itemOnGroundShower.transform.rotation = transform.rotation; // rotate item on ground with character
-
-        // if no item in hand destroy itemOnGroundObject
-        if (newItemOnGround == null)
-            Destroy(itemOnGroundShower.gameObject);
-
-        heldItemShower.ChangeObject(heldItem); // change item in hand to item on ground
+        if (canvasScript != null)
+            canvasScript.Hide();
     }
 
     private void OnDrawGizmos()
