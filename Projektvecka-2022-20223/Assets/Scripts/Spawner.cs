@@ -12,7 +12,6 @@ public class Spawner : MonoBehaviour
     [SerializeField] private Transform allySpawnPoint;
     [SerializeField] bool enemySpawner;
 
-
     //void Awake()
     //{
         //ObjectPool.Preload(gruntEnemy, 40);
@@ -37,15 +36,15 @@ public class Spawner : MonoBehaviour
         // Spawn enemies
         if (enemySpawner)
         {
-            ObjectPool.Spawn(gruntEnemy, enemySpawnPoint.position + new Vector3(Random.Range(0, 10), 0, Random.Range(0, 10)), Quaternion.identity).transform.parent = transform;
-            ObjectPool.Spawn(gruntEnemy, enemySpawnPoint.position + new Vector3(Random.Range(0, 10), 0, Random.Range(0, 10)), Quaternion.identity).transform.parent = transform;
-            ObjectPool.Spawn(archerEnemy, enemySpawnPoint.position + new Vector3(Random.Range(0, 10), 0, Random.Range(0, 10)), Quaternion.identity).transform.parent = transform;
+            ObjectPool.Spawn(gruntEnemy, enemySpawnPoint.position + new Vector3(Random.Range(0, 11), transform.position.y, Random.Range(0, 11)), Quaternion.identity).transform.parent = transform;
+            ObjectPool.Spawn(gruntEnemy, enemySpawnPoint.position + new Vector3(Random.Range(0, 1), transform.position.y, Random.Range(0, 1)), Quaternion.identity).transform.parent = transform;
+            ObjectPool.Spawn(archerEnemy, enemySpawnPoint.position + new Vector3(Random.Range(0, 1), transform.position.y, Random.Range(0, 11)), Quaternion.identity).transform.parent = transform;
         }
 
         if (enemySpawner)
             return;
         // Spawn allies
-        ObjectPool.Spawn(gruntAlly, allySpawnPoint.position + new Vector3(Random.Range(0, 10), 0, Random.Range(0, 10)), Quaternion.identity).transform.parent = transform;
-        ObjectPool.Spawn(archerAlly, allySpawnPoint.position + new Vector3(Random.Range(0, 10), 0, Random.Range(0, 10)), Quaternion.identity).transform.parent = transform;
+        ObjectPool.Spawn(gruntAlly, allySpawnPoint.position + new Vector3(Random.Range(0, 1), transform.position.y, Random.Range(0, 1)), Quaternion.identity).transform.parent = transform;
+        ObjectPool.Spawn(archerAlly, allySpawnPoint.position + new Vector3(Random.Range(0, 1), transform.position.y, Random.Range(0, 1)), Quaternion.identity).transform.parent = transform;
     }
 }

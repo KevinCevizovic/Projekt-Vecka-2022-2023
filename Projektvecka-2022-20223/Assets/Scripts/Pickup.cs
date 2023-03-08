@@ -38,7 +38,8 @@ public class Pickup : MonoBehaviour
     {
         pickupCooldown.SetDuration(pickupCooldownTime);
 
-        canvasScript.Hide();
+        if(canvasScript != null)
+            canvasScript.Hide();
     }
 
     /// <summary> Drops item </summary>

@@ -76,6 +76,7 @@ GameObject:
   - component: {fileID: 7612410674477884630}
   - component: {fileID: 7612410674477884629}
   - component: {fileID: 7612410674477884628}
+  - component: {fileID: 2065433543}
   m_Layer: 0
   m_Name: PartisanSpear
   m_TagString: Untagged
@@ -90,7 +91,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6143116689108775368}
-  m_LocalRotation: {x: 0.65452236, y: 0.0011045125, z: -0.69817466, w: -0.29008877}
+  m_LocalRotation: {x: 0.65452063, y: 0.001102969, z: -0.6981768, w: -0.29008734}
   m_LocalPosition: {x: 0.01, y: 0.081, z: 0.699}
   m_LocalScale: {x: 0.5235328, y: 0.5235328, z: 0.37834668}
   m_ConstrainProportionsScale: 0
@@ -184,8 +185,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldownTime: 2
   chargeTime: 0
-  chargedDamage: 0
-  damage: 0
+  chargedDamage: 40
+  damage: 20
 --- !u!114 &7612410674477884628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,7 +194,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6143116689108775368}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 926bc52ffdb5e024985736dd65e4e5b9, type: 3}
   m_Name: 
@@ -203,3 +204,16 @@ MonoBehaviour:
   spearEnd: {fileID: 984993834040682111}
   maxScale: 1000
   holdTime: 1000
+--- !u!65 &2065433543
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6143116689108775368}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.3289159, y: 0.13698865, z: 1.9600164}
+  m_Center: {x: 0.00027199296, y: -0.00015641385, z: 3.6604877}

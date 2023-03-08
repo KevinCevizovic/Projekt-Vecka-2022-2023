@@ -14,7 +14,10 @@ public class HealthPotionAmount : MonoBehaviour
     {
         if (healthPotionAmount == 0)
             return;
-        healthPotionAmount -= amount;
-        GetComponent<Health>().Heal(40f);
+        if (GetComponent<Health>().CurrentHealth > GetComponent<Health>().maxHealth)
+        {
+            healthPotionAmount -= amount;
+            GetComponent<Health>().Heal(40f);
+        }
     }
 }

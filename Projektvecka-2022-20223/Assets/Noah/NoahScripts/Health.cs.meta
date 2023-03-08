@@ -3,7 +3,10 @@ guid: 07edbbb1181757d4c99a6dd9af29c538
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - healthBarImage: {instanceID: 0}
+  - healthBarImageAI: {fileID: 7557011549972560225, guid: 3f55a13aaa31fd247a0ee73021c480cc,
+      type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

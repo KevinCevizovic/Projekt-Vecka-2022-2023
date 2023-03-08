@@ -47,11 +47,15 @@ public class EnemyAI : MonoBehaviour
     public LayerMask enemyMask;
     private LayerMask myMask;
     public LayerMask obstacleMask;
+    public GameObject healthBarImage;
+    [HideInInspector] public GameObject healthBarImageSpawned;
+    public GameObject pickupCanvas;
+
 
     Collider[] allies;
     Coroutine myRoutine;
     public States currentState;
-
+    [SerializeField] private Vector3 offset;
     public float followUpTimer = 2f;
 
     private bool isCallingCoroutine = false;
@@ -61,6 +65,13 @@ public class EnemyAI : MonoBehaviour
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        try
+        {
+            pickupCanvas = GameObject.Find("PickupCanvas");
+        }
+        catch
+        { }
+        healthBarImageSpawned = Instantiate(healthBarImage, pickupCanvas.transform);
         agent = GetComponent<NavMeshAgent>();
         //randomPosition = new Vector3(transform.position.x + Random.Range(-10, 10), transform.position.y, transform.position.z + Random.Range(-10, 10));
     }
@@ -87,6 +98,7 @@ public class EnemyAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        healthBarImageSpawned.transform.position = transform.position + offset;
         if (currentState == States.FollowingPlayer)
         {
             FollowPlayer();

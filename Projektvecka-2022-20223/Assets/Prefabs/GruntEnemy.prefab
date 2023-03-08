@@ -30,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1427859389867307942}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.41, y: 1.5, z: -16.38}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -137,11 +137,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grunt: 1
   archer: 0
-  coverPointIndex: 0
-  coverPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  controller: 0
+  attacker: 0
+  gaurd: 0
+  gaurdPositionIndex: 0
+  gaurdPositions: []
   randomPosition: {x: 0, y: 0, z: 0}
   closestTarget: {fileID: 0}
   bullet: {fileID: 0}
@@ -158,7 +158,12 @@ MonoBehaviour:
   obstacleMask:
     serializedVersion: 2
     m_Bits: 256
+  healthBarImage: {fileID: 7557011549972560225, guid: 3f55a13aaa31fd247a0ee73021c480cc,
+    type: 3}
+  healthBarImageSpawned: {fileID: 0}
+  pickupCanvas: {fileID: 0}
   currentState: 0
+  offset: {x: 0, y: 2, z: 0}
   followUpTimer: 2
 --- !u!114 &1427859389867307951
 MonoBehaviour:
@@ -173,6 +178,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  healthBarImage: {fileID: 0}
+  healthBarImageAI: {fileID: 0}
+  <CurrentHealth>k__BackingField: 0
 --- !u!1 &1427859389958439365
 GameObject:
   m_ObjectHideFlags: 0
