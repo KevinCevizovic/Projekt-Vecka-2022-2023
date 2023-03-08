@@ -12,11 +12,19 @@ public class ScreenEffect : MonoBehaviour
 
     [SerializeField] private float duration = 1f;
 
+    [SerializeField] private GameObject child, image;
+
     private float startTime;
 
     private void OnValidate()
     {
         ChangeScale(value);
+    }
+
+    private void Start()
+    {
+        child.SetActive(false);
+        image.SetActive(false);
     }
 
     private void Update()
@@ -53,12 +61,18 @@ public class ScreenEffect : MonoBehaviour
     {
         grow = true;
         startTime = Time.time;
+
+        image.SetActive(false);
+        child.SetActive(true);
     }
 
     public void StartShrinkAnimation()
     {
         shrink = true;
         startTime = Time.time;
+
+        image.SetActive(false);
+        child.SetActive(true);
     }
 
     private void GrowAnimation()
@@ -67,7 +81,11 @@ public class ScreenEffect : MonoBehaviour
         ChangeScale(Mathf.Lerp(0.1f, 23f, e));
 
         if (e >= 1f)
+        {
             grow = false;
+            image.SetActive(false);
+            child.SetActive(false);
+        }
     }
 
     public void ShrinkAnimation()
@@ -76,6 +94,10 @@ public class ScreenEffect : MonoBehaviour
         ChangeScale(Mathf.Lerp(23f, 0.1f, e));
 
         if (e >= 1f)
+        {
             shrink = false;
+            image.SetActive(true);
+            child.SetActive(false);
+        }
     }
 }
