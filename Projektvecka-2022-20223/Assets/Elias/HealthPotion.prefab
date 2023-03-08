@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8387025305171813277}
   - component: {fileID: 7211145061182214078}
   - component: {fileID: 4808123439601194890}
-  - component: {fileID: -6309739292443454996}
   - component: {fileID: -8811611107111539404}
   m_Layer: 0
   m_Name: HealthPotion
@@ -86,19 +85,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &-6309739292443454996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4237690250022775255}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a5576a49b2f1e641b8c889f268c339f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healAmount: 40
 --- !u!136 &-8811611107111539404
 CapsuleCollider:
   m_ObjectHideFlags: 0
