@@ -80,7 +80,8 @@ public class EnemyAI : MonoBehaviour
     {
         homePos = transform.position;
         homePos.y = 0;
-        int desiredGaurdIndex = Random.Range(0, 11);
+        randomPosition = transform.position;
+        int desiredGaurdIndex = Random.Range(0, gaurdPositions.Length);
     }
 
     public enum States
@@ -276,7 +277,14 @@ public class EnemyAI : MonoBehaviour
             return;
         currentState = States.Chasing;
         agent.speed = speedChasing;
-        agent.SetDestination(closestTarget.transform.position);
+        try
+        {
+            agent.SetDestination(closestTarget.transform.position);
+        }
+        catch
+        {
+        }
+        
     }
 
     private void MoveToCover()
@@ -284,29 +292,20 @@ public class EnemyAI : MonoBehaviour
         // Animation things
 
         agent.speed = speedNotChasing;
-        Vector3 newPos = transform.position;
-        newPos.y = 0;
-
-        if ((homePos - newPos).magnitude > 200)
-        {
-            currentState = States.GoingHome;
-            agent.SetDestination(homePos);
-            Debug.Log("Going home");
-        }
-        if ((transform.position - randomPosition).magnitude < 1.5f)
-        {
-            currentState = States.IdleWalking;
-            FaceTarget();
-            randomPosition = new Vector3(transform.position.x + Random.Range(-10, 10), transform.position.y, transform.position.z + Random.Range(-10, 10));
-        }
-        agent.SetDestination(randomPosition);
+        
     }
 
     private void FaceTarget()
     {
-        Vector3 direction = (closestTarget.transform.position - transform.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
+        try
+        {
+            Vector3 direction = (closestTarget.transform.position - transform.position).normalized;
+            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
+        }
+        catch
+        { }
+
     }
 
     private void OnDrawGizmosSelected()
