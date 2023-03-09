@@ -9,7 +9,7 @@ public class PartisanSlam : MonoBehaviour
     public Transform spearEnd;
     public float maxScale = 3.0f;
     public float holdTime = 2.0f;
-    private bool isHolding;
+    //private bool isHolding;
 
     private float currentScale = 1.0f;
 
@@ -48,13 +48,13 @@ public class PartisanSlam : MonoBehaviour
         float startTime = Time.time;
         float endTime = 0f;
 
-        isHolding = true;
+        //isHolding = true;
         while (Mouse.current.rightButton.IsActuated())
         {
             endTime = Time.time;
             currentScale = Mathf.Lerp(1.0f, maxScale, (endTime - startTime) / holdTime);
             yield return null;
         }
-        isHolding = false;
+        //isHolding = false;
     }
 }
