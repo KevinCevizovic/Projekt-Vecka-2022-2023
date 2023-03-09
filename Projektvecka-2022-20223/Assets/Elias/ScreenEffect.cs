@@ -12,7 +12,7 @@ public class ScreenEffect : MonoBehaviour
     [SerializeField] private float duration = 1f;
     private float startTime;
 
-    [SerializeField] private GameObject effectImage, blankImage;
+    [SerializeField] private GameObject maskImage, effectImage, blankImage;
 
     private void OnValidate()
     {
@@ -52,11 +52,18 @@ public class ScreenEffect : MonoBehaviour
 
     private void ChangeScale(float scale)
     {
-        transform.localScale = scale * Vector3.one;
+        maskImage.SetActive(true);
+        maskImage.transform.localScale = scale * Vector3.one;
     }
 
     public void StartGrowAnimation()
     {
+        if (shrink)
+        {
+            playGrowAnimation = true;
+            return;
+        }
+
         grow = true;
         startTime = Time.time;
 
@@ -66,6 +73,12 @@ public class ScreenEffect : MonoBehaviour
 
     public void StartShrinkAnimation()
     {
+        if (grow)
+        {
+            playShrinkAnimation = true;
+            return;
+        }
+
         shrink = true;
         startTime = Time.time;
 
@@ -96,6 +109,7 @@ public class ScreenEffect : MonoBehaviour
             shrink = false;
             blankImage.SetActive(true);
             effectImage.SetActive(false);
+            maskImage.SetActive(false);
         }
     }
 }

@@ -3283,6 +3283,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 82064922}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &87150645 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4897456559019200861, guid: 042db0668b08bd24d9bff647a4817127,
+    type: 3}
+  m_PrefabInstance: {fileID: 4897456559354911659}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &98435988
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4219,7 +4225,7 @@ GameObject:
   - component: {fileID: 120005916}
   - component: {fileID: 120005915}
   m_Layer: 0
-  m_Name: HealthPotion(Itemshower)
+  m_Name: Stone(Itemshower)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4237,7 +4243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34ff50bd9aab3904bb46284dc12bb63e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Item>k__BackingField: {fileID: 11400000, guid: a0bc8547a1984b647868cfcc668ba70d,
+  <Item>k__BackingField: {fileID: 11400000, guid: 18d88da9cc5083348b6556c84c557d38,
     type: 2}
   keepCollider: 1
 --- !u!4 &120005916
@@ -20069,7 +20075,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 585250617}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.547, z: 0.0000038146973}
+  m_LocalPosition: {x: 0, y: 2.547, z: 8.44}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -20312,9 +20318,45 @@ MonoBehaviour:
   OnDeath:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 690400059}
+      - m_Target: {fileID: 1453938718}
         m_TargetAssemblyTypeName: ScreenEffect, Assembly-CSharp
         m_MethodName: StartShrinkAnimation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 585250633}
+        m_TargetAssemblyTypeName: RespawnScript, Assembly-CSharp
+        m_MethodName: Respawn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 585250630}
+        m_TargetAssemblyTypeName: Health, Assembly-CSharp
+        m_MethodName: Heal
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 30
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1453938717}
+        m_TargetAssemblyTypeName: ScreenEffect, Assembly-CSharp
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -20362,7 +20404,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ddaa53640e06dc4e9e9f49c8d660043, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoint: {fileID: 0}
+  spawnPoint: {fileID: 639033028}
 --- !u!1 &587018558
 GameObject:
   m_ObjectHideFlags: 0
@@ -22438,6 +22480,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 638625502}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &639033027
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 639033028}
+  m_Layer: 0
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &639033028
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 639033027}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.36, y: 2.5924063, z: -8.34}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &643350996
 GameObject:
   m_ObjectHideFlags: 0
@@ -22604,6 +22677,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 643869176}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &651934918 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4897456558798046568, guid: 042db0668b08bd24d9bff647a4817127,
+    type: 3}
+  m_PrefabInstance: {fileID: 4897456559354911659}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &657558675
 GameObject:
   m_ObjectHideFlags: 0
@@ -23357,18 +23436,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 684412755}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &690400059 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4897456558669508752, guid: 042db0668b08bd24d9bff647a4817127,
-    type: 3}
-  m_PrefabInstance: {fileID: 4897456559354911659}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1f179353836b7e4f84d15431e200b27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &690593079
 GameObject:
   m_ObjectHideFlags: 0
@@ -43524,6 +43591,31 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1448399861}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1453938717 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4897456558841333414, guid: 042db0668b08bd24d9bff647a4817127,
+    type: 3}
+  m_PrefabInstance: {fileID: 4897456559354911659}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1453938718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453938717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1f179353836b7e4f84d15431e200b27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value: 23
+  playGrowAnimation: 1
+  playShrinkAnimation: 0
+  duration: 1
+  maskImage: {fileID: 2005717465}
+  effectImage: {fileID: 651934918}
+  blankImage: {fileID: 87150645}
 --- !u!1 &1454608559
 GameObject:
   m_ObjectHideFlags: 0
@@ -59548,6 +59640,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2005117042}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &2005717465 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4897456558669508764, guid: 042db0668b08bd24d9bff647a4817127,
+    type: 3}
+  m_PrefabInstance: {fileID: 4897456559354911659}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2006117850
 GameObject:
   m_ObjectHideFlags: 0
@@ -63811,6 +63909,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1666173955}
     m_Modifications:
+    - target: {fileID: 4897456558669508755, guid: 042db0668b08bd24d9bff647a4817127,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 4897456558669508755, guid: 042db0668b08bd24d9bff647a4817127,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 4897456558669508755, guid: 042db0668b08bd24d9bff647a4817127,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 4897456558669508764, guid: 042db0668b08bd24d9bff647a4817127,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4897456558841333413, guid: 042db0668b08bd24d9bff647a4817127,
         type: 3}
       propertyPath: m_Pivot.x
@@ -63855,6 +63973,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4897456558841333413, guid: 042db0668b08bd24d9bff647a4817127,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4897456558841333413, guid: 042db0668b08bd24d9bff647a4817127,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4897456558841333413, guid: 042db0668b08bd24d9bff647a4817127,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 4897456558841333413, guid: 042db0668b08bd24d9bff647a4817127,
         type: 3}
@@ -63919,7 +64052,12 @@ PrefabInstance:
     - target: {fileID: 4897456558841333414, guid: 042db0668b08bd24d9bff647a4817127,
         type: 3}
       propertyPath: m_Name
-      value: DeathEffect
+      value: DeathEffectParent
+      objectReference: {fileID: 0}
+    - target: {fileID: 4897456559019200861, guid: 042db0668b08bd24d9bff647a4817127,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 042db0668b08bd24d9bff647a4817127, type: 3}
