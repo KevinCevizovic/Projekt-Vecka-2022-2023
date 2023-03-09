@@ -5825,7 +5825,7 @@ PrefabInstance:
     - target: {fileID: 6143116689108775368, guid: 7d96b9e7c91e7774c8badc7cf2932708,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6776629603427052402, guid: 7d96b9e7c91e7774c8badc7cf2932708,
         type: 3}
@@ -6371,7 +6371,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 972e9410d02fb0b4baa7bb1a3a450463, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heldItem: {fileID: 11400000, guid: 6e1871453e045d54db241d80e6bc2177, type: 2}
   pickupCooldownTime: 0.2
   maxDropDistance: 3
   keepColliderOnDrop: 0
@@ -6511,6 +6510,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  OnHeal:
+    m_PersistentCalls:
+      m_Calls: []
   OnKeyInput:
     m_PersistentCalls:
       m_Calls: []
@@ -6530,8 +6532,14 @@ MonoBehaviour:
   rotateTowardMouse: 1
   rotationSpeed: 10
   speed: 10
+  spherecastRadius: 0.5
+  goBackStrength: 0.5
+  wallLayers:
+    serializedVersion: 2
+    m_Bits: 256
   rollingSpeed: 17
-  rollTime: 0.3
+  rollDuration: 0.3
+  rollCooldownDuration: 0.5
   accelerationDuration: 0
   accelerationCurve:
     serializedVersion: 2
