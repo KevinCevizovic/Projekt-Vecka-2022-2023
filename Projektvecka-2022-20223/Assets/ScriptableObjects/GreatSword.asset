@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: GreatSword
   m_EditorClassIdentifier: 
   _name: Iron Sword
-  _object: {fileID: 9088640365942397979, guid: 023c3d207aed426459506d7bcdaabeae, type: 3}
+  _object: {fileID: 8988135926184477096, guid: 3fdc3cb9482556e4aa1899c80c66bacf, type: 3}

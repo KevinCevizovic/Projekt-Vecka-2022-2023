@@ -16,6 +16,8 @@ public class GreatSwordAttack : MonoBehaviour
     public float chargedDamage;
     private bool isCharging = false;
 
+    public AudioClip sfxClip;
+
     private PlayerInput playerInput;
 
     public float damage;
@@ -86,14 +88,6 @@ public class GreatSwordAttack : MonoBehaviour
         {
             noOfClicks = 0;
         }
-
-        /*
-        if (Mouse.current.rightButton.wasReleasedThisFrame && !isCharging && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f)
-        {
-            anim.SetBool("HeavyCombo1", false);
-            anim.SetBool("HeavyCombo2", true);
-        }
-        */
     }
 
     public void RightClick(InputAction.CallbackContext other)
@@ -162,6 +156,7 @@ public class GreatSwordAttack : MonoBehaviour
     {
         if (other.gameObject.CompareTag("RatTeam"))
         {
+            AudioSource.PlayClipAtPoint(sfxClip, transform.position);
             Health health = other.GetComponent<Health>();
 
             if (anim.GetCurrentAnimatorStateInfo(0).IsName("HeavyCombo2"))
