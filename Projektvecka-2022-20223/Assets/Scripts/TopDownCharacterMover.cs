@@ -12,6 +12,7 @@ public class TopDownCharacterMover : MonoBehaviour
     [SerializeField] private float spherecastRadius = 0.5f;
     [SerializeField] private float goBackStrength = 0.5f;
     [SerializeField] private LayerMask wallLayers = 1 << 8;
+    public Vector3 MoveDir { get; private set; }
     private Vector3 lastPosition;
 
     [Header("Roll")]
@@ -47,18 +48,18 @@ public class TopDownCharacterMover : MonoBehaviour
 
     void Update()
     {
-        var moveDir = (transform.position - lastPosition).normalized;
+        MoveDir = (transform.position - lastPosition).normalized;
 
         if (MovedThruWall())
         {
-            transform.position += -moveDir * goBackStrength;
+            transform.position += -MoveDir * goBackStrength;
             return;
         }
 
         if (Rolling)
         {
             if (rollDir == Vector3.zero) // when first rolling
-                rollDir = moveDir.normalized; // set roll dir
+                rollDir = MoveDir.normalized; // set roll dir
 
             lastPosition = transform.position;
 
@@ -75,7 +76,7 @@ public class TopDownCharacterMover : MonoBehaviour
             RotateTowardsMousePosition();
         else
         {
-            var moveDirXZ = new Vector3(moveDir.x, 0f, moveDir.z);
+            var moveDirXZ = new Vector3(MoveDir.x, 0f, MoveDir.z);
             if (moveDirXZ != Vector3.zero)
                 RotateTowardMovementVector(moveDirXZ);
         }
@@ -162,5 +163,9 @@ public class TopDownCharacterMover : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, spherecastRadius);
         Gizmos.DrawWireSphere(lastPosition, spherecastRadius);
+
+        Gizmos.DrawWireSphere((transform.forward + transform.position)/* * 3f*/, 2f);
+
+        Debug.Log(transform.forward);
     }
 }
