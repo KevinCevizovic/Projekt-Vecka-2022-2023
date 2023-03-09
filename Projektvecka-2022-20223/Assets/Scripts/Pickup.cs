@@ -74,22 +74,25 @@ public class Pickup : MonoBehaviour
             canvasScript.Hide();
     }
 
-    /// <summary> Drops item </summary>
-    public void DropItem(Item item)
+    /// <summary> Drops item, returns if it droped </summary>
+    public bool DropItem(Item item)
     {
-        if (item == null) return;
-
-        Debug.Log("Droped " + item.Name);
+        if (item == null) return false;
 
         if (Physics.Raycast(heldItemShower.transform.position, Vector3.down, out var hit, maxDropDistance, dropAbleOn))
         {
+            Debug.Log("Droped " + item.Name);
+
             Vector3 dropPosition = hit.point;
 
             GameObject itemShower = Instantiate(objectOnGroundPrefab, dropPosition, Quaternion.identity); // create itemshower on ground
 
             itemShower.GetComponent<ItemShower>().ChangeObject(item, !keepColliderOnDrop); // set item in itemshower to held 
             itemShower.transform.rotation = transform.rotation; // rotate itemshower to player rotation
+
+            return true;
         }
+        else return false;
     }
 
     /// <summary> Picks up item from itemShower and returns it </summary>
@@ -155,9 +158,8 @@ public class Pickup : MonoBehaviour
             {
                 pickupCooldown.StartCoolDown(); // pickup cooldown
 
-                DropItem(HeldItem); // drop held item
-
-                HeldItem = null; // remove held item
+                if (DropItem(HeldItem)) // drop held item
+                    HeldItem = null; // remove held item
 
                 return; // useless return
             }
