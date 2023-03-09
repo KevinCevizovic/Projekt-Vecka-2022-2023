@@ -2768,7 +2768,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 972e9410d02fb0b4baa7bb1a3a450463, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heldItem: {fileID: 11400000, guid: 6e1871453e045d54db241d80e6bc2177, type: 2}
   pickupCooldownTime: 0.2
   maxDropDistance: 3
   keepColliderOnDrop: 1
@@ -2799,7 +2798,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   rollingSpeed: -17
-  rollTime: 0.3
+  rollDuration: 0.3
   rollCooldownDuration: 0.5
   accelerationDuration: 0
   accelerationCurve:
@@ -2992,6 +2991,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07edbbb1181757d4c99a6dd9af29c538, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
   maxHealth: 100
   healthBarImage: {fileID: 151876037}
   healthBarImageAI: {fileID: 0}
@@ -3022,7 +3024,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e59e189f685808f4ab422116dff1569d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealthPotionAmount: 0
   healthPotionAmount: 0
+  healingStrength: 0
+  text: {fileID: 0}
 --- !u!1 &1596942043
 GameObject:
   m_ObjectHideFlags: 0

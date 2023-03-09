@@ -81,7 +81,6 @@ public class EnemyAI : MonoBehaviour
         homePos = transform.position;
         homePos.y = 0;
         int desiredGaurdIndex = Random.Range(0, 11);
-
     }
 
     public enum States
