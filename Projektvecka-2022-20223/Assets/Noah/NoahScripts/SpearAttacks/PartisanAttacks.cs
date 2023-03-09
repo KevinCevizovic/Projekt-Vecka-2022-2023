@@ -59,6 +59,10 @@ public class PartisanAttacks : MonoBehaviour
         if (noahVet && anim.GetCurrentAnimatorStateInfo(0).IsName("Combo3"))
         {
             anim.SetBool("Combo3", false);
+        }
+        if (noahVet && anim.GetCurrentAnimatorStateInfo(0).IsName("Combo4"))
+        {
+            anim.SetBool("Combo4", false);
             noOfClicks = 0;
         }
         if (noahVet && anim.GetCurrentAnimatorStateInfo(0).IsName("HeavyCombo1"))
@@ -103,6 +107,7 @@ public class PartisanAttacks : MonoBehaviour
             anim.SetBool("Combo1", true);
             anim.SetBool("Combo2", false);
             anim.SetBool("Combo3", false);
+            anim.SetBool("Combo4", false);
         }
         noOfClicks = Mathf.Clamp(noOfClicks, 0, 3);
 
@@ -113,8 +118,13 @@ public class PartisanAttacks : MonoBehaviour
         }
         if (noOfClicks >= 3 && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && anim.GetCurrentAnimatorStateInfo(0).IsName("Combo2"))
         {
-            anim.SetBool("Combo2", true);
+            anim.SetBool("Combo2", false);
             anim.SetBool("Combo3", true);
+        }
+        if (noOfClicks >= 3 && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7f && anim.GetCurrentAnimatorStateInfo(0).IsName("Combo3"))
+        {
+            anim.SetBool("Combo3", false);
+            anim.SetBool("Combo4", true);
         }
     }
     private IEnumerator ChargedAttack()
