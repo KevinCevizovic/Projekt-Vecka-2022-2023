@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - RatTeam
+  - SpawnPoint
   layers:
   - Default
   - TransparentFX
