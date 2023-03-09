@@ -211,6 +211,7 @@ public class EnemyAI : MonoBehaviour
         currentState = States.Shooting;
         if (grunt)
         {
+            currentState = States.Hitting;
             agent.SetDestination(transform.position);
             yield return new WaitForSeconds(timeBetweenShooting);
             isCallingCoroutine = false;
