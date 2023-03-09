@@ -170,7 +170,7 @@ public class Pickup : MonoBehaviour
 
         Debug.Log($"{item.GetType()} collected");
 
-        ((Collectible)item).Collected(gameObject);
+        ((Collectible)item).Collect(gameObject);
         Destroy(itemShower.gameObject);
     }
 

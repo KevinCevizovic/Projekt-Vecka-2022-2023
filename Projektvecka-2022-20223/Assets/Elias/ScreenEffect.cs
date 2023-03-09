@@ -7,14 +7,12 @@ public class ScreenEffect : MonoBehaviour
 
     public bool playGrowAnimation = true;
     public bool playShrinkAnimation = false;
-
     private bool grow, shrink;
 
     [SerializeField] private float duration = 1f;
-
-    [SerializeField] private GameObject child, image;
-
     private float startTime;
+
+    [SerializeField] private GameObject effectImage, blankImage;
 
     private void OnValidate()
     {
@@ -23,8 +21,8 @@ public class ScreenEffect : MonoBehaviour
 
     private void Start()
     {
-        child.SetActive(false);
-        image.SetActive(false);
+        effectImage.SetActive(false);
+        blankImage.SetActive(false);
     }
 
     private void Update()
@@ -62,8 +60,8 @@ public class ScreenEffect : MonoBehaviour
         grow = true;
         startTime = Time.time;
 
-        image.SetActive(false);
-        child.SetActive(true);
+        blankImage.SetActive(false);
+        effectImage.SetActive(true);
     }
 
     public void StartShrinkAnimation()
@@ -71,33 +69,33 @@ public class ScreenEffect : MonoBehaviour
         shrink = true;
         startTime = Time.time;
 
-        image.SetActive(false);
-        child.SetActive(true);
+        blankImage.SetActive(false);
+        effectImage.SetActive(true);
     }
 
     private void GrowAnimation()
     {
-        var e = (Time.time - startTime) / duration;
-        ChangeScale(Mathf.Lerp(0.1f, 23f, e));
+        var t = (Time.time - startTime) / duration;
+        ChangeScale(Mathf.Lerp(0.1f, 23f, t));
 
-        if (e >= 1f)
+        if (t >= 1f) // animation ended
         {
             grow = false;
-            image.SetActive(false);
-            child.SetActive(false);
+            blankImage.SetActive(false);
+            effectImage.SetActive(false);
         }
     }
 
-    public void ShrinkAnimation()
+    private void ShrinkAnimation()
     {
-        var e = (Time.time - startTime) / duration;
-        ChangeScale(Mathf.Lerp(23f, 0.1f, e));
+        var t = (Time.time - startTime) / duration;
+        ChangeScale(Mathf.Lerp(23f, 0.1f, t));
 
-        if (e >= 1f)
+        if (t >= 1f) // animation ended
         {
             shrink = false;
-            image.SetActive(true);
-            child.SetActive(false);
+            blankImage.SetActive(true);
+            effectImage.SetActive(false);
         }
     }
 }

@@ -26,7 +26,7 @@ public class MovementTest : MonoBehaviour
     new private Camera camera;
 
     // input
-    private Vector2 inputVector;
+    public Vector2 InputVector { get; private set; }
 
     private void Awake()
     {
@@ -64,7 +64,7 @@ public class MovementTest : MonoBehaviour
             CalculateAcceleration();
         else acceleration = 1f;
 
-        Move(new Vector3(inputVector.x, 0, inputVector.y));
+        Move(new Vector3(InputVector.x, 0, InputVector.y));
     }
 
     private void Roll()
@@ -108,7 +108,7 @@ public class MovementTest : MonoBehaviour
 
     public void MovementInput(InputAction.CallbackContext ctx)
     {
-        inputVector = ctx.ReadValue<Vector2>();
+        InputVector = ctx.ReadValue<Vector2>();
 
         if (ctx.started)
             accelerationStartTime = Time.time;
