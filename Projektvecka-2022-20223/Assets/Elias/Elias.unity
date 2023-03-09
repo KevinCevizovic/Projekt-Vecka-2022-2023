@@ -11152,7 +11152,7 @@ GameObject:
   - component: {fileID: 285304061}
   m_Layer: 0
   m_Name: SoundEffect
-  m_TagString: Untagged
+  m_TagString: SoundEffect
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22279,7 +22279,7 @@ GameObject:
   - component: {fileID: 624099629}
   m_Layer: 0
   m_Name: Music
-  m_TagString: Untagged
+  m_TagString: SoundEffect
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -36415,8 +36415,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSources:
   - {fileID: 624099629}
-  audioSources:
-  - {fileID: 285304061}
+  soundEffectSources: []
   musicSlider: {fileID: 942284119}
   soundEffectSlider: {fileID: 1734970959}
   musicSliderText: {fileID: 996892749}

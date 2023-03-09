@@ -1,3 +1,4 @@
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -5,7 +6,7 @@ using UnityEngine.UI;
 
 public class SettingsScript : MonoBehaviour
 {
-    [SerializeField] private AudioSource[] musicSources, audioSources;
+    [SerializeField] private AudioSource[] musicSources, soundEffectSources;
 
     [SerializeField] private Slider musicSlider, soundEffectSlider;
     [SerializeField] private TMP_Text musicSliderText, soundEffectSliderText;
@@ -14,6 +15,10 @@ public class SettingsScript : MonoBehaviour
 
     private void Awake()
     {
+        // add any tagged audio sources to the audio source arrays
+        musicSources = musicSources.Concat(GameObject.FindGameObjectsWithTag("Music").Select(item => musicSources.Contains(item.GetComponent<AudioSource>()) ? null : item.GetComponent<AudioSource>())).OfType<AudioSource>().ToArray();
+        soundEffectSources = soundEffectSources.Concat(GameObject.FindGameObjectsWithTag("SoundEffect").Select(item => soundEffectSources.Contains(item.GetComponent<AudioSource>()) ? null : item.GetComponent<AudioSource>())).OfType<AudioSource>().ToArray();
+
         GameData.LoadSettings();
     }
 
@@ -21,7 +26,6 @@ public class SettingsScript : MonoBehaviour
     {
         settingsPanel.SetActive(false);
 
-        //UpdateSliderUI(GameData.musicVolume);
         MusicSliderChange(GameData.musicVolume);
         SoundEffectSliderChange(GameData.soundEffectVolume);
     }
@@ -34,8 +38,8 @@ public class SettingsScript : MonoBehaviour
 
     public void UpdateSoundEffectsVolume()
     {
-        foreach (var audioSource in audioSources)
-            audioSource.volume = GameData.soundEffectVolume;
+        foreach (var soundEffectSource in soundEffectSources)
+            soundEffectSource.volume = GameData.soundEffectVolume;
     }
 
     public void MusicSliderChange(float value)
@@ -43,7 +47,6 @@ public class SettingsScript : MonoBehaviour
         musicSlider.value = value;
         GameData.musicVolume = value;
         musicSliderText.text = "Music: " + Mathf.Floor(value * 100f).ToString() + "%";
-
 
         UpdateMusicVolume();
     }
@@ -57,11 +60,6 @@ public class SettingsScript : MonoBehaviour
         UpdateSoundEffectsVolume();
     }
 
-    //public void UpdateSliderUI(float value)
-    //{
-    //    musicSliderText.text = "Music: " + (value * 100).ToString() + "%";
-    //}
-
     public void OpenAndCloseSettings()
     {
         if (settingsPanel.activeSelf) // close
@@ -73,6 +71,7 @@ public class SettingsScript : MonoBehaviour
         settingsPanel.SetActive(!settingsPanel.activeSelf);
     }
 
+    /// <summary> Only for input </summary>
     public void OpenAndCloseSettings(InputAction.CallbackContext ctx)
     {
         if (ctx.started)
