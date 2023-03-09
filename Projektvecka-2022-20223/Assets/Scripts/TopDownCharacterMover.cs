@@ -163,9 +163,5 @@ public class TopDownCharacterMover : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, spherecastRadius);
         Gizmos.DrawWireSphere(lastPosition, spherecastRadius);
-
-        Gizmos.DrawWireSphere((transform.forward + transform.position)/* * 3f*/, 2f);
-
-        Debug.Log(transform.forward);
     }
 }
