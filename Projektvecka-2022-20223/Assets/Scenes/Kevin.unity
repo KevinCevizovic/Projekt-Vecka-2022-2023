@@ -3589,7 +3589,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2118705435, guid: a2501f7ffd5b3fc46bc4b9116e1f74a7, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2118705437, guid: a2501f7ffd5b3fc46bc4b9116e1f74a7, type: 3}
       propertyPath: allySpawnPoints.Array.size
@@ -4696,7 +4696,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2118705435, guid: a2501f7ffd5b3fc46bc4b9116e1f74a7, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2118705435, guid: a2501f7ffd5b3fc46bc4b9116e1f74a7, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -4712,7 +4712,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2118705437, guid: a2501f7ffd5b3fc46bc4b9116e1f74a7, type: 3}
       propertyPath: enemySpawnPoints.Array.size
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2118705437, guid: a2501f7ffd5b3fc46bc4b9116e1f74a7, type: 3}
       propertyPath: allySpawnPoints.Array.data[0]
