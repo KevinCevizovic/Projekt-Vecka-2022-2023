@@ -43,9 +43,10 @@ public class EnemyAI : MonoBehaviour
     [Range(3.5f, 6f)]
     public float speedChasing = 3.5f;
 
-    private int areaPatroll;
+    public Transform[] fightPosition;
+    int whatFight;
+
     public LayerMask enemyMask;
-    private LayerMask myMask;
     public LayerMask obstacleMask;
     public GameObject healthBarImage;
     [HideInInspector] public GameObject healthBarImageSpawned;
@@ -64,6 +65,7 @@ public class EnemyAI : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
+        whatFight = Random.Range(0, 1);
         player = GameObject.FindGameObjectWithTag("Player");
         try
         {
@@ -81,7 +83,6 @@ public class EnemyAI : MonoBehaviour
         homePos = transform.position;
         homePos.y = 0;
         randomPosition = transform.position;
-        int desiredGaurdIndex = Random.Range(0, gaurdPositions.Length);
     }
 
     public enum States
@@ -293,7 +294,7 @@ public class EnemyAI : MonoBehaviour
         // Animation things
 
         agent.speed = speedNotChasing;
-        
+        agent.SetDestination(fightPosition[whatFight].position);
     }
 
     private void FaceTarget()
