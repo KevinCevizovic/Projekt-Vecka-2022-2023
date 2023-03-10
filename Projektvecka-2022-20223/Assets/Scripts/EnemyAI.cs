@@ -67,7 +67,7 @@ public class EnemyAI : MonoBehaviour
     {
         whatFight = Random.Range(0, 1);
         fightPosition[0] = GameObject.Find("poi1").transform;
-        fightPosition[01] = GameObject.Find("poi2").transform;
+        fightPosition[1] = GameObject.Find("poi2").transform;
         player = GameObject.FindGameObjectWithTag("Player");
         try
         {

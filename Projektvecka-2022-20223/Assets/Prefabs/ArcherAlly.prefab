@@ -152,6 +152,9 @@ MonoBehaviour:
   timeBetweenShooting: 2.5
   speedNotChasing: 1.5
   speedChasing: 3.5
+  fightPosition:
+  - {fileID: 0}
+  - {fileID: 0}
   enemyMask:
     serializedVersion: 2
     m_Bits: 64
@@ -162,9 +165,11 @@ MonoBehaviour:
     type: 3}
   healthBarImageSpawned: {fileID: 0}
   pickupCanvas: {fileID: 0}
+  hit: 1
   currentState: 0
   offset: {x: 0, y: 2, z: 0}
   followUpTimer: 2
+  isCallingCoroutine: 0
 --- !u!114 &4618873395217178712
 MonoBehaviour:
   m_ObjectHideFlags: 0
