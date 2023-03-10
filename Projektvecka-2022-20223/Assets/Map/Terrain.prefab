@@ -8875,6 +8875,7 @@ MonoBehaviour:
   chargeTime: 0
   chargedDamage: 0
   sfxClip: {fileID: 0}
+  audioSource: {fileID: 0}
   damage: 0
 --- !u!1 &7184359020327777774
 GameObject:

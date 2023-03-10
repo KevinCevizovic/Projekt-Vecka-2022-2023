@@ -17,6 +17,7 @@ public class GreatSwordAttack : MonoBehaviour
     private bool isCharging = false;
 
     public AudioClip sfxClip;
+    public AudioSource audioSource;
 
     private PlayerInput playerInput;
 
@@ -156,7 +157,8 @@ public class GreatSwordAttack : MonoBehaviour
     {
         if (other.gameObject.CompareTag("RatTeam"))
         {
-            AudioSource.PlayClipAtPoint(sfxClip, transform.position);
+                audioSource.PlayOneShot(sfxClip);
+
             Health health = other.GetComponent<Health>();
 
             if (anim.GetCurrentAnimatorStateInfo(0).IsName("HeavyCombo2"))

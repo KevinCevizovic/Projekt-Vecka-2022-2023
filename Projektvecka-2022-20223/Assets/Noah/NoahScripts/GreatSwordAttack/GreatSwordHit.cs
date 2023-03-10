@@ -11,6 +11,7 @@ public class GreatSwordHit : MonoBehaviour
     public float holdTime = 2.0f;
 
     public AudioClip sfxGroundSlam;
+    public AudioSource audioSource;
 
     private float currentScale = 1.0f;
 
@@ -59,6 +60,6 @@ public class GreatSwordHit : MonoBehaviour
 
     public void PlayGroundSlamSFX()
     {
-        AudioSource.PlayClipAtPoint(sfxGroundSlam, transform.position);
+        audioSource.PlayOneShot(sfxGroundSlam);
     }
 }
