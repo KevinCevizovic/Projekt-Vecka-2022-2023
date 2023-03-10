@@ -148,6 +148,7 @@ GameObject:
   - component: {fileID: 6118949890196029239}
   - component: {fileID: 8997777169440832086}
   - component: {fileID: 1203415172}
+  - component: {fileID: -5489970716733797232}
   m_Layer: 3
   m_Name: PickupCanvas
   m_TagString: Untagged
@@ -249,3 +250,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de389231f2fb09e4d83af04c8052e853, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-5489970716733797232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3954862891616353772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12036511e47c7514b9e75659dead7ac9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offset: {x: 0, y: 3, z: 0}

@@ -210,7 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34ff50bd9aab3904bb46284dc12bb63e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 0}
+  <Item>k__BackingField: {fileID: 0}
   keepCollider: 0
 --- !u!1 &8585481331091606720
 GameObject:
@@ -490,6 +490,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  OnHeal:
+    m_PersistentCalls:
+      m_Calls: []
   OnKeyInput:
     m_PersistentCalls:
       m_Calls: []
@@ -509,8 +512,14 @@ MonoBehaviour:
   rotateTowardMouse: 1
   rotationSpeed: 5
   speed: 14
+  spherecastRadius: 0.5
+  goBackStrength: 0.5
+  wallLayers:
+    serializedVersion: 2
+    m_Bits: 256
   rollingSpeed: 17
-  rollTime: 0.3
+  rollDuration: 0.3
+  rollCooldownDuration: 0.5
   accelerationDuration: 0.3
   accelerationCurve:
     serializedVersion: 2
@@ -530,7 +539,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 972e9410d02fb0b4baa7bb1a3a450463, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heldItem: {fileID: 11400000, guid: 6e1871453e045d54db241d80e6bc2177, type: 2}
   pickupCooldownTime: 0.2
   maxDropDistance: 3
   keepColliderOnDrop: 0
