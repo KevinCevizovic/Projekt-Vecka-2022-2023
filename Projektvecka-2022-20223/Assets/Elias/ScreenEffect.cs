@@ -72,7 +72,7 @@ public class ScreenEffect : MonoBehaviour
         }
 
         grow = true;
-        startTime = Time.time;
+        startTime = Time.unscaledTime;
 
         blankImage.SetActive(false);
         effectImage.SetActive(true);
@@ -87,7 +87,7 @@ public class ScreenEffect : MonoBehaviour
         }
 
         shrink = true;
-        startTime = Time.time;
+        startTime = Time.unscaledTime;
 
         blankImage.SetActive(false);
         effectImage.SetActive(true);
@@ -95,7 +95,7 @@ public class ScreenEffect : MonoBehaviour
 
     private void GrowAnimation()
     {
-        var t = (Time.time - startTime) / duration;
+        var t = (Time.unscaledTime - startTime) / duration;
         ChangeScale(Mathf.Lerp(0.1f, 23f, t));
 
         if (t >= 1f) // animation ended
@@ -110,7 +110,7 @@ public class ScreenEffect : MonoBehaviour
 
     private void ShrinkAnimation()
     {
-        var t = (Time.time - startTime) / duration;
+        var t = (Time.unscaledTime - startTime) / duration;
         ChangeScale(Mathf.Lerp(23f, 0.1f, t));
 
         if (t >= 1f) // animation ended
