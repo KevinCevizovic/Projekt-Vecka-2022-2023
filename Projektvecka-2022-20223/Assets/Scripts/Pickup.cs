@@ -81,7 +81,7 @@ public class Pickup : MonoBehaviour
 
         if (Physics.Raycast(heldItemShower.transform.position, Vector3.down, out var hit, maxDropDistance, dropAbleOn))
         {
-            Debug.Log("Droped " + item.Name);
+            Debug.Log("Droped " + item.name);
 
             Vector3 dropPosition = hit.point;
 
@@ -100,7 +100,7 @@ public class Pickup : MonoBehaviour
     {
         if (itemShower == null) return null;
 
-        Debug.Log("Picked up " + itemShower.Item.Name);
+        Debug.Log("Picked up " + itemShower.Item.name);
 
         Item pickedupItem = itemShower.Item;
 
@@ -114,7 +114,7 @@ public class Pickup : MonoBehaviour
     {
         if (itemShower == null || item == null) return null;
 
-        Debug.Log($"Swaped {itemShower.Item.Name} and {item.Name}");
+        Debug.Log($"Swaped {itemShower.Item.name} and {item.name}");
 
         var itemShowersItem = itemShower.Item;
         itemShower.ChangeObject(item);
