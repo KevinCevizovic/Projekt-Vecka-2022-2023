@@ -202,8 +202,8 @@ MonoBehaviour:
   particleSystemPrefab: {fileID: 6688595521732751938, guid: dedc87c967cc35a40b81acc498f21931,
     type: 3}
   spearEnd: {fileID: 984993834040682111}
-  maxScale: 3
-  holdTime: 3
+  maxScale: 5
+  holdTime: 5
 --- !u!65 &2065433543
 BoxCollider:
   m_ObjectHideFlags: 0
