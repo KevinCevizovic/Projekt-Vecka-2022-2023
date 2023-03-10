@@ -71,7 +71,7 @@ public class EnemyAI : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         try
         {
-            pickupCanvas = GameObject.Find("PickupCanvas");
+            pickupCanvas = GameObject.Find("ShitCanvas");
         }
         catch
         { }
