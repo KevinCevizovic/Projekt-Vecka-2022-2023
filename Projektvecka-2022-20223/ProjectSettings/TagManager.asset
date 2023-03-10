@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Enemy
   - RatTeam
+  - SpawnPoint
+  - Music
+  - SoundEffect
   layers:
   - Default
   - TransparentFX

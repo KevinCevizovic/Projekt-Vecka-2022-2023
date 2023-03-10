@@ -270,7 +270,7 @@
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "PauseMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
