@@ -51,14 +51,14 @@ public class EnemyAI : MonoBehaviour
     [HideInInspector] public GameObject healthBarImageSpawned;
     public GameObject pickupCanvas;
 
-
+    public bool hit = true;
     Collider[] allies;
     Coroutine myRoutine;
     public States currentState;
     [SerializeField] private Vector3 offset;
     public float followUpTimer = 2f;
 
-    private bool isCallingCoroutine = false;
+    public bool isCallingCoroutine = false;
     private Vector3 homePos;
 
     // Start is called before the first frame update
@@ -133,7 +133,6 @@ public class EnemyAI : MonoBehaviour
             return;
         if(closestTarget != null)
         toOther = closestTarget.transform.position - transform.position;
-        
         // if grunt do this
         if (grunt)
         {
@@ -227,7 +226,6 @@ public class EnemyAI : MonoBehaviour
                 {
                     Debug.Log("No health script in target");
                 }
-
             }
         }
         else if (archer)
@@ -241,7 +239,9 @@ public class EnemyAI : MonoBehaviour
             newBullet.GetComponent<Projectile>().damage = this.damage;
             newBullet.GetComponent<Projectile>().attackLayer = enemyMask;
         }
+        
     }
+
     /*
     private void MessageOtherTeammates()
     {

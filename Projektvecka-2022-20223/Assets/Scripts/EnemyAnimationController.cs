@@ -16,7 +16,7 @@ public class EnemyAnimationController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(ai.currentState == EnemyAI.States.FollowingPlayer)
+        if (ai.currentState == EnemyAI.States.FollowingPlayer)
         {
             anim.SetInteger("State", 0);
         }

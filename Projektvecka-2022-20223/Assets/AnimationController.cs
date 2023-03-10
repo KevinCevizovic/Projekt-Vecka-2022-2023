@@ -29,7 +29,7 @@ public class AnimationController : MonoBehaviour
         //moveDirection = Vector3.zero;
         //Debug.Log("ZERO");
 
-        Debug.Log(moveDirection);
+        //Debug.Log(moveDirection);
         anim.SetFloat("x", moveDirection.x, .3f, Time.deltaTime);
         anim.SetFloat("y", moveDirection.z, .3f, Time.deltaTime);
     }

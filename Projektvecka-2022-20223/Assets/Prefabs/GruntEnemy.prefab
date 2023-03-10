@@ -150,7 +150,7 @@ MonoBehaviour:
   runRadius: 6
   hitRadius: 2.15
   damage: 20
-  timeBetweenShooting: 2.5
+  timeBetweenShooting: 1.07
   speedNotChasing: 2
   speedChasing: 5
   enemyMask:

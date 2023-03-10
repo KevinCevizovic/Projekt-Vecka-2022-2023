@@ -165,7 +165,7 @@ MonoBehaviour:
   pickupCanvas: {fileID: 0}
   currentState: 0
   offset: {x: 0, y: 2, z: 0}
-  followUpTimer: 2
+  followUpTimer: 1.07
 --- !u!114 &1146738585488514638
 MonoBehaviour:
   m_ObjectHideFlags: 0
