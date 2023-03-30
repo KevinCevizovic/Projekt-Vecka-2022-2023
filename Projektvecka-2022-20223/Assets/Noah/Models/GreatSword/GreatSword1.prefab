@@ -5026,10 +5026,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldownTime: 2
   chargeTime: 0
-  chargedDamage: 0
+  chargedDamage: 100
   sfxClip: {fileID: 8300000, guid: 0dd1066de40b9f846af9e48b2395f16a, type: 3}
-  audioSource: {fileID: 0}
-  damage: 0
+  audioSource: {fileID: 5004760745705816405}
+  damage: 50
 --- !u!114 &8644543677044579101
 MonoBehaviour:
   m_ObjectHideFlags: 0
